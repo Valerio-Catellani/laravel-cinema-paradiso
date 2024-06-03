@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ComicController;
+use App\Http\Controllers\Admin\RoomController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(function () {
+Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('rooms', RoomController::class);
     //altre rotte...
 });
+
+/*
+L'utente non autenticato richiede /dashboard.
+Laravel applica il prefisso e cerca /admin.
+Il middleware auth verifica che l'utente non è autenticato. 
+Il middleware auth redirige l'utente alla pagina di login (vedi app/Http/middleware/Authenticate).
+L'utente viene inviato all'URL /login disponibile grazie a ' require __DIR__ . '/auth.php';'.
+*/
 
 
 Route::middleware('auth')->group(function () {

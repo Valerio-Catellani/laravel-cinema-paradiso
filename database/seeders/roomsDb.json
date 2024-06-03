@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Sala Kubric",
+        "alias": "Sala Blu",
+        "hex_color": "#0000FF",
+        "seats": 100,
+        "base_price": 10.00,
+        "room_image": "test",
+        "isense": 0
+    },
+    {
+        "name": "Sala Spielberg",
+        "alias": "Sala Verde",
+        "hex_color": "#194D33",
+        "seats": 120,
+        "base_price": 10.00,
+        "room_image": "test",
+        "isense": 1
+    },
+    {
+        "name": "Sala Hitchcock",
+        "alias": "Sala Gialla",
+        "hex_color": "#E6FF00",
+        "seats": 50,
+        "base_price": 8.00,
+        "room_image": "test",
+        "isense": 0
+    },
+    {
+        "name": "Sala Miyazaki",
+        "alias": "Sala Rossa",
+        "hex_color": "#FF0000",
+        "seats": 50,
+        "base_price": 8.00,
+        "room_image": "test",
+        "isense": 0
+    }
+]

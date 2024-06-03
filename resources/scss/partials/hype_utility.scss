@@ -1,43 +1,34 @@
-
 $increment_1: 1;
 
 @for $i from 1 through 100 {
-  .hype-w-#{($i * $increment_1)}x100 {
-    width: ($i * $increment_1) * 1%;
-  }
+    .hype-w-#{($i * $increment_1)}x100 {
+        width: ($i * $increment_1) * 1%;
+    }
 }
-
-
 
 @for $i from 1 through 100 {
     .hype-h-#{($i * $increment_1)}x100 {
-      height: ($i * $increment_1) * 1%;
+        height: ($i * $increment_1) * 1%;
     }
-  }
+}
 
-  .hype-text-shadow{
-    text-shadow: 
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-   -1px  1px 0 #000,
-    1px  1px 0 #000;  
- } 
- 
- .hype-text-shadow-white{
-     text-shadow: 
-    -1px -1px 0 #ffffff,  
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;  
-  } 
+.hype-text-shadow {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
 
-  .hype-shadow-white {
-    box-shadow: 0 0 5px white
-  }
+.hype-text-shadow-white {
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff;
+}
+
+.hype-shadow-white {
+    box-shadow: 0 0 5px white;
+}
 
 .hype-unselectable {
-        -webkit-user-select: none; 
-        user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .hype-hover-size:hover {
@@ -47,4 +38,38 @@ $increment_1: 1;
 
 .hype-pointer {
     cursor: pointer;
+}
+
+.hype-table-clickable {
+    td {
+        padding: 0 !important;
+        a {
+            padding: 15px !important;
+            text-decoration: none;
+            color: inherit !important;
+            display: block;
+            cursor: pointer;
+            width: 100%;
+        }
+    }
+}
+
+.hype-color-invert {
+    filter: invert(1);
+}
+
+@mixin hype-responsive($class, $operator, $breakpoint) {
+    @if $operator == "<" {
+        @media (max-width: $breakpoint) {
+            .#{$class} {
+                @content;
+            }
+        }
+    } @else if $operator == ">" {
+        @media (min-width: $breakpoint) {
+            .#{$class} {
+                @content;
+            }
+        }
+    }
 }
