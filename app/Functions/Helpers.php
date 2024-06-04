@@ -43,9 +43,11 @@ class Helpers
             'verify' => false,
         ]);
 
+        $API_KEY = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzc3YTI4ZTFiZDFlYjY4OWU5NjEyZThmNTI5OGRlOCIsInN1YiI6IjY2MWY3ZmNlN2FlY2M2MDE0OTZiMmM2YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sw4oBdm-WsXuWzhIf-iB9nXpunWqsepfSuyTqpTxDvU';
+
         $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', [
             'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNzc3YTI4ZTFiZDFlYjY4OWU5NjEyZThmNTI5OGRlOCIsInN1YiI6IjY2MWY3ZmNlN2FlY2M2MDE0OTZiMmM2YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sw4oBdm-WsXuWzhIf-iB9nXpunWqsepfSuyTqpTxDvU',
+                'Authorization' => $API_KEY,
                 'accept' => 'application/json',
             ],
         ]);

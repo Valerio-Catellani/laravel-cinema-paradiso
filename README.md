@@ -222,3 +222,14 @@ Storage::put('images', $data['image']); //ritorna il path
 <img src="{{ asset('storage/' . $post->cover_image) }}">
 
 ```
+## API Request
+
+```bash
+#per prima cosa installare guzzle mediante il seguente comando:
+composer require guzzlehttp/guzzle
+
+#andare dentro al file app/functions/helpers.php e cercare la funzione getMovieData()
+#dentro a getMovieData() cercare la variabile $API_KEY e copiare la propria key.
+#è ora possibile lanciare il seeder
+
+
