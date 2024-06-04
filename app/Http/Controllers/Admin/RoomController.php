@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRoomRequest;
+use App\Http\Requests\UpdateRoomRequest;
 use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
@@ -30,16 +32,18 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRoomRequest $request)
     {
-        $form_data = $request->all();
+        $form_data = $request->validate();
 
         if ($request->hasFile('room_image')) {
             $img_path = Storage::put('room_images', $request->room_image); //questa funzione ritorna il path dell'immagine (nelle validazioni ricorda che puoi anche dire |image|)
             //    /storage/post_images/nomefile.jpg
             $form_data['room_image'] = $img_path;
         }
-        $new_room = Room::create($form_data);
+        $new_room = new Room();
+        $new_room->fill($form_data);
+        $new_room->save();
         return redirect()->route('admin.rooms.index');
     }
 
@@ -62,10 +66,10 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRoomRequest $request, $id)
     {
         $room_to_update = Room::findOrFail($id);
-        $form_data = $request->all();
+        $form_data = $request->validated();
         $room_to_update->fill($form_data);
         $room_to_update->update();
         return redirect()->route('admin.rooms.index')->with('message', "Project (id:{$room_to_update->id}): {$room_to_update->title} aggiornato con successo");

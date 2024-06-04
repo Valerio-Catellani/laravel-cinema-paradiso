@@ -2,16 +2,16 @@
     style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
     <thead>
         <tr>
-            <th scope="col">#id Room</th>
-            <th scope="col">Room Name</th>
+            <th scope="col">#id Stanza</th>
+            <th scope="col">Nome Stanza</th>
             <th scope="col" class="d-none d-xl-table-cell">Alias</th>
-            <th scope="col" class="d-none d-lg-table-cell">Seats</th>
-            <th scope="col" class="d-none d-lg-table-cell">Room Image</th>
-            <th scope="col" class="d-none d-lg-table-cell">Hex Color</th>
-            <th scope="col" class="d-none d-lg-table-cell">Base Price</th>
-            <th scope="col" class="d-none d-lg-table-cell">Isense</th>
+            <th scope="col" class="d-none d-lg-table-cell">Posti a Sedere</th>
+            <th scope="col" class="d-none d-lg-table-cell">Immagine Stanza</th>
+            <th scope="col" class="d-none d-lg-table-cell">Colore Esadecimale</th>
+            <th scope="col" class="d-none d-lg-table-cell">Prezzo Biglietto</th>
+            <th scope="col" class="d-none d-lg-table-cell">Tecnologia Isense</th>
             <th scope="col" class="text-center">
-                Amministration Actions</th>
+                Azioni di Amministrazione</th>
         </tr>
     </thead>
     <tbody>
