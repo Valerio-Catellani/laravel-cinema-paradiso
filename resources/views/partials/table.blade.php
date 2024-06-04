@@ -1,12 +1,12 @@
-<table id="rooms-table" class="table table-dark table-hover shadow mb-5 mt-3 hype-unselectable hype-table-clickable"
+<table id="rooms-table" class="table table-dark  shadow mb-5 mt-3 hype-unselectable hype-table-clickable"
     style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
     <thead>
         <tr>
             <th scope="col">#id Stanza</th>
             <th scope="col">Nome Stanza</th>
             <th scope="col" class="d-none d-xl-table-cell">Alias</th>
-            <th scope="col" class="d-none d-lg-table-cell">Posti a Sedere</th>
-            <th scope="col" class="d-none d-lg-table-cell">Immagine Stanza</th>
+            <th scope="col" class="d-none d-xl-table-cell">Posti a Sedere</th>
+            <th scope="col" class="d-none d-xl-table-cell">Immagine Stanza</th>
             <th scope="col" class="d-none d-lg-table-cell">Colore Esadecimale</th>
             <th scope="col" class="d-none d-lg-table-cell">Prezzo Biglietto</th>
             <th scope="col" class="d-none d-lg-table-cell">Tecnologia Isense</th>
@@ -24,7 +24,7 @@
             <td class="d-none d-xl-table-cell"><a>{{ $room->room_image }}</a></td>
             <td class="d-none d-lg-table-cell"><a>{{ $room->hex_color }}</a></td>
             <td class="d-none d-lg-table-cell"><a>{{ $room->base_price }}</a></td>
-            <td class="d-none d-lg-table-cell"><a>{{ $room->isense ? 'Yes' : 'No' }}</a></td>
+            <td class="d-none d-lg-table-cell"><a>{{ $room->isense ? 'Sì' : 'No' }}</a></td>
 
             <td>
                 <div class="d-flex justify-content-center">

@@ -7,7 +7,8 @@
     <section class="container py-5">
 
 
-        <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color">
+        <div class="container rounded-2 hype-shadow-white p-5"
+            style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
             <h1 class="text-center hype-text-shadow text-white fw-bolder mb-5">Room: {{ $room->name }} Details</h1>
             <div class="container">
                 <div class="row">

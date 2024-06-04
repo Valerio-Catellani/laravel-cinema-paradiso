@@ -9,11 +9,11 @@
         <h2 class="p-3 hype-text-collapse">Portfolio </h2>
     </a>
     <ul class="nav flex-column">
-        <li class="nav-item">
+        <li class="nav-item  {{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">
             <a class="nav-link text-white " aria-current="page" href="{{ route('admin.dashboard') }}"><i
                     class="fa-solid fa-home fs-4 pe-3"></i><span class="hype-text-collapse">Home</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Route::currentRouteName() === 'admin.rooms.index' ? 'active' : '' }}">
             <a class="nav-link text-white " aria-current="page" href="{{ route('admin.rooms.index') }}"><i
                     class="fa-solid fa-book-open fs-4 pe-3"></i><span class="hype-text-collapse">rooms</span></a>
         </li>

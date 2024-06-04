@@ -27,8 +27,8 @@ class UpdateRoomRequest extends FormRequest
             'hex_color' => 'nullable|max:7',
             'seats' => 'required|integer',
             'base_price' => 'required|numeric',
-            'room_image' => 'nullable|max:255',
-            'isense' => 'boolean',
+            'room_image' => 'nullable',
+            'isense' => 'required',
         ];
     }
     public function messages()
@@ -43,7 +43,7 @@ class UpdateRoomRequest extends FormRequest
             'seats.required' => 'I posti sono obbligatori',
             'base_price.required' => 'Il prezzo base è obbligatorio',
             'room_image.max' => 'L\'immagine della stanza deve avere massimo :max caratteri',
-            'isense.boolean' => 'Isense deve essere 1(vero) o 0(falso)',
+            'isense.required' => 'Isense deve essere scelto',
         ];
     }
 }

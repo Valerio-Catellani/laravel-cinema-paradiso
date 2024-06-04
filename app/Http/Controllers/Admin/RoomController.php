@@ -34,8 +34,8 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        $form_data = $request->validate();
-
+        $form_data = $request->validated();
+        $form_data['isense'] === 'true' ? $form_data['isense'] = 1 : $form_data['isense'] = 0;
         if ($request->hasFile('room_image')) {
             $img_path = Storage::put('room_images', $request->room_image); //questa funzione ritorna il path dell'immagine (nelle validazioni ricorda che puoi anche dire |image|)
             //    /storage/post_images/nomefile.jpg
@@ -70,6 +70,14 @@ class RoomController extends Controller
     {
         $room_to_update = Room::findOrFail($id);
         $form_data = $request->validated();
+        $form_data['isense'] === 'true' ? $form_data['isense'] = 1 : $form_data['isense'] = 0;
+        if ($request->hasFile('room_image')) {
+            if ($room_to_update->room_image) {
+                Storage::delete($room_to_update->room_image);
+            }
+            $img_path = Storage::put('my_images', $request->room_image);
+            $form_data['room_image'] = $img_path;
+        }
         $room_to_update->fill($form_data);
         $room_to_update->update();
         return redirect()->route('admin.rooms.index')->with('message', "Project (id:{$room_to_update->id}): {$room_to_update->title} aggiornato con successo");
