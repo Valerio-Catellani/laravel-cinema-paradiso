@@ -1,3 +1,9 @@
+<?php
+
+?>
+
+
+
 @section('title', 'Add a room')
 @extends('layouts.admin')
 
