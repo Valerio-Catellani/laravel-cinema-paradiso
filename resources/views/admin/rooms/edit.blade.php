@@ -8,7 +8,8 @@
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Edit a Room: ({{ $room->id }})</h1>
 
-            <form id="comic-form" action="{{ route('admin.rooms.update', $room->id) }}" method="POST" novalidate>
+            <form id="room-form" action="{{ route('admin.rooms.update', $room->id) }}" method="POST" novalidate
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3 @error('name') err-animation @enderror">
@@ -61,9 +62,11 @@
                 </div>
 
                 <div class="mb-3 @error('room_image') err-animation @enderror">
+
                     <label for="image" class="form-label text-white">Image (URL)</label>
-                    <input type="text" class="form-control @error('room_image') is-invalid err-animation @enderror"
-                        id="image" name="room_image"
+                    <input type="file" accept="image/*"
+                        class="form-control @error('room_image') is-invalid err-animation @enderror" id="edit_image"
+                        name="room_image"
                         value="{{ old('room_image', 'https://picsum.photos/seed/picsum/200/300?random') }}" required
                         maxlength="255">
                     @error('room_image')

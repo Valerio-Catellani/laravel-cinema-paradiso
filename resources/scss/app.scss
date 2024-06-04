@@ -266,11 +266,11 @@ body {
     }
 }
 
-#projects-table {
+#rooms-table {
     --bs-table-bg: linear-gradient(
         45deg,
         rgba(0, 0, 0, 0.88) 54%,
-        rgba(140, 0, 0, 1) 99%
+        rgb(54, 54, 54) 99%
     );
     background: var(--bs-table-bg);
     .table-icon {

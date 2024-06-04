@@ -8,7 +8,8 @@
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Add a Room</h1>
 
-            <form id="comic-form" action="{{ route('admin.rooms.store') }}" method="POST" novalidate>
+            <form id="comic-form" action="{{ route('admin.rooms.store') }}" method="POST" novalidate
+                enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 @error('name') err-animation @enderror">
@@ -59,11 +60,11 @@
                 </div>
 
                 <div class="mb-3 @error('room_image') err-animation @enderror">
+                    <img id="uploadPreview" width="100" src="https://picsum.photos/400/200">
                     <label for="image" class="form-label text-white">Image (URL)</label>
-                    <input type="text" class="form-control @error('room_image') is-invalid err-animation @enderror"
-                        id="image" name="room_image"
-                        value="{{ old('room_image', 'https://picsum.photos/seed/picsum/200/300?random') }}" required
-                        maxlength="255">
+                    <input type="file" accept="image/*"
+                        class="form-control @error('room_image') is-invalid err-animation @enderror" id="upload_image"
+                        name="room_image" value="{{ old('room_image') }}" required maxlength="255">
                     @error('room_image')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -32,9 +33,13 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         $form_data = $request->all();
+
+        if ($request->hasFile('room_image')) {
+            $img_path = Storage::put('room_images', $request->room_image); //questa funzione ritorna il path dell'immagine (nelle validazioni ricorda che puoi anche dire |image|)
+            //    /storage/post_images/nomefile.jpg
+            $form_data['room_image'] = $img_path;
+        }
         $new_room = Room::create($form_data);
-        $new_room->fill($form_data);
-        $new_room->save();
         return redirect()->route('admin.rooms.index');
     }
 

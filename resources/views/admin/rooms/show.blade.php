@@ -12,7 +12,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-4">
-                        <img class="img-fluid w-100" src="{{ $room->room_image }}" alt="{{ $room->name }}">
+                        <img class="img-fluid w-100" src="{{ asset('storage/' . $room->room_image) }}"
+                            alt="{{ $room->name }}">
                     </div>
                     <div class="col-8 d-flex flex-column text-white">
                         <h4 class="mb-1">Name</h4>
