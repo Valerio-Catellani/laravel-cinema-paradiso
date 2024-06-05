@@ -26,11 +26,11 @@ class Helpers
     public static function getStars($number)
     {
         $fullTemplate = '';
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             if ($i < $number) {
                 $fullTemplate .= '<i class="fa-solid fa-star text-warning hype-text-shadow"></i>';
             } else {
-                $fullTemplate .= '<i class="fa-regular fa-star"></i>';
+                $fullTemplate .= '<i class="fa-regular fa-star hype-text-shadow-white "></i>';
             }
         }
         return $fullTemplate;

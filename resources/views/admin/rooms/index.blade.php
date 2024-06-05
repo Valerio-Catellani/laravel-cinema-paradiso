@@ -1,4 +1,4 @@
-@section('title', 'Add a room')
+@section('title', 'Rooms')
 @extends('layouts.admin')
 
 @section('content')
@@ -11,7 +11,7 @@
             </div>
         @endif
         @foreach ($rooms as $room)
-            @include('partials.table', $room)
+            @include('partials.table-rooms', $room)
         @endforeach
         {{-- {{ $projects->links('vendor.pagination.bootstrap-5') }} --}}
     </section>

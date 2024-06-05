@@ -1,4 +1,4 @@
-@section('title', 'Admin Dashboard / Rooms')
+@section('title', 'Create Room')
 @extends('layouts.admin')
 
 @section('content')
@@ -100,8 +100,8 @@
                     </div>
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Image (URL)</label>
-                        <input type="file" accept="image/*" class="form-control" id="upload_image" name="room_image"
-                            value="{{ old('room_image') }}" required>
+                        <input type="file" accept="image/*" class="form-control upload_image" id="upload_image"
+                            name="room_image" value="{{ old('room_image') }}" required>
                         @error('room_image')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('poster_path');
             $table->string('backdrop_path');
             $table->float('avarage_rating');
-            $table->integer('theMovieDb_id');
+            $table->integer('theMovieDb_id')->nullable();
             $table->string('original_language');
             $table->timestamps();
         });

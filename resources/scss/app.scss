@@ -43,6 +43,14 @@ h1 {
     );
 }
 
+.background-gradient-color-black {
+    background: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.88) 54%,
+        rgb(54, 54, 54) 99%
+    );
+}
+
 .background-gradient-modal {
     background-image: linear-gradient(to right, #434343 0%, black 100%);
 }
@@ -283,5 +291,31 @@ body {
         align-items: center;
         height: 40px;
         width: 40px;
+    }
+}
+
+.pagination {
+    --bs-pagination-color: $active-secondary-color !important;
+    --bs-pagination-hover-color: $active-secondary-color !important;
+    --bs-pagination-focus-color: $active-secondary-color !important;
+    --bs-pagination-active-bg: $active-secondary-color !important;
+    --bs-pagination-active-border-color: $active-secondary-color !important;
+
+    .page-item.active {
+        color: black !important;
+        .page-link {
+            background-color: $active-primary-color !important;
+            &:focus {
+                box-shadow: 0 0 0 0.25rem $active-tertiary-color !important;
+            }
+        }
+    }
+    .page-link {
+        background-color: $background-4th-color !important;
+        border: var(--bs-pagination-border-width) solid
+            $background-tertiary-color;
+        &:focus {
+            box-shadow: 0 0 0 0.25rem $active-primary-color !important;
+        }
     }
 }

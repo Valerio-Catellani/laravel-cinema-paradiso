@@ -54,23 +54,23 @@ function createModal(ElementId, ElementName) {
 }
 
 //prendo la casella di input
-const image = document.getElementById('upload_image');
 //controllo che esista e se c'è eseguo il codice sottostante
-if (image) {
-  //aggiungo un listener per quando l'utente cambia il valore
-  image.addEventListener('change', (event) => {
+
+document.querySelectorAll('.upload_image').forEach((element) => {
+
+  element.addEventListener('change', (event) => {
     //console.log(image.files[0]);
     //prendo l'elemento dove visualizzare la preview
-    const preview = document.getElementById('uploadPreview');
+    const preview = event.target.parentElement.parentElement.querySelector('.w-25').children[0];
     //creao un nuovo oggetto di tipo FileReader
     const reader = new FileReader();
     //leggo il contenuto del file
-    reader.readAsDataURL(image.files[0]);
+    reader.readAsDataURL(event.target.files[0]);
     reader.onload = function (event) {
       preview.src = event.target.result;
     };
   });
-}
+})
 
 
 document.querySelectorAll('#hype-sidebar-collapse').forEach((element) => {

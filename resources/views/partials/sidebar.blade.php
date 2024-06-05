@@ -13,9 +13,15 @@
             <a class="nav-link text-white " aria-current="page" href="{{ route('admin.dashboard') }}"><i
                     class="fa-solid fa-home fs-4 pe-3"></i><span class="hype-text-collapse">Home</span></a>
         </li>
-        <li class="nav-item {{ Route::currentRouteName() === 'admin.rooms.index' ? 'active' : '' }}">
+        <li
+            class="nav-item {{ Route::currentRouteName() === 'admin.rooms.index' || Route::currentRouteName() === 'admin.rooms.show' || Route::currentRouteName() === 'admin.rooms.edit' || Route::currentRouteName() === 'admin.rooms.create' ? 'active' : '' }}">
             <a class="nav-link text-white " aria-current="page" href="{{ route('admin.rooms.index') }}"><i
                     class="fa-solid fa-book-open fs-4 pe-3"></i><span class="hype-text-collapse">rooms</span></a>
+        </li>
+        <li
+            class="nav-item {{ Route::currentRouteName() === 'admin.movies.index' || Route::currentRouteName() === 'admin.movies.show' || Route::currentRouteName() === 'admin.movies.edit' || Route::currentRouteName() === 'admin.movies.create' ? 'active' : '' }}">
+            <a class="nav-link text-white " aria-current="page" href="{{ route('admin.movies.index') }}"><i
+                    class="fa-solid fa-book-open fs-4 pe-3"></i><span class="hype-text-collapse">Movies</span></a>
         </li>
     </ul>
 </nav>

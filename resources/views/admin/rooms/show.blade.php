@@ -1,10 +1,4 @@
-<?php
-
-?>
-
-
-
-@section('title', 'Add a room')
+@section('title', 'Room Details')
 @extends('layouts.admin')
 
 
