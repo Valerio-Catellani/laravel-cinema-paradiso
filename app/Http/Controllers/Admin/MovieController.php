@@ -34,6 +34,7 @@ class MovieController extends Controller
     {
         // $form_data = $request->validated();
         $form_data = $request->all();
+        $form_data["slug"] =  Movie::generateSlug($form_data["title"]);
         if ($request->hasFile('poster_path')) {
             $img_path = Storage::put('poster_path', $request->poster_path);
             $form_data['poster_path'] = $img_path;
@@ -51,27 +52,33 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Movie $movie)
+    public function show($slug)
     {
+        $movie = Movie::where('slug', $slug)->firstOrFail();
         return view('admin.movies.show', compact('movie'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Movie $movie)
+    public function edit($slug)
     {
+        $movie = Movie::where('slug', $slug)->firstOrFail();
         return view('admin.movies.edit', compact('movie'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $movie_to_update = Movie::findOrFail($id);
+
+        $movie_to_update = Movie::where('slug', $slug)->firstOrFail();
         // $form_data = $request->validated();
         $form_data = $request->all();
+        if ($movie_to_update->title != $form_data['title']) {
+            $form_data['slug'] = Movie::generateSlug($form_data['title']);
+        }
         if ($request->hasFile('poster_path')) {
             if ($movie_to_update->poster_path) {
                 Storage::delete($movie_to_update->poster_path);
@@ -94,8 +101,9 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movie $movie)
+    public function destroy($slug)
     {
+        $movie = Movie::where('slug', $slug)->firstOrFail();
         $movie->delete();
         return redirect()->route('admin.movies.index')->with('message', "Film (id:{$movie->id}): {$movie->title} eliminato con successo dal db");
     }

@@ -35,9 +35,9 @@ class RoomController extends Controller
     {
         $form_data = $request->validated();
         $form_data['isense'] === 'true' ? $form_data['isense'] = 1 : $form_data['isense'] = 0;
+        $form_data["slug"] =  Room::generateSlug($form_data["name"]);
         if ($request->hasFile('room_image')) {
-            $img_path = Storage::put('room_images', $request->room_image); //questa funzione ritorna il path dell'immagine (nelle validazioni ricorda che puoi anche dire |image|)
-            //    /storage/post_images/nomefile.jpg
+            $img_path = Storage::put('room_images', $request->room_image);
             $form_data['room_image'] = $img_path;
         }
         $new_room = new Room();
@@ -49,27 +49,32 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
+    public function show($slug)
     {
-        return view('admin.rooms.show', compact('room'));
+        $room = Room::where('slug', $slug)->firstOrFail();
+        return view("admin.rooms.show", compact("room"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Room $room)
+    public function edit($slug)
     {
-        return view('admin.rooms.edit', compact('room'));
+        $room = Room::where('slug', $slug)->firstOrFail();
+        return view("admin.rooms.edit", compact("room"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoomRequest $request, $id)
+    public function update(UpdateRoomRequest $request, $slug)
     {
-        $room_to_update = Room::findOrFail($id);
+        $room_to_update = Room::where('slug', $slug)->firstOrFail();
         $form_data = $request->validated();
         $form_data['isense'] === 'true' ? $form_data['isense'] = 1 : $form_data['isense'] = 0;
+        if ($room_to_update->name != $form_data["name"]) {
+            $form_data["slug"] =  Room::generateSlug($form_data["name"]);
+        }
         if ($request->hasFile('room_image')) {
             if ($room_to_update->room_image) {
                 Storage::delete($room_to_update->room_image);
@@ -79,15 +84,16 @@ class RoomController extends Controller
         }
         $room_to_update->fill($form_data);
         $room_to_update->update();
-        return redirect()->route('admin.rooms.index')->with('message', "Project (id:{$room_to_update->id}): {$room_to_update->title} aggiornato con successo");
+        return redirect()->route('admin.rooms.index')->with('message', "Stanza (id:{$room_to_update->id}): {$room_to_update->name} aggiornato con successo");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Room $room)
+    public function destroy($slug)
     {
+        $room = Room::where('slug', $slug)->firstOrFail();
         $room->delete();
-        return redirect()->route('admin.rooms.index')->with('message', "Project (id:{$room->id}): {$room->title} eliminato con successo");
+        return redirect()->route('admin.rooms.index')->with('message', "Stanza (id:{$room->id}): {$room->name} eliminato con successo");
     }
 }

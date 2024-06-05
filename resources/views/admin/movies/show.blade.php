@@ -16,11 +16,11 @@
                             alt="{{ $movie->title }}">
                     </div>
                     <div class="col-8 d-flex flex-column text-white">
-                        <h4>language</h4>
+                        <h4>Lingua</h4>
                         <h6>{{ $movie->original_language }}</h6>
                         <h4 class="mt-3">Movie db Id</h4>
                         <h6>{{ $movie->theMovieDb_id }}</h6>
-                        <h4 class="mt-3">Plot</h4>
+                        <h4 class="mt-3">Trama</h4>
                         <p style="max-height: 200px" class="overflow-auto">{{ $movie->overview }}</p>
                         <h4 class="mt-3">Immagine di Backdrop</h4>
                         <div class=" w-50 ">
@@ -35,11 +35,12 @@
                                 <i role="button" type="submit"
                                     class="fa-solid fa-arrow-left fs-1 text-white hype-text-shadow hype-hover-size"></i>
                             </a>
-                            <a href="{{ route('admin.movies.edit', $movie->id) }}">
+                            <a href="{{ route('admin.movies.edit', $movie->slug) }}">
                                 <i role="button" type="submit"
                                     class="fa-solid fa-pen-to-square fs-1 text-active-tertiary hype-text-shadow hype-hover-size"></i>
                             </a>
-                            <form id="delete-form" action="{{ route('admin.movies.destroy', $movie->id) }}" method="POST">
+                            <form id="delete-form" action="{{ route('admin.movies.destroy', $movie->slug) }}"
+                                method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="element-delete default-button text-active-primary hype-text-shadow fs-1"

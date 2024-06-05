@@ -19,6 +19,7 @@ class RoomSeeder extends Seeder
             $new_room = new Room();
             $new_room->name = $room['name'];
             $new_room->alias = $room['alias'];
+            $new_room->slug = Room::generateSlug($room['name']);
             $new_room->hex_color = $room['hex_color'];
             $new_room->seats = $room['seats'];
             $new_room->base_price = $room['base_price'];

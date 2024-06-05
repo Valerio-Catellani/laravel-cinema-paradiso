@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="mb-3 @error('overview') err-animation @enderror">
-                    <label for="overview" class="form-label text-white">Plot</label>
+                    <label for="overview" class="form-label text-white">Trama</label>
                     <textarea class="form-control @error('overview') is-invalid err-animation @enderror" id="overview" name="overview"
                         style="min-height: 300px">{{ old('overview') }}</textarea>
                     @error('overview')
@@ -95,9 +95,9 @@
 
                 <br>
                 <div class="text-center w-25 mx-auto d-flex gap-2">
-                    <button type="submit" class="mine-custom-btn mt-3 w-100">Add a Room</button>
+                    <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.movies.index') }}"
-                        class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Back</a>
+                        class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>
                 </div>
             </form>
         </div>

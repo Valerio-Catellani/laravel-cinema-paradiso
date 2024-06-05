@@ -61,14 +61,6 @@
                     @enderror
                 </div>
 
-                {{-- <div class="mb-3 @error('isense') err-animation @enderror">
-                    <label for="image" class="form-label text-white">Isense</label>
-                    <input type="text" class="form-control @error('isense') is-invalid err-animation @enderror"
-                        id="image" name="isense" value="{{ old('isense') }}" required maxlength="255">
-                    @error('isense')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div> --}}
                 <h6 class="text-white">Isense:</h6>
                 <div class="mb-3 d-flex gap-3">
                     <div class="form-check">
@@ -111,9 +103,9 @@
 
                 <br>
                 <div class="text-center w-25 mx-auto d-flex gap-2">
-                    <button type="submit" class="mine-custom-btn mt-3 w-100">Add a Room</button>
+                    <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.rooms.index') }}"
-                        class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Back</a>
+                        class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>
                 </div>
             </form>
         </div>

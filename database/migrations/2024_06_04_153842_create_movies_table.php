@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('overview')->nullable();
-            $table->string('poster_path');
-            $table->string('backdrop_path');
+            $table->string('slug');
+            $table->string('poster_path')->nullable();
+            $table->string('backdrop_path')->nullable();
             $table->float('avarage_rating');
             $table->integer('theMovieDb_id')->nullable();
             $table->string('original_language');

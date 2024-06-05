@@ -18,6 +18,7 @@ class MovieSeeder extends Seeder
         foreach ($data as $movie) {
             $new_movie = new Movie();
             $new_movie->title = $movie['title'];
+            $new_movie->slug = Movie::generateSlug($movie['title']);
             $new_movie->overview = $movie['overview'];
             $new_movie->poster_path = $movie['poster_path'];
             $new_movie->backdrop_path = $movie['backdrop_path'];

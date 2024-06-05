@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('alias');
+            $table->string('slug');
             $table->string('hex_color')->nullable();
             $table->integer('seats');
             $table->float('base_price', 5, 2);
-            $table->string('room_image');
+            $table->string('room_image')->nullable();
             $table->boolean('isense')->default(0);
             $table->timestamps();
         });

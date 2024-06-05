@@ -9,7 +9,7 @@
             style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Edit a Room: ({{ $room->id }})</h1>
 
-            <form id="room-form" action="{{ route('admin.rooms.update', $room->id) }}" method="POST" novalidate
+            <form id="room-form" action="{{ route('admin.rooms.update', $room->slug) }}" method="POST" novalidate
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -62,15 +62,6 @@
                     @enderror
                 </div>
 
-                {{-- <div class="mb-3 @error('room_image') err-animation @enderror">
-                    <label for="image" class="form-label text-white">Image (URL)</label>
-                    <input type="file" accept="image/*"
-                        class="form-control @error('room_image') is-invalid err-animation @enderror" id="edit_image"
-                        name="room_image" value="{{ old('room_image', $room->room_image) }}" required maxlength="255">
-                    @error('room_image')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div> --}}
 
                 <h6 class="text-white">Isense:</h6>
                 <div class="mb-3 d-flex gap-3">
@@ -119,9 +110,9 @@
 
                 <br>
                 <div class="text-center w-25 mx-auto d-flex gap-2">
-                    <button type="submit" class="mine-custom-btn mt-3 w-100">Save changes</button>
+                    <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.rooms.index') }}"
-                        class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Back</a>
+                        class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>
                 </div>
             </form>
         </div>
