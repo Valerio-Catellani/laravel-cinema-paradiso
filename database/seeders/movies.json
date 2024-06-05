@@ -1,0 +1,132 @@
+[
+    {
+        "Title": "Via col vento",
+        "Abstract": "An epic tale of love and war in the American South",
+        "Cast": [
+            "Clark Gable",
+            "Vivien Leigh",
+            "Olivia de Havilland"
+        ],
+        "Director": "Victor Fleming",
+        "Duration": "238 minutes",
+        "Cover": "https://image.anobii.com/images/0/0/8/8b/8b7/8b70/018b702ee862dc11d1.jpg",
+        "Trailer": "https://youtu.be/vSIQiWvMQhQ?si=1eGaxMftqDfeputu"
+    },
+    {
+        "Title": "Quarto potere",
+        "Abstract": "The rise and fall of a publishing tycoon",
+        "Cast": [
+            "Orson Welles",
+            "Joseph Cotten",
+            "Dorothy Comingore"
+        ],
+        "Director": "Orson Welles",
+        "Duration": "119 minutes",
+        "Cover": "https://th.bing.com/th/id/OIP.i26mwCG--mb4IajCrOQFhAAAAA?rs=1&pid=ImgDetMain",
+        "Trailer": "https://www.youtube.com/watch?v=7HrEftvdC3Y"
+    },
+    {
+        "Title": "Casablanca",
+        "Abstract": "A romantic drama set during World War II",
+        "Cast": [
+            "Humphrey Bogart",
+            "Ingrid Bergman",
+            "Paul Henreid"
+        ],
+        "Director": "Michael Curtiz",
+        "Duration": "102 minutes",
+        "Cover": "https://example.com/cover-casablanca.jpg",
+        "Trailer": "https://youtu.be/ZT4T_H1Gf9Y?si=GnSo8qhlUij_fctn"
+    },
+    {
+        "Title": "Il padrino",
+        "Abstract": "A powerful crime family saga",
+        "Cast": [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan"
+        ],
+        "Director": "Francis Ford Coppola",
+        "Duration": "175 minutes",
+        "Cover": "https://images.theconversation.com/files/194227/original/file-20171112-29328-4j10u4.jpg?ixlib=rb-1.1.0&q=15&auto=format&w=754&h=1105&fit=crop&dpr=3",
+        "Trailer": "https://youtu.be/6NMi370dZMY?si=v5ivwY58fRYsSEhV"
+    },
+    {
+        "Title": "Titanic",
+        "Abstract": "A tragic love story on the ill-fated ship",
+        "Cast": [
+            "Leonardo DiCaprio",
+            "Kate Winslet",
+            "Billy Zane"
+        ],
+        "Director": "James Cameron",
+        "Duration": "195 minutes",
+        "Cover": "https://hd-report.com/wp-content/uploads/2012/06/Titanic_DVD_2D_SKEW_06-06.jpg",
+        "Trailer": "https://youtu.be/DP-AelnPZwc?si=QuqzpU2a0nUvuSD6"
+    },
+    {
+        "Title": "Il signore degli anelli: La compagnia dell'anello",
+        "Abstract": "The epic journey to destroy the One Ring",
+        "Cast": [
+            "Elijah Wood",
+            "Ian McKellen",
+            "Viggo Mortensen"
+        ],
+        "Director": "Peter Jackson",
+        "Duration": "178 minutes",
+        "Cover": "https://nientepopcorn.b-cdn.net/film-img/122-locandina-big.jpg",
+        "Trailer": "https://youtu.be/TCwmXY_f-e0?si=K5HCAOVzjfr60T2o"
+    },
+    {
+        "Title": "Il cavaliere oscuro",
+        "Abstract": "Batman's battle against the Joker",
+        "Cast": [
+            "Christian Bale",
+            "Heath Ledger",
+            "Aaron Eckhart"
+        ],
+        "Director": "Christopher Nolan",
+        "Duration": "152 minutes",
+        "Cover": "https://m.media-amazon.com/images/I/91KkWf50SoL._AC_SL1500_.jpg",
+        "Trailer": "https://youtu.be/yqcDBdk8wpo?si=ekmZmqLQCPMSzoAk"
+    },
+    {
+        "Title": "Avatar",
+        "Abstract": "A marine on an alien planet",
+        "Cast": [
+            "Sam Worthington",
+            "Zoe Saldana",
+            "Sigourney Weaver"
+        ],
+        "Director": "James Cameron",
+        "Duration": "162 minutes",
+        "Cover": "https://image.tmdb.org/t/p/original/b9ixaRHHhkdeMfUn3xOcHWY5IXI.jpg",
+        "Trailer": "https://youtu.be/MLp7-KB-xdk?si=oC38QtYouAm4cSRS"
+    },
+    {
+        "Title": "Inception",
+        "Abstract": "A mind-bending thriller about dreams",
+        "Cast": [
+            "Leonardo DiCaprio",
+            "Joseph Gordon-Levitt",
+            "Ellen Page"
+        ],
+        "Director": "Christopher Nolan",
+        "Duration": "148 minutes",
+        "Cover": "https://th.bing.com/th/id/OIP.l3FaPN8LxWnunHnQ4AwALAHaLo?rs=1&pid=ImgDetMain",
+        "Trailer": "https://youtu.be/BV7z0I90MJk?si=6Wkk5teR-DqJjLUx"
+    },
+    {
+        "Title": "La La Land",
+        "Abstract": "A musical romance in Los Angeles",
+        "Cast": [
+            "Ryan Gosling",
+            "Emma Stone",
+            "John Legend"
+        ],
+        "Director": "Damien Chazelle",
+        "Duration": "128 minutes",
+        "Cover": "https://image.tmdb.org/t/p/original/lcYwCSTzCHv0Z2QRpfztt75JyYj.jpg",
+        "Trailer": "https://youtu.be/YbtJyxjXpMI?si=78ukHOdCNrar8xKF"
+    }
+]
