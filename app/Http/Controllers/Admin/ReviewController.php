@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ReviewController extends Controller
 {
@@ -12,7 +13,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = Review::with('movie')->paginate(10);
+        return view('admin.reviews.index', compact('reviews'));
     }
 
     /**

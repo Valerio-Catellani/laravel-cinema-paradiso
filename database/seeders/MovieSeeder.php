@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Movie;
-use App\Functions\Helpers as Help;
+use App\Functions\API_request as API;
 
 class MovieSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class MovieSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = Help::getMovieData();
+        $data = API::getMovieData();
         foreach ($data as $movie) {
             $new_movie = new Movie();
             $new_movie->title = $movie['title'];

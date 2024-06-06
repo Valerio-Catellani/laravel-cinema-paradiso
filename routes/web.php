@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\MovieController;
-
+use App\Http\Controllers\Admin\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +26,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('rooms', RoomController::class)->parameters(['rooms' => 'slug']); //sostiuisce l'id come parametro di default con slug in questo modo se noi passiamo room lui viene convertito in slug
     Route::resource('movies', MovieController::class)->parameters(['movies' => 'slug']);
+    Route::resource('reviews', ReviewController::class);
     //altre rotte...
 });
 

@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('author', 200);
             $table->date('date');
             $table->text('content');
-            $table->float('rating', 2, 1)->nullable();
-
+            $table->float('rating', 4, 2)->nullable();
             $table->timestamps();
         });
     }

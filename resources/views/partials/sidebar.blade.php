@@ -23,5 +23,10 @@
             <a class="nav-link text-white " aria-current="page" href="{{ route('admin.movies.index') }}"><i
                     class="fa-solid fa-film fs-4 pe-3"></i><span class="hype-text-collapse">Film</span></a>
         </li>
+        <li
+            class="nav-item {{ Route::currentRouteName() === 'admin.reviews.index' || Route::currentRouteName() === 'admin.reviews.show' || Route::currentRouteName() === 'admin.reviews.edit' || Route::currentRouteName() === 'admin.reviews.create' ? 'active' : '' }}">
+            <a class="nav-link text-white " aria-current="page" href="{{ route('admin.reviews.index') }}"><i
+                    class="fa-solid fa-comment fs-4 pe-3"></i><span class="hype-text-collapse">Recensioni</span></a>
+        </li>
     </ul>
 </nav>

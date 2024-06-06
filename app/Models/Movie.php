@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Review;
 use Illuminate\Support\Str;
 
 class Movie extends Model
@@ -20,6 +21,11 @@ class Movie extends Model
         'original_language',
         'slug'
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     public static function generateSlug($title)
     {

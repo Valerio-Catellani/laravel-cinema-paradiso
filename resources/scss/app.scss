@@ -7,11 +7,12 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
 @import "~bootstrap/scss/bootstrap";
 
-h1 {
-    color: $text-color;
+body {
+    font-family: "Permanent Marker", cursive;
 }
 
 /*colors*/
