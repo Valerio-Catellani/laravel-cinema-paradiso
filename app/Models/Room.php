@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Movie;
+use App\Models\MovieRoom;
 use Illuminate\Support\Str;
 
 class Room extends Model
@@ -20,6 +22,12 @@ class Room extends Model
         'isense',
         'slug'
     ];
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class)->using(MovieRoom::class)->withPivot('date', 'final_ticket_price', 'slot');
+    }
+
 
     public static function generateSlug($title)
     {

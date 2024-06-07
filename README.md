@@ -226,6 +226,8 @@ Storage::put('images', $data['image']); //ritorna il path
 
 ```bash
 #per prima cosa installare guzzle mediante il seguente comando:
+composer install 
+#oppure
 composer require guzzlehttp/guzzle
 
 #andare dentro al file app/functions/API_request.php e cercare $API_KEY e copiare la propria key.

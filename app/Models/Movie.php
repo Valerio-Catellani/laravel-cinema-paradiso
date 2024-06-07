@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Review;
+use App\Models\Room;
 use Illuminate\Support\Str;
+
 
 class Movie extends Model
 {
@@ -25,6 +27,11 @@ class Movie extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function rooms() //$movie->rooms->name
+    {
+        return $this->belongsToMany(Room::class)->withPivot('date', 'final_ticket_price');
     }
 
     public static function generateSlug($title)

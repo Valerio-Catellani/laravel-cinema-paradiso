@@ -28,5 +28,16 @@
             <a class="nav-link text-white " aria-current="page" href="{{ route('admin.reviews.index') }}"><i
                     class="fa-solid fa-comment fs-4 pe-3"></i><span class="hype-text-collapse">Recensioni</span></a>
         </li>
+        <li
+            class="nav-item {{ Route::currentRouteName() === 'admin.slots.index' || Route::currentRouteName() === 'admin.slots.show' || Route::currentRouteName() === 'admin.slots.edit' || Route::currentRouteName() === 'admin.slots.create' ? 'active' : '' }}">
+            <a class="nav-link text-white " aria-current="page" href="{{ route('admin.slots.index') }}"><i
+                    class="fa-solid fa-clock fs-4 pe-3"></i><span class="hype-text-collapse">Facia Oraria</span></a>
+        </li>
+        <li
+            class="nav-item {{ Route::currentRouteName() === 'admin.projections.index' || Route::currentRouteName() === 'admin.projections.show' || Route::currentRouteName() === 'admin.projections.edit' || Route::currentRouteName() === 'admin.projections.create' ? 'active' : '' }}">
+            <a class="nav-link text-white " aria-current="page" href="{{ route('admin.projections.index') }}"><i
+                    class="fa-solid fa-clapperboard fs-4 pe-3"></i><span
+                    class="hype-text-collapse">Proiezioni</span></a>
+        </li>
     </ul>
 </nav>

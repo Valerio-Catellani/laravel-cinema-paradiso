@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Pomeriggio",
+        "start_time": "17:00",
+        "end_time": "19:00"
+    },
+    {
+        "name": "Prima Serata",
+        "start_time": "19:00",
+        "end_time": "21:00"
+    },
+    {
+        "name": "Seconda Serata",
+        "start_time": "21:00",
+        "end_time": "23:00"
+    }
+]
