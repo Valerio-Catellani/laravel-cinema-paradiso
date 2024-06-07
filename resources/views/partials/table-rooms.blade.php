@@ -1,4 +1,4 @@
-<table id="rooms-table" class="table table-dark  shadow mb-5 mt-3 hype-unselectable hype-table-clickable"
+<table id="rooms-table" class="table table-dark table-hover shadow mb-5 mt-3 hype-unselectable hype-table-clickable"
     style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
     <thead>
         <tr>

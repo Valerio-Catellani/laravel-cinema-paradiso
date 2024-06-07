@@ -53,8 +53,8 @@
 
                 <div class="mb-3 @error('overview') err-animation @enderror">
                     <label for="overview" class="form-label text-white">Trama</label>
-                    <textarea class="form-control @error('overview') is-invalid err-animation @enderror" id="overview" name="overview"
-                        style="min-height: 300px">{{ old('overview') }}</textarea>
+                    <textarea class="form-control bg-light @error('overview') is-invalid err-animation @enderror" id="overview"
+                        name="overview" style="min-height: 300px">{{ old('overview') }}</textarea>
                     @error('overview')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

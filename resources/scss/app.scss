@@ -7,13 +7,8 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
-@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
 @import "~bootstrap/scss/bootstrap";
-
-body {
-    font-family: "Permanent Marker", cursive;
-}
 
 /*colors*/
 .background-gradient-color-red {
@@ -54,6 +49,10 @@ body {
 
 .background-gradient-modal {
     background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.nicEdit-main {
+    background-color: white !important;
 }
 
 /*utilities*/
