@@ -162,37 +162,53 @@ if (document.getElementById('projections-form')) {
   });
 }
 
-let editInput = document.querySelectorAll('.edit-input');
-let editButton = document.querySelectorAll('.edit-button');
-let paragraphs = document.querySelectorAll('.paragraph');
-editButton.forEach(function (button) {
+// let editInput = document.querySelectorAll('.edit-input');
+// let editButton = document.querySelectorAll('.edit-button');
+// let paragraphs = document.querySelectorAll('.paragraph');
+// editButton.forEach(function (button) {
 
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      let idButton = button.id.toString();
-      
-      document.querySelectorAll(`.icon-${idButton}`).forEach((element) => {
-        element.classList.toggle('d-none');
-      });
+//     button.addEventListener('click', (e) => {
+//       e.preventDefault();
+//       let idButton = button.id.toString();
 
-        /*  console.log(idButton); */
-        editInput.forEach(function (input) {
-            /*console.log(post.classList); */
-            if (input.classList.contains(idButton)) {
-                /*  console.log('true'); */
-                input.classList.toggle('d-none');
-            }
-            else { console.log('idbutton','false') }
+//       document.querySelectorAll(`.icon-${idButton}`).forEach((element) => {
+//         element.classList.toggle('d-none');
+//       });
 
-        });
-        paragraphs.forEach(function (paragraph) {
-            let idButton = button.id.toString();
-            if (paragraph.classList.contains(idButton)) {
-                paragraph.classList.toggle('d-none');
-            }
-            else { console.log('false') }
+//         /*  console.log(idButton); */
+//         editInput.forEach(function (input) {
+//             /*console.log(post.classList); */
+//             if (input.classList.contains(idButton)) {
+//                 /*  console.log('true'); */
+//                 input.classList.toggle('d-none');
+//             }
+//             else { console.log('idbutton','false') }
 
-        });
+//         });
+//         paragraphs.forEach(function (paragraph) {
+//             let idButton = button.id.toString();
+//             if (paragraph.classList.contains(idButton)) {
+//                 paragraph.classList.toggle('d-none');
+//             }
+//             else { console.log('false') }
+
+//         });
+//     })
+// })
+
+
+document.querySelectorAll('#select-date').forEach((element) => {
+  element.addEventListener('change', (event) => {
+    console.log(event.target.value);
+    document.querySelectorAll('.projection-container').forEach((element) => {
+      const ElementData = element.getAttribute('data-element-date');
+      if (ElementData === event.target.value || event.target.value === 'all') {
+        element.classList.remove('d-none');
+      } else {
+        element.classList.add('d-none');
+      }
     })
+  })
 })
+
 

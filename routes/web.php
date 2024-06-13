@@ -30,7 +30,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::resource('rooms', RoomController::class)->parameters(['rooms' => 'slug']); //sostiuisce l'id come parametro di default con slug in questo modo se noi passiamo room lui viene convertito in slug
     Route::resource('movies', MovieController::class)->parameters(['movies' => 'slug']);
     Route::resource('reviews', ReviewController::class);
-    Route::resource('slots', SlotController::class);
+    Route::resource('slots', SlotController::class)->parameters(['slots' => 'slug']);
     Route::resource('projections', MovieRoomController::class);
     Route::get('/get-data', [DataController::class, 'getData']);
     //altre rotte...

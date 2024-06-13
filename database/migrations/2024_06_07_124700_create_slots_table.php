@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->time('start_time');
             $table->time('end_time');
             $table->timestamps();

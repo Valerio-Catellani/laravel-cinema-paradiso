@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UpdateSlotRequest;
+use App\Http\Requests\StoreSlotRequest;
 use App\Models\Slot;
+use App\Models\MovieRoom;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
 
 class SlotController extends Controller
@@ -23,50 +26,71 @@ class SlotController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.slots.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSlotRequest $request)
     {
-        //
+
+        $validated_data = $request->validated();
+        $validated_data["slug"] =  Slot::generateSlug($validated_data["name"]);
+        $new_slot = new Slot();
+        $new_slot->fill($validated_data);
+        $new_slot->save();
+        return redirect()->route('admin.slots.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Slot $slot)
+    public function show($slug)
     {
-        //
+        $projections = MovieRoom::all();
+        $slot = Slot::where('slug', $slug)->firstOrFail();
+        return view('admin.slots.show', compact('slot', 'projections'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Slot $slot)
+    public function edit($slug)
     {
-        //
+
+        $slot = Slot::where('slug', $slug)->firstOrFail();
+        return view('admin.slots.edit', compact('slot'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSlotRequest $request, $id)
+    public function update(UpdateSlotRequest $request, $slug)
     {
-        $slot_to_update = Slot::where('id', $id)->firstOrFail();
-        $form_data = $request->validated();
-        $slot_to_update->fill($form_data);
-        $slot_to_update->update();
-        return redirect()->route('admin.slots.index')->with('message', "Stanza (id:{$slot_to_update->id}): {$slot_to_update->name} aggiornato con successo");
+        // Trova lo slot da aggiornare
+        $slot_to_update = Slot::where('slug', $slug)->firstOrFail();
+
+        // Ottieni i dati validati dalla richiesta
+
+        $validated_data = $request->validated();
+
+        // Aggiorna il modello con i dati validati
+        $slot_to_update->fill($validated_data);
+        $slot_to_update->save();
+
+        // Ritorna con un messaggio di successo
+        return redirect()->route('admin.slots.index')
+            ->with('message', "Fascia Oraria (id:{$slot_to_update->id}): {$slot_to_update->name} aggiornata con successo");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Slot $slot)
+    public function destroy($slug)
     {
-        //
+        $slot = Slot::where('slug', $slug)->firstOrFail();
+        $slot->delete();
+        return redirect()->route('admin.slots.index')->with('message', "La Fascia Oraria con id: ({$slot->id}):  è stata eliminata con successo dal db");
     }
 }

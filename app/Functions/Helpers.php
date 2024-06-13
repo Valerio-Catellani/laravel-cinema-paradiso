@@ -2,7 +2,8 @@
 
 namespace App\Functions;
 
-/* require_once 'C:\MAMP\htdocs\laravel-cinema-paradiso-1\vendor\autoload.php'; */
+//require_once 'C:\MAMP\htdocs\laravel-cinema-paradiso-1\vendor\autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 // use App\Functions\Helpers as Help; se vogliamo usare una funzione Help::'nomefunzione'
 
 
@@ -70,3 +71,16 @@ class Helpers
         return $array_of_data;
     }
 }
+
+
+/*
+php artisan db:seed --class=RoomSeeder
+php artisan db:seed --class=MovieSeeder
+php artisan db:seed --class=ReviewSeeder
+php artisan db:seed --class=SlotSeeder
+
+
+
+
+
+*/

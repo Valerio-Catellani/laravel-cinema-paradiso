@@ -17,6 +17,7 @@ class SlotSeeder extends Seeder
         foreach ($data as $slot) {
             $new_slot = new Slot();
             $new_slot->name = $slot['name'];
+            $new_slot->slug = Slot::generateSlug($slot['name']);
             $new_slot->start_time = $slot['start_time'];
             $new_slot->end_time = $slot['end_time'];
             $new_slot->save();

@@ -3,7 +3,9 @@
 namespace App\Functions;
 
 /* require_once 'C:\esercizi-boolean\laravel-cinema-paradiso\vendor\autoload.php'; */
-require_once 'C:\MAMP\htdocs\laravel-cinema-paradiso-1\vendor\autoload.php';
+//require_once 'C:\MAMP\htdocs\laravel-cinema-paradiso-1\vendor\autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

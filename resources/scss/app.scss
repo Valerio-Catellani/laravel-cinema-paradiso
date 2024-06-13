@@ -8,6 +8,8 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+
 @import "~bootstrap/scss/bootstrap";
 
 /*colors*/
@@ -57,6 +59,11 @@ $fa-font-path: "../fonts/webfonts" !default;
 
 .nicEdit-main {
     background-color: white !important;
+}
+
+/*fonts*/
+.special-font-1 {
+    font-family: "Silkscreen", cursive;
 }
 
 /*utilities*/
