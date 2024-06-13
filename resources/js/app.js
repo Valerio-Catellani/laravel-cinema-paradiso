@@ -162,5 +162,37 @@ if (document.getElementById('projections-form')) {
   });
 }
 
+let editInput = document.querySelectorAll('.edit-input');
+let editButton = document.querySelectorAll('.edit-button');
+let paragraphs = document.querySelectorAll('.paragraph');
+editButton.forEach(function (button) {
 
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      let idButton = button.id.toString();
+      
+      document.querySelectorAll(`.icon-${idButton}`).forEach((element) => {
+        element.classList.toggle('d-none');
+      });
+
+        /*  console.log(idButton); */
+        editInput.forEach(function (input) {
+            /*console.log(post.classList); */
+            if (input.classList.contains(idButton)) {
+                /*  console.log('true'); */
+                input.classList.toggle('d-none');
+            }
+            else { console.log('idbutton','false') }
+
+        });
+        paragraphs.forEach(function (paragraph) {
+            let idButton = button.id.toString();
+            if (paragraph.classList.contains(idButton)) {
+                paragraph.classList.toggle('d-none');
+            }
+            else { console.log('false') }
+
+        });
+    })
+})
 

@@ -2,7 +2,7 @@
 
 namespace App\Functions;
 
-require_once 'C:\esercizi-boolean\laravel-cinema-paradiso\vendor\autoload.php';
+/* require_once 'C:\MAMP\htdocs\laravel-cinema-paradiso-1\vendor\autoload.php'; */
 // use App\Functions\Helpers as Help; se vogliamo usare una funzione Help::'nomefunzione'
 
 

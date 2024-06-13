@@ -42,9 +42,21 @@ $increment_1: 1;
 
 .hype-table-clickable {
     td {
-        padding: 0 !important;
+        padding: 5px 15px !important;
+        
+        /* Allineamento orizzontale (centrato) */
+         
+        
+        /* Allineamento verticale (centrato) */
+        vertical-align: middle; 
+        
+        p {
+            margin: 0 !important;
+            line-height: 0px;
+        }
+
         a {
-            padding: 15px !important;
+            padding: 15px 0px !important;
             text-decoration: none;
             color: inherit !important;
             display: block;
@@ -52,6 +64,7 @@ $increment_1: 1;
         }
     }
 }
+
 
 .hype-color-invert {
     filter: invert(1);
