@@ -10,6 +10,13 @@ class Slot extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'start_time',
+        'end_time',
+
+    ];
+
     public function movie_rooms()
     {
         return $this->hasMany(MovieRoom::class);
