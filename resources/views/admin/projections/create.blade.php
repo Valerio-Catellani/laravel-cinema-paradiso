@@ -8,7 +8,7 @@
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi Proiezione</h1>
 
-            <form id="comic-form" action="{{ route('admin.projections.store') }}" method="POST" novalidate
+            <form id="projections-form" action="{{ route('admin.projections.store') }}" method="POST" novalidate
                 enctype="multipart/form-data">
                 @csrf
 
@@ -23,7 +23,8 @@
 
                 <div class="mb-3">
                     <label for="movie_id" class="form-label text-white">Seleziona un Film</label>
-                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror">
+                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror"
+                        disabled>
                         <option value="">Nessun Film Selezionato</option>
                         @foreach ($movies as $movie)
                             <option value="{{ $movie->id }}" {{ $movie->id == old('movie_id') ? 'selected' : '' }}>
@@ -41,7 +42,8 @@
                     <select name="room_id" id="room_id" class="form-control @error('room_id') is-invalid @enderror">
                         <option value="">Nessuna Stanza Selezionata</option>
                         @foreach ($rooms as $room)
-                            <option value="{{ $room->id }}" {{ $room->id == old('room_id') ? 'selected' : '' }}
+                            <option id="room-{{ $room->id }}" value="{{ $room->id }}"
+                                {{ $room->id == old('room_id') ? 'selected' : '' }}
                                 style="background-color: {{ $room->hex_color }}">
                                 {{ $room->name }} - {{ $room->alias }}
                             </option>
@@ -58,7 +60,8 @@
                     <select name="slot_id" id="slot_id" class="form-control @error('slot_id') is-invalid @enderror">
                         <option value="">Nessuna Facia Oraria Selezionata</option>
                         @foreach ($slots as $slot)
-                            <option value="{{ $slot->id }}" {{ $slot->id == old('slot_id') ? 'selected' : '' }}>
+                            <option id="slot-{{ $slot->id }}" value="{{ $slot->id }}"
+                                {{ $slot->id == old('slot_id') ? 'selected' : '' }}>
                                 {{ $slot->name }} : {{ $slot->start_time }} - {{ $slot->end_time }}
                             </option>
                         @endforeach

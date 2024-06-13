@@ -72,7 +72,7 @@ document.querySelectorAll('.upload_image').forEach((element) => {
   });
 })
 
-
+// sidebar-collapse
 document.querySelectorAll('#hype-sidebar-collapse').forEach((element) => {
   element.addEventListener('click', (event) => {
     event.preventDefault();
@@ -83,3 +83,84 @@ document.querySelectorAll('#hype-sidebar-collapse').forEach((element) => {
     HypeSidebar.classList.toggle('sidebard-collapse');
   })
 })
+
+if (document.getElementById('projections-form')) {
+
+  const roomsNumber = 4;
+  const projectionNumber = 3;
+  let dateValue = '';
+  let getDataResults = '';
+  // let getMovieDataResults = '';
+
+  document.getElementById('date').addEventListener('change', (event) => {
+    dateValue = event.target.value  //leggo il valore impostato di data dal form
+    axios.get('/admin/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
+      params: { date: dateValue }
+    })
+      .then(function (response) {
+        //console.log(response.data.all_results);   //leggo i risultati restituiti dal controller
+        getDataResults = response.data.all_results;   //assegno i risultati alla variabile getDataResults
+        let checkRooms = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di room_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
+          // Se acc[item.room_id] esiste già, incrementa il suo valore di 1.
+          // Altrimenti, inizializzalo a 1.
+          acc[item.room_id] = (acc[item.room_id] || 0) + 1;
+          return acc; // Ritorna l'accumulatore aggiornato per il prossimo ciclo.
+        }, {}); // L'accumulatore inizia come un oggetto vuoto.
+        console.log(checkRooms);
+        Object.entries(checkRooms).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+          if (key >= projectionNumber) {
+            document.getElementById(`room-${value}`).disabled = true;
+            document.getElementById(`room-${value}`).classList.add('d-none');
+          } else {
+            document.getElementById(`room-${value}`).disabled = false;
+            document.getElementById(`room-${value}`).classList.remove('d-none');
+          }
+        })
+        let checkProjections = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di slot_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
+          acc[item.slot_id] = (acc[item.slot_id] || 0) + 1;
+          return acc;
+        }, {});
+        Object.entries(checkProjections).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+          console.log('value', value, 'key', key);
+          if (key >= roomsNumber) {
+            document.getElementById(`slot-${value}`).disabled = true;
+            document.getElementById(`slot-${value}`).classList.add('d-none');
+          } else {
+            document.getElementById(`slot-${value}`).disabled = false;
+            document.getElementById(`slot-${value}`).classList.remove('d-none');
+          }
+        })
+      })
+      .catch(function (error) {
+        console.error('Si è verificato un errore:', error);
+      })
+      .finally(function () {
+        if (getDataResults.length < (roomsNumber * projectionNumber)) {
+          document.getElementById('movie_id').disabled = false;
+        }
+      });
+    // });
+
+    // document.getElementById('movie_id').addEventListener('change', (event) => {
+    //   axios.get('/admin/get-data', {
+    //     params: {
+    //       date: dateValue,
+    //       movie_id: event.target.value,
+    //     }
+    //   })
+    //     .then(function (response) {
+    //       console.log(response.data.all_results);
+    //       getMovieDataResults = response.data.all_results
+    //     })
+    //     .catch(function (error) {
+    //       console.error('Si è verificato un errore:', error);
+    //     })
+    //     .finally(function () {
+    //       document.getElementById('movie_id').disabled = false;
+    //     });
+
+  });
+}
+
+
+

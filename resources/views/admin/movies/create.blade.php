@@ -8,8 +8,7 @@
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi un Film</h1>
 
-            <form id="comic-form" action="{{ route('admin.movies.store') }}" method="POST" novalidate
-                enctype="multipart/form-data">
+            <form id="comic-form" action="{{ route('admin.movies.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 @error('title') err-animation @enderror">
@@ -34,7 +33,7 @@
                 <div class="mb-3 @error('theMovieDb_id') err-animation @enderror">
                     <label for="theMovieDb_id" class="form-label  text-white">theMovieDb id</label>
                     <input type="number" class="form-control @error('theMovieDb_id') is-invalid err-animation @enderror"
-                        id="theMovieDb_id" name="theMovieDb_id" value="{{ old('theMovieDb_id') }}" min="0">
+                        id="theMovieDb_id" name="theMovieDb_id" value="{{ old('theMovieDb_id') }}">
                     @error('theMovieDb_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -69,7 +68,7 @@
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Immagine Verticale (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" name="poster_path"
-                            value="{{ old('poster_path') }}" required>
+                            value="{{ old('poster_path') }}">
                         @error('poster_path')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -85,7 +84,7 @@
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Immagine Orizzontale (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" name="backdrop_path"
-                            value="{{ old('backdrop_path') }}" required>
+                            value="{{ old('backdrop_path') }}">
                         @error('backdrop_path')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

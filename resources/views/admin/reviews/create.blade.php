@@ -1,4 +1,4 @@
-@section('title', 'Create Movie')
+@section('title', 'Crea una Recensione')
 @extends('layouts.admin')
 
 @section('content')
@@ -6,97 +6,67 @@
 
 
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
-            <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi un Film</h1>
+            <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi una Recensione</h1>
 
-            <form id="comic-form" action="{{ route('admin.movies.store') }}" method="POST" novalidate
-                enctype="multipart/form-data">
+            <form id="comic-form" action="{{ route('admin.reviews.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <div class="mb-3 @error('title') err-animation @enderror">
-                    <label for="title" class="form-label text-white">Titolo</label>
-                    <input type="text" class="form-control @error('title') is-invalid err-animation @enderror"
-                        id="title" name="title" value="{{ old('title') }}" required maxlength="255" minlength="3">
-                    @error('title')
+                <div class="mb-3 @error('author') err-animation @enderror">
+                    <label for="author" class="form-label text-white">Autore</label>
+                    <input type="text" class="form-control @error('author') is-invalid err-animation @enderror"
+                        id="author" name="author" value="{{ old('author') }}" required maxlength="200" minlength="3">
+                    @error('author')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-3 @error('avarage_rating') err-animation @enderror">
-                    <label for="avarage_rating" class="form-label  text-white">Valutazione Utenti</label>
-                    <input type="number" class="form-control @error('avarage_rating') is-invalid err-animation @enderror"
-                        id="avarage_rating" name="avarage_rating" value="{{ old('avarage_rating') }}" min="0"
-                        max="5" step="0.01">
-                    @error('avarage_rating')
+                <div class="mb-3">
+                    <label for="movie_id" class="form-label text-white">Seleziona un Film</label>
+                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror">
+                        <option value="">Nessun Film Selezionato</option>
+                        @foreach ($movies as $movie)
+                            <option value="{{ $movie->id }}" {{ $movie->id == old('movie_id') ? 'selected' : '' }}>
+                                {{ $movie->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('movie_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3 @error('date') err-animation @enderror">
+                    <label for="date" class="form-label text-white">Data</label>
+                    <input type="date" class="form-control @error('date') is-invalid err-animation @enderror"
+                        id="date" name="date" value="{{ old('date') }}" required>
+                    @error('date')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-3 @error('theMovieDb_id') err-animation @enderror">
-                    <label for="theMovieDb_id" class="form-label  text-white">theMovieDb id</label>
-                    <input type="number" class="form-control @error('theMovieDb_id') is-invalid err-animation @enderror"
-                        id="theMovieDb_id" name="theMovieDb_id" value="{{ old('theMovieDb_id') }}" min="0">
-                    @error('theMovieDb_id')
+                <div class="mb-3 @error('content') err-animation @enderror">
+                    <label for="content" class="form-label text-white">Contenuto Recensione</label>
+                    <textarea class="form-control p-2 @error('content') is-invalid err-animation @enderror" id="content" name="content"
+                        required style="min-height: 300px">{{ old('content') }}</textarea>
+                    @error('content')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-3 @error('original_language') err-animation @enderror">
-                    <label for="original_language" class="form-label text-white">Lingua Originale</label>
-                    <input type="text"
-                        class="form-control @error('original_language') is-invalid err-animation @enderror"
-                        id="original_language" name="original_language" value="{{ old('original_language') }}" required
-                        maxlength="255" minlength="3">
-                    @error('original_language')
+                <div class="mb-3 @error('rating') err-animation @enderror">
+                    <label for="rating" class="form-label  text-white">Valutazione Finale</label>
+                    <input type="number" class="form-control @error('rating') is-invalid err-animation @enderror"
+                        id="rating" name="rating" value="{{ old('rating') }}" min="0" max="5"
+                        step="0.01">
+                    @error('rating')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-
-                <div class="mb-3 @error('overview') err-animation @enderror">
-                    <label for="overview" class="form-label text-white">Trama</label>
-                    <textarea class="form-control @error('overview') is-invalid err-animation @enderror" id="overview" name="overview"
-                        style="min-height: 300px">{{ old('overview') }}</textarea>
-                    @error('overview')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-
-                <div class="mb-3 @error('poster_path') err-animation @enderror d-flex gap-5 align-items-center">
-                    <div class="w-25 text-center">
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
-                            alt="preview">
-                    </div>
-                    <div class="w-75">
-                        <label for="image" class="form-label text-white">Immagine Verticale (URL)</label>
-                        <input type="file" accept="image/*" class="form-control upload_image" name="poster_path"
-                            value="{{ old('poster_path') }}" required>
-                        @error('poster_path')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="mb-3 @error('backdrop_path') err-animation @enderror d-flex gap-5 align-items-center">
-                    <div class="w-25 text-center">
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
-                            alt="preview">
-                    </div>
-                    <div class="w-75">
-                        <label for="image" class="form-label text-white">Immagine Orizzontale (URL)</label>
-                        <input type="file" accept="image/*" class="form-control upload_image" name="backdrop_path"
-                            value="{{ old('backdrop_path') }}" required>
-                        @error('backdrop_path')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
 
                 <br>
                 <div class="text-center w-25 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
-                    <a href="{{ route('admin.movies.index') }}"
+                    <a href="{{ route('admin.reviews.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>
                 </div>
             </form>

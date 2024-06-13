@@ -27,7 +27,7 @@ class StoreRoomRequest extends FormRequest
             'hex_color' => 'nullable|max:7',
             'seats' => 'required|integer',
             'base_price' => 'required|numeric',
-            'room_image' => 'nullable|max:255',
+            'room_image' => 'nullable',
             'isense' => 'required',
         ];
     }

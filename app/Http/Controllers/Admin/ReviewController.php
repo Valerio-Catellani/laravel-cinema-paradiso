@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Review;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreReviewRequest;
+use App\Http\Requests\UpdateReviewRequest;
 
 class ReviewController extends Controller
 {
@@ -22,46 +25,62 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $movies = Movie::all();
+        return view('admin.reviews.create', compact('movies'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreReviewRequest $request)
     {
-        //
+        $form_data = $request->validated();
+        //$form_data["slug"] =  Room::generateSlug($form_data["name"]);
+        $new_room = new Review();
+        $new_room->fill($form_data);
+        $new_room->save();
+        return redirect()->route('admin.reviews.show', $new_room->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Review $review)
+    public function show($id)
     {
-        //
+        $review = Review::where('id', $id)->firstOrFail();
+        $authr = $review->author;
+        $other_reviews = Review::where('author', $authr)->where('id', '!=', $id)->paginate(5);;
+        return view('admin.reviews.show', compact('review', 'other_reviews'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Review $review)
+    public function edit($id)
     {
-        //
+        $review = Review::where('id', $id)->firstOrFail();
+        $movies = Movie::all();
+        return view('admin.reviews.edit', compact('review', 'movies'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $review)
+    public function update(UpdateReviewRequest $request, $id)
     {
-        //
+        $form_data = $request->validated();
+        $review = Review::where('id', $id)->firstOrFail();
+        $review->update($form_data);
+        return redirect()->route('admin.reviews.show', $review->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy($id)
     {
-        //
+        $review = Review::where('id', $id)->firstOrFail();
+        $review->delete();
+        return redirect()->route('admin.reviews.index')->with('message', "La Recensione con id: ({$review->id}): di {$review->author} è stata eliminata con successo dal db");
     }
 }

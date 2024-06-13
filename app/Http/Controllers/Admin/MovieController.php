@@ -6,6 +6,8 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreMovieRequest;
 
 
 class MovieController extends Controller
@@ -30,10 +32,9 @@ class MovieController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMovieRequest $request)
     {
-        // $form_data = $request->validated();
-        $form_data = $request->all();
+        $form_data = $request->validated();
         $form_data["slug"] =  Movie::generateSlug($form_data["title"]);
         if ($request->hasFile('poster_path')) {
             $img_path = Storage::put('poster_path', $request->poster_path);
@@ -70,12 +71,12 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $slug)
+    public function update(StoreMovieRequest $request, $slug)
     {
 
         $movie_to_update = Movie::where('slug', $slug)->firstOrFail();
-        // $form_data = $request->validated();
-        $form_data = $request->all();
+        $form_data = $request->validated();
+        // $form_data = $request->all();
         if ($movie_to_update->title != $form_data['title']) {
             $form_data['slug'] = Movie::generateSlug($form_data['title']);
         }

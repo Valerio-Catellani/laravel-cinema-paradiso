@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SlotController;
 use App\Http\Controllers\Admin\MovieRoomController;
+use App\Http\Controllers\Admin\DataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->group(function () {
     Route::resource('reviews', ReviewController::class);
     Route::resource('slots', SlotController::class);
     Route::resource('projections', MovieRoomController::class);
+    Route::get('/get-data', [DataController::class, 'getData']);
     //altre rotte...
 });
 

@@ -8,7 +8,7 @@
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Modifica Film: {{ $movie->title }}</h1>
 
-            <form id="comic-form" action="{{ route('admin.movies.update', $movie->slug) }}" method="POST" novalidate
+            <form id="comic-form" action="{{ route('admin.movies.update', $movie->slug) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
 
@@ -27,7 +27,7 @@
                     <label for="avarage_rating" class="form-label  text-white">Valutazione Utenti</label>
                     <input type="number" class="form-control @error('avarage_rating') is-invalid err-animation @enderror"
                         id="avarage_rating" name="avarage_rating"
-                        value="{{ old('avarage_rating', $movie->avarage_rating) }}" min="0" max="5"
+                        value="{{ old('avarage_rating', $movie->avarage_rating) }}" required min="0" max="5"
                         step="0.01">
                     @error('avarage_rating')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -37,8 +37,7 @@
                 <div class="mb-3 @error('theMovieDb_id') err-animation @enderror">
                     <label for="theMovieDb_id" class="form-label  text-white">theMovieDb id</label>
                     <input type="number" class="form-control @error('theMovieDb_id') is-invalid err-animation @enderror"
-                        id="theMovieDb_id" name="theMovieDb_id" value="{{ old('theMovieDb_id', $movie->theMovieDb_id) }}"
-                        min="0">
+                        id="theMovieDb_id" name="theMovieDb_id" value="{{ old('theMovieDb_id', $movie->theMovieDb_id) }}">
                     @error('theMovieDb_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -67,16 +66,18 @@
 
 
                 <div class="mb-3 @error('poster_path') err-animation @enderror d-flex gap-5 align-items-center">
-                    @if ($movie->poster_path && strpos($movie->poster_path, 'http') !== false)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="{{ $movie->poster_path }}"
-                            alt="preview">
-                    @elseif ($movie->poster_path)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100"
-                            src="{{ asset('storage/' . $movie->poster_path) }}" alt="preview">
-                    @else
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
-                            alt="preview">
-                    @endif
+                    <div class="w-25">
+                        @if ($movie->poster_path && strpos($movie->poster_path, 'http') !== false)
+                            <img id="uploadPreview" class="w-100 uploadPreview" width="100"
+                                src="{{ $movie->poster_path }}" alt="preview">
+                        @elseif ($movie->poster_path)
+                            <img id="uploadPreview" class="w-100 uploadPreview" width="100"
+                                src="{{ asset('storage/' . $movie->poster_path) }}" alt="preview">
+                        @else
+                            <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
+                                alt="preview">
+                        @endif
+                    </div>
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Immagine Verticale (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" name="poster_path"
@@ -89,16 +90,18 @@
 
 
                 <div class="mb-3 @error('backdrop_path') err-animation @enderror d-flex gap-5 align-items-center">
-                    @if ($movie->backdrop_path && strpos($movie->backdrop_path, 'http') !== false)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100"
-                            src="{{ $movie->backdrop_path }}" alt="preview">
-                    @elseif ($movie->backdrop_path)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100"
-                            src="{{ asset('storage/' . $movie->backdrop_path) }}" alt="preview">
-                    @else
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
-                            alt="preview">
-                    @endif
+                    <div class="w-25">
+                        @if ($movie->backdrop_path && strpos($movie->backdrop_path, 'http') !== false)
+                            <img id="uploadPreview" class="w-100 uploadPreview" width="100"
+                                src="{{ $movie->backdrop_path }}" alt="preview">
+                        @elseif ($movie->backdrop_path)
+                            <img id="uploadPreview" class="w-100 uploadPreview" width="100"
+                                src="{{ asset('storage/' . $movie->backdrop_path) }}" alt="preview">
+                        @else
+                            <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
+                                alt="preview">
+                        @endif
+                    </div>
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Immagine Orizzontale (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" name="backdrop_path"
@@ -111,7 +114,7 @@
 
 
                 <br>
-                <div class="text-center w-25 mx-auto d-flex gap-2">
+                <div class="text-center w-50 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.movies.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>

@@ -25,7 +25,7 @@ class Room extends Model
 
     public function movies()
     {
-        return $this->belongsToMany(Movie::class)->using(MovieRoom::class)->withPivot('date', 'final_ticket_price', 'slot');
+        return $this->belongsToMany(Movie::class)->using(MovieRoom::class)->withPivot('date', 'final_ticket_price');
     }
 
 
