@@ -78,4 +78,10 @@ php artisan db:seed --class=RoomSeeder
 php artisan db:seed --class=MovieSeeder
 php artisan db:seed --class=ReviewSeeder
 php artisan db:seed --class=SlotSeeder
+
+ciao a tutti
+
+
+
+
 */
