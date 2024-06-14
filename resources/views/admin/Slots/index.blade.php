@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="hype-w-85x100 mx-auto py-5">
+    <section class="hype-w-90x100 mx-auto py-5">
         <h1 class="mb-3 hype-text-shadow display-1 fw-bold text-white text-center">Fasce Orarie</h1>
         <a role="button" class="mine-custom-btn mb-3" href="{{ route('admin.slots.create') }}">Aggiungi una Fascia Oraria</a>
         @if (session()->has('message'))
@@ -11,17 +11,14 @@
             </div>
         @endif
 
-
-
-
         <table id="rooms-table"
             class="table table-dark table-hover table-striped shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
             <thead>
                 <tr>
-                    <th scope="col">#id fascia oraria</th>
-                    <th scope="col">name</th>
-                    <th scope="col">ora inizio</th>
-                    <th scope="col">ora fine</th>
+                    <th scope="col" class="d-none d-lg-table-cell">#id fascia oraria</th>
+                    <th scope="col">Nome Fascia Oraria</th>
+                    <th scope="col">Ora di Inizio</th>
+                    <th scope="col">Ora di Fine</th>
                     <th scope="col" class="text-center">
                         Azioni di Amministrazione</th>
                 </tr>
@@ -33,22 +30,15 @@
                             @csrf
                             @method('PUT')
                             <!-- assegno ai p e agli input di ogni riga una classe 'slot->id' -->
-                            <td>{{ $slot->id }}</td>
+                            <td class="d-none d-lg-table-cell">{{ $slot->id }}</td>
                             <td>
-                                <p class="paragraph ">{{ $slot->name }} </p>
-                                <input type="text" name="name" class="d-none edit-input  "
-                                    value="{{ old('name', $slot->name) }}" required maxlength="255">
+                                {{ $slot->name }}
                             </td>
                             <td>
-                                <p class="td paragraph ">
-                                    {{ $slot->start_time }} </p>
-                                <input type="time" name="start_time" class="d-none edit-input"
-                                    value="{{ old('start_time', $slot->start_time) }}" required maxlength="255">
+                                {{ $slot->start_time }}
                             </td>
                             <td>
-                                <p class="td paragraph">{{ $slot->end_time }} </p>
-                                <input type="time" name="end_time" class="d-none edit-input"
-                                    value="{{ old('end_time', $slot->end_time) }}" required maxlength="255">
+                                {{ $slot->end_time }}
                             </td>
                         </form>
 

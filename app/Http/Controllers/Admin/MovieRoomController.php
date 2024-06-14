@@ -47,15 +47,15 @@ class MovieRoomController extends Controller
         }
         $new_movie_room->fill($data);
         $new_movie_room->save();
-        if ($request->has('room_id')) {
-            $new_movie_room->room()->associate($request->room_id);
-        }
-        if ($request->has('movie_id')) {
-            $new_movie_room->movie()->associate($request->movie_id);
-        }
-        if ($request->has('slot_id')) {
-            $new_movie_room->slot()->associate($request->slot_id);
-        };
+        // if ($request->has('room_id')) {
+        //     $new_movie_room->room()->associate($request->room_id);
+        // }
+        // if ($request->has('movie_id')) {
+        //     $new_movie_room->movie()->associate($request->movie_id);
+        // }
+        // if ($request->has('slot_id')) {
+        //     $new_movie_room->slot()->associate($request->slot_id);
+        // };
 
         return redirect()->route('admin.projections.index');
     }

@@ -1,5 +1,6 @@
 @use "./partials/variables" as *;
 @use "./partials/hype_utility" as *;
+@use "./partials/custom_colors" as *;
 
 $fa-font-path: "../fonts/webfonts" !default;
 
@@ -13,53 +14,6 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~bootstrap/scss/bootstrap";
 
 /*colors*/
-.background-gradient-color-red {
-    background-image: radial-gradient(
-        100% 100% at 100% 0,
-        $active-secondary-color 0,
-        $active-primary-color 100%
-    ) !important;
-}
-.text-active-primary {
-    color: $active-primary-color !important;
-}
-
-.text-active-secondary {
-    color: $active-secondary-color !important;
-}
-
-.text-active-tertiary {
-    color: $active-tertiary-color !important;
-}
-
-.background-gradient-color {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.8883928571428571) 54%,
-        rgba(140, 0, 0, 1) 99%
-    );
-}
-
-.background-gradient-color-black {
-    background: linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.88) 54%,
-        rgb(54, 54, 54) 99%
-    );
-}
-
-.background-gradient-from-bottom-black-to-transparent {
-    background: linear-gradient(0deg, #151515 11%, rgba(148, 187, 233, 0) 50%);
-}
-
-.background-gradient-modal {
-    background-image: linear-gradient(to right, #434343 0%, black 100%);
-}
-
-.nicEdit-main {
-    background-color: white !important;
-}
 
 /*fonts*/
 .special-font-1 {

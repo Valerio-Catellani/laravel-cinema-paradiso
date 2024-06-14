@@ -202,9 +202,15 @@ document.querySelectorAll('#select-date').forEach((element) => {
     console.log(event.target.value);
     document.querySelectorAll('.projection-container').forEach((element) => {
       const ElementData = element.getAttribute('data-element-date');
-      if (ElementData === event.target.value || event.target.value === 'all') {
+      if (event.target.value === '') {
         element.classList.remove('d-none');
-      } else {
+        document.getElementById("info-date").innerHTML = "Tutte le proiezioni prenotate";
+      } else if (ElementData === event.target.value) {
+        element.classList.remove('d-none');
+        document.getElementById("info-date").innerHTML = "Data selezionata: " + event.target.value;
+      }
+      else {
+        document.getElementById("info-date").innerHTML = "Data selezionata: " + event.target.value;
         element.classList.add('d-none');
       }
     })

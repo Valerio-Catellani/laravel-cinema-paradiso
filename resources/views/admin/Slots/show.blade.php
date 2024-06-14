@@ -48,7 +48,7 @@
             </div>
 
         </div>
-        <div>
+        {{-- <div>
 
             <select name="" id="select-date">
                 <option value="all">Seleziona una data</option>
@@ -57,13 +57,21 @@
                         {{ $projection->date }}
                     </option>
                 @endforeach
-            </select>
+            </select> --}}
+        <h3 id="info-date" class="hype-text-shadow text-white fw-bolder mb-2">
+            Tutte le proiezioni prenotate
+        </h3>
 
-            @foreach ($projections as $projection)
-                <div class="projection-container my-3" data-element-date="{{ $projection->date }}">
-                    {{ $projection->id }}
-                </div>
-            @endforeach
+        <div class="mb-3">
+            <input type="date" id="select-date" name="date" min="{{ $projections->min('date') }}"
+                max="{{ $projections->max('date') }}">
+        </div>
+
+        @foreach ($projections as $projection)
+            <div class="projection-container my-1" data-element-date="{{ $projection->date }}">
+                @include('partials.table-slot-room-projection-movie', ['projection' => $projection])
+            </div>
+        @endforeach
         </div>
     </section>
 @endsection

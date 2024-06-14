@@ -1,0 +1,48 @@
+@use "./variables" as *;
+
+.background-gradient-color-red {
+    background-image: radial-gradient(
+        100% 100% at 100% 0,
+        $active-secondary-color 0,
+        $active-primary-color 100%
+    ) !important;
+}
+.text-active-primary {
+    color: $active-primary-color !important;
+}
+
+.text-active-secondary {
+    color: $active-secondary-color !important;
+}
+
+.text-active-tertiary {
+    color: $active-tertiary-color !important;
+}
+
+.background-gradient-color {
+    background: linear-gradient(
+        45deg,
+        background-primary-color 54%,
+        $active-primary-color 99%
+    );
+}
+
+.background-gradient-color-black {
+    background: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.88) 54%,
+        rgb(54, 54, 54) 99%
+    );
+}
+
+.background-gradient-from-bottom-black-to-transparent {
+    background: linear-gradient(0deg, #151515 11%, rgba(148, 187, 233, 0) 50%);
+}
+
+.background-gradient-modal {
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.nicEdit-main {
+    background-color: white !important;
+}

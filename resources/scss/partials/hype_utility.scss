@@ -40,16 +40,19 @@ $increment_1: 1;
     cursor: pointer;
 }
 
+.hype-hover-bg-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .hype-table-clickable {
     td {
         padding: 5px 15px !important;
-        
+
         /* Allineamento orizzontale (centrato) */
-         
-        
+
         /* Allineamento verticale (centrato) */
-        vertical-align: middle; 
-        
+        vertical-align: middle;
+
         p {
             margin: 0 !important;
             line-height: 0px;
@@ -64,7 +67,6 @@ $increment_1: 1;
         }
     }
 }
-
 
 .hype-color-invert {
     filter: invert(1);

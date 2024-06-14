@@ -59,8 +59,6 @@
 
         </div>
         <div>
-            @if ($other_reviews->count() == 0)
-            @endif
             <h4 class="hype-text-shadow text-white fw-bolder mb-2">
                 @if ($other_reviews->count() == 0)
                     Nessuna altra recensione per: {{ $review->author }}
