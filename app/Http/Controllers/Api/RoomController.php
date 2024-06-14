@@ -18,7 +18,7 @@ class RoomController extends Controller
         //     $movies = Movie::paginate(5);
         // }
 
-        $rooms = Room::with('movies')->all();
+        $rooms = Room::with('movies')->paginate(10);
         if ($rooms) {
             return response()->json(
                 [

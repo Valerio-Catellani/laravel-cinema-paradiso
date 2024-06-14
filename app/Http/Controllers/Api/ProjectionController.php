@@ -11,7 +11,7 @@ class ProjectionController extends Controller
     public function index(Request $request)
     {
 
-        $projections = MovieRoom::with('movie', 'slot', 'room')->paginate(5);
+        $projections = MovieRoom::with('movie', 'slot', 'room')->paginate(10);
         if ($projections) {
             return response()->json(
                 [

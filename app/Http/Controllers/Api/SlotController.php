@@ -11,7 +11,7 @@ class SlotController extends Controller
     public function index(Request $request)
     {
 
-        $slots = Slot::with('movie_rooms')->all();
+        $slots = Slot::with(['movie_rooms.movie', 'movie_rooms.slot', 'movie_rooms.room'])->paginate(5);
         if ($slots) {
             return response()->json(
                 [
@@ -34,7 +34,7 @@ class SlotController extends Controller
 
     public function show($slug)
     {
-        $slots = Slot::where('slug', $slug)->with('movie_rooms')->first();
+        $slots = Slot::where('slug', $slug)->with(['movie_rooms.movie', 'movie_rooms.slot', 'movie_rooms.room'])->first();
         if ($slots) {
             return response()->json(
                 [

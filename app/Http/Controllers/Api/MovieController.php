@@ -17,7 +17,17 @@ class MovieController extends Controller
         //     $movies = Movie::paginate(5);
         // }
 
-        $movies = Movie::with('rooms')->paginate(5);
+
+
+
+        if ($request->query('date')) {
+            $date = $request->query('date');
+            $movies = Movie::whereHas('rooms', function ($query) use ($date) {
+                $query->where('date', $date);
+            })->paginate(10); // Cambiato da get() a paginate(10) per mantenere la paginazione
+        } else {
+            $movies = Movie::with('rooms')->paginate(10);
+        }
         if ($movies) {
             return response()->json(
                 [

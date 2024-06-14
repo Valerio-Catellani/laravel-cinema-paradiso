@@ -12,7 +12,7 @@ class ReviewController extends Controller
     public function index(Request $request)
     {
 
-        $reviews = Review::with('movie')->paginate(5);
+        $reviews = Review::with('movie')->paginate(10);
         if ($reviews) {
             return response()->json(
                 [
