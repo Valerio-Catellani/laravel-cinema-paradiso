@@ -284,3 +284,16 @@ body {
         }
     }
 }
+
+.input-select-date {
+    background-color: white;
+}
+
+#projections-form {
+    .form-control:disabled {
+        background-color: $background-4th-color !important;
+    }
+    .form-control {
+        border: none !important;
+    }
+}

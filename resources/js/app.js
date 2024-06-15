@@ -84,137 +84,201 @@ document.querySelectorAll('#hype-sidebar-collapse').forEach((element) => {
   })
 })
 
-if (document.getElementById('projections-form')) {
+if (document.getElementById('projections-form-create')) {
 
-  const roomsNumber = 4;
-  const projectionNumber = 3;
+  let roomsNumber = 4;
+  let projectionNumber = 3;
+
+  axios.get('/api/get-data', { params: { inforequest: true } }).then(function (response) {
+    roomsNumber = response.data.roomsNumber;
+    projectionNumber = response.data.slotsNumber;
+  }).catch(function (error) {
+    console.error('Si è verificato un errore:', error);
+  });
   let dateValue = '';
   let getDataResults = '';
   // let getMovieDataResults = '';
 
   document.getElementById('date').addEventListener('change', (event) => {
+
     dateValue = event.target.value  //leggo il valore impostato di data dal form
-    axios.get('/admin/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
-      params: { date: dateValue }
-    })
-      .then(function (response) {
-        //console.log(response.data.all_results);   //leggo i risultati restituiti dal controller
-        getDataResults = response.data.all_results;   //assegno i risultati alla variabile getDataResults
-        let checkRooms = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di room_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
-          // Se acc[item.room_id] esiste già, incrementa il suo valore di 1.
-          // Altrimenti, inizializzalo a 1.
-          acc[item.room_id] = (acc[item.room_id] || 0) + 1;
-          return acc; // Ritorna l'accumulatore aggiornato per il prossimo ciclo.
-        }, {}); // L'accumulatore inizia come un oggetto vuoto.
-        console.log(checkRooms);
-        Object.entries(checkRooms).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-          if (key >= projectionNumber) {
-            document.getElementById(`room-${value}`).disabled = true;
-            document.getElementById(`room-${value}`).classList.add('d-none');
-          } else {
-            document.getElementById(`room-${value}`).disabled = false;
-            document.getElementById(`room-${value}`).classList.remove('d-none');
-          }
-        })
-        let checkProjections = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di slot_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
-          acc[item.slot_id] = (acc[item.slot_id] || 0) + 1;
-          return acc;
-        }, {});
-        Object.entries(checkProjections).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-          console.log('value', value, 'key', key);
-          if (key >= roomsNumber) {
-            document.getElementById(`slot-${value}`).disabled = true;
-            document.getElementById(`slot-${value}`).classList.add('d-none');
-          } else {
-            document.getElementById(`slot-${value}`).disabled = false;
-            document.getElementById(`slot-${value}`).classList.remove('d-none');
-          }
-        })
+    document.getElementById('room_id').disabled = true;
+    document.getElementById('main-room-info').innerHTML = 'Seleziona prima una Data';
+
+    const allOptionRooms = document.querySelectorAll('.option-room');
+    if (dateValue === '') {
+      allOptionRooms.forEach((element) => {
+        element.disabled = true;
+        element.classList.add('d-none');
       })
-      .catch(function (error) {
-        console.error('Si è verificato un errore:', error);
-      })
-      .finally(function () {
-        if (getDataResults.length < (roomsNumber * projectionNumber)) {
-          document.getElementById('movie_id').disabled = false;
-        }
+    } else {
+      allOptionRooms.forEach((element) => {
+        element.disabled = false;
+        element.classList.remove('d-none');
       });
-    // });
+      axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
+        params: { date: dateValue }
+      })
+        .then(function (response) {
+          //console.log(response.data.all_results);   //leggo i risultati restituiti dal controller
+          getDataResults = response.data.all_results;   //assegno i risultati alla variabile getDataResults
+          let checkRooms = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di room_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
+            // Se acc[item.room_id] esiste già, incrementa il suo valore di 1.
+            // Altrimenti, inizializzalo a 1.
+            acc[item.room_id] = (acc[item.room_id] || 0) + 1;
+            return acc; // Ritorna l'accumulatore aggiornato per il prossimo ciclo.
+          }, {}); // L'accumulatore inizia come un oggetto vuoto.
+          Object.entries(checkRooms).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+            if (key >= projectionNumber) {
+              document.getElementById(`room-${value}`).disabled = true;
+              document.getElementById(`room-${value}`).classList.add('d-none');
+            } else {
+              document.getElementById(`room-${value}`).disabled = false;
+              document.getElementById(`room-${value}`).classList.remove('d-none');
+            }
+          })
+          let checkProjections = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di slot_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
+            acc[item.slot_id] = (acc[item.slot_id] || 0) + 1;
+            return acc;
+          }, {});
+          Object.entries(checkProjections).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+            if (key >= roomsNumber) {
+              document.getElementById(`slot-${value}`).disabled = true;
+              document.getElementById(`slot-${value}`).classList.add('d-none');
+            } else {
+              document.getElementById(`slot-${value}`).disabled = false;
+              document.getElementById(`slot-${value}`).classList.remove('d-none');
+            }
+          })
+        })
+        .catch(function (error) {
+          console.error('Si è verificato un errore:', error);
+        })
+        .finally(function () {
+          if (getDataResults.length < (roomsNumber * projectionNumber)) {
 
-    // document.getElementById('movie_id').addEventListener('change', (event) => {
-    //   axios.get('/admin/get-data', {
-    //     params: {
-    //       date: dateValue,
-    //       movie_id: event.target.value,
-    //     }
-    //   })
-    //     .then(function (response) {
-    //       console.log(response.data.all_results);
-    //       getMovieDataResults = response.data.all_results
-    //     })
-    //     .catch(function (error) {
-    //       console.error('Si è verificato un errore:', error);
-    //     })
-    //     .finally(function () {
-    //       document.getElementById('movie_id').disabled = false;
-    //     });
+            document.getElementById('room_id').disabled = false;
+            document.getElementById('main-room-info').innerHTML = 'Seleziona una Stanza';
+            document.getElementById('main-slot-info').innerHTML = 'Seleziona prima una Stanza';
 
+          }
+        });
+
+    }
+  });
+
+  document.getElementById('room_id').addEventListener('change', (event) => {
+
+    //resetto le caselle di input e le visualizzo di default
+    document.getElementById('slot_id').disabled = true;
+    document.getElementById('main-slot-info').innerHTML = 'Seleziona prima una Stanza';
+
+    const allOptionSlots = document.querySelectorAll('.option-slot');
+    if (event.target.value === '') {
+      allOptionSlots.forEach((element) => {
+        element.disabled = true;
+        element.classList.add('d-none');
+      })
+    } else {
+      allOptionSlots.forEach((element) => {
+        element.disabled = false;
+        element.classList.remove('d-none');
+      })
+      let roomValue = event.target.value;
+      axios.get('/api/get-data', {
+        params: { room_id: roomValue, date: dateValue }
+      }).then(function (response) {
+
+        getDataResults = response.data.all_results;
+        const slotIds = getDataResults.map(item => item.slot_id);
+        slotIds.forEach(slotId => {
+          document.getElementById(`slot-${slotId}`).disabled = true;
+          document.getElementById(`slot-${slotId}`).classList.add('d-none');
+        })
+      }).catch(function (error) {
+        console.error('Si è verificato un errore:', error);
+      }).finally(function () {
+        document.getElementById('slot_id').disabled = false;
+        document.getElementById('main-slot-info').innerHTML = 'Seleziona una Fascia Oraria';
+
+      })
+    }
   });
 }
 
-// let editInput = document.querySelectorAll('.edit-input');
-// let editButton = document.querySelectorAll('.edit-button');
-// let paragraphs = document.querySelectorAll('.paragraph');
-// editButton.forEach(function (button) {
-
-//     button.addEventListener('click', (e) => {
-//       e.preventDefault();
-//       let idButton = button.id.toString();
-
-//       document.querySelectorAll(`.icon-${idButton}`).forEach((element) => {
-//         element.classList.toggle('d-none');
-//       });
-
-//         /*  console.log(idButton); */
-//         editInput.forEach(function (input) {
-//             /*console.log(post.classList); */
-//             if (input.classList.contains(idButton)) {
-//                 /*  console.log('true'); */
-//                 input.classList.toggle('d-none');
-//             }
-//             else { console.log('idbutton','false') }
-
-//         });
-//         paragraphs.forEach(function (paragraph) {
-//             let idButton = button.id.toString();
-//             if (paragraph.classList.contains(idButton)) {
-//                 paragraph.classList.toggle('d-none');
-//             }
-//             else { console.log('false') }
-
-//         });
-//     })
-// })
+if (document.getElementById('projections-form-edit')) {
+  let dataValue = document.getElementById('date').value;
+  let roomValue = document.getElementById('room_id').value;
+  let slotValue = document.getElementById('slot_id').value;
+  let roomsNumber = 4;
+  let projectionNumber = 3;
+  axios.get('/api/get-data', { params: { inforequest: true } }).then(function (response) {
+    roomsNumber = response.data.roomsNumber;
+    projectionNumber = response.data.slotsNumber;
+  }).catch(function (error) {
+    console.error('Si è verificato un errore:', error);
+  });
+  callApiForm(dataValue, projectionNumber, roomsNumber);
+  document.getElementById('date').addEventListener('change', (event) => {
+    callApiForm(event.target.value, projectionNumber, roomsNumber);
+  })
 
 
-document.querySelectorAll('#select-date').forEach((element) => {
-  element.addEventListener('change', (event) => {
-    console.log(event.target.value);
-    document.querySelectorAll('.projection-container').forEach((element) => {
-      const ElementData = element.getAttribute('data-element-date');
-      if (event.target.value === '') {
-        element.classList.remove('d-none');
-        document.getElementById("info-date").innerHTML = "Tutte le proiezioni prenotate";
-      } else if (ElementData === event.target.value) {
-        element.classList.remove('d-none');
-        document.getElementById("info-date").innerHTML = "Data selezionata: " + event.target.value;
+
+}
+
+function callApiForm(dataValue, projectionNumber, roomsNumber) {
+  axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
+    params: { date: dataValue, infoEdit: true }
+  }).then(function (response) {
+    console.log(dataValue);
+    console.log(response.data.all_rooms);
+    const roomCount = response.data.all_rooms.reduce((counts, element) => {
+      counts[element] = (counts[element] || 0) + 1;
+      return counts;
+    }, {});
+    const slotCount = response.data.all_slots.reduce((counts, element) => {
+      counts[element] = (counts[element] || 0) + 1;
+      return counts;
+    }, {});
+    Object.entries(roomCount).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+      if (key >= projectionNumber) {
+        document.getElementById(`room-${value}`).disabled = true;
+        document.getElementById(`room-${value}`).classList.add('d-none');
+      } else {
+        document.getElementById(`room-${value}`).disabled = false;
+        document.getElementById(`room-${value}`).classList.remove('d-none');
       }
-      else {
-        document.getElementById("info-date").innerHTML = "Data selezionata: " + event.target.value;
-        element.classList.add('d-none');
+    });
+    Object.entries(slotCount).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+      if (key >= roomsNumber) {
+        document.getElementById(`slot-${value}`).disabled = true;
+        document.getElementById(`slot-${value}`).classList.add('d-none');
+      } else {
+        document.getElementById(`slot-${value}`).disabled = false;
+        document.getElementById(`slot-${value}`).classList.remove('d-none');
       }
+    })
+  })
+
+}
+
+//SLOT-SHOW
+document.querySelectorAll('#search-form-date-slot').forEach((element) => {
+  element.querySelectorAll('.input-select-date').forEach((element) => {
+    element.addEventListener('change', (event) => {
+      element.parentElement.parentElement.submit();
     })
   })
 })
 
+document.querySelectorAll('.date-click').forEach((element) => {
+  element.addEventListener('click', (event) => {
+    const ElementData = element.getAttribute('data-element-date');
+    document.querySelectorAll('#select-date').forEach((element) => {
+      element.value = ElementData;
+      element.dispatchEvent(new Event('change'));
+    })
+  })
+})
 

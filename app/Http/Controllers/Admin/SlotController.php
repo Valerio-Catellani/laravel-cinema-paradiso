@@ -46,12 +46,26 @@ class SlotController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
-        $projections = MovieRoom::all();
+
         $slot = Slot::where('slug', $slug)->firstOrFail();
-        return view('admin.slots.show', compact('slot', 'projections'));
+        if (!empty($request->query('date'))) {
+            $projections = MovieRoom::where('date', $request->query('date'))
+                ->where('slot_id', $slot->id)->paginate(10);
+        } else {
+            $projections = MovieRoom::where('slot_id', $slot->id)->paginate(10);
+        }
+        $AllProjections = MovieRoom::all();
+        $info = [
+            'projections' => $projections,
+            'AllProjections' => $AllProjections,
+            'slot' => $slot,
+            'date' => $request->query('date')
+        ];
+        return view('admin.slots.show', $info);
     }
+
 
     /**
      * Show the form for editing the specified resource.

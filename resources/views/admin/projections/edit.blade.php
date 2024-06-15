@@ -1,4 +1,4 @@
-@section('title', 'Edit Movie {{ $movie->title }}')
+@section('title', 'Modifica la Proiezione con id ' . $projection->id)
 @extends('layouts.admin')
 
 @section('content')
@@ -6,114 +6,79 @@
 
 
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
-            <h1 class="text-center hype-text-shadow text-white fw-bolder">Modifica Film: {{ $movie->title }}</h1>
+            <h1 class="text-center hype-text-shadow text-white fw-bolder">Modifica Proiezione con id {{ $projection->id }}
+            </h1>
 
-            <form id="comic-form" action="{{ route('admin.movies.update', $movie->slug) }}" method="POST" novalidate
+            <form id="projections-form-edit" action="{{ route('admin.projections.update', $projection->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
 
                 @method('PUT')
-                <div class="mb-3 @error('title') err-animation @enderror">
-                    <label for="title" class="form-label text-white">Titolo</label>
-                    <input type="text" class="form-control @error('title') is-invalid err-animation @enderror"
-                        id="title" name="title" value="{{ old('title', $movie->title) }}" required maxlength="255"
-                        minlength="3">
-                    @error('title')
+
+                <div class="mb-3 @error('date') err-animation @enderror">
+                    <label for="date" class="form-label text-white">Data Proiezione</label>
+                    <input type="date" class="form-control @error('date') is-invalid err-animation @enderror"
+                        id="date" name="date" value="{{ old('date', $projection->date) }}" required>
+                    @error('date')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-3 @error('avarage_rating') err-animation @enderror">
-                    <label for="avarage_rating" class="form-label  text-white">Valutazione Utenti</label>
-                    <input type="number" class="form-control @error('avarage_rating') is-invalid err-animation @enderror"
-                        id="avarage_rating" name="avarage_rating"
-                        value="{{ old('avarage_rating', $movie->avarage_rating) }}" min="0" max="5"
-                        step="0.01">
-                    @error('avarage_rating')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                <div class="mb-3">
+                    <label for="movie_id" class="form-label text-white">Seleziona un Film</label>
+                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror">
+                        <option id="main-movie-info" value="">Seleziona un Film</option>
+                        @foreach ($movies as $movie)
+                            <option value="{{ $movie->id }}"
+                                {{ $movie->id == old('movie_id', $projection->movie_id) ? 'selected' : '' }}>
+                                {{ $movie->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('movie_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-3 @error('theMovieDb_id') err-animation @enderror">
-                    <label for="theMovieDb_id" class="form-label  text-white">theMovieDb id</label>
-                    <input type="number" class="form-control @error('theMovieDb_id') is-invalid err-animation @enderror"
-                        id="theMovieDb_id" name="theMovieDb_id" value="{{ old('theMovieDb_id', $movie->theMovieDb_id) }}"
-                        min="0">
-                    @error('theMovieDb_id')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3 @error('original_language') err-animation @enderror">
-                    <label for="original_language" class="form-label text-white">Lingua Originale</label>
-                    <input type="text"
-                        class="form-control @error('original_language') is-invalid err-animation @enderror"
-                        id="original_language" name="original_language"
-                        value="{{ old('original_language', $movie->original_language) }}" required maxlength="255"
-                        minlength="3">
-                    @error('original_language')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3 @error('overview') err-animation @enderror">
-                    <label for="overview" class="form-label text-white">Trama</label>
-                    <textarea class="form-control @error('overview') is-invalid err-animation @enderror" id="overview" name="overview"
-                        style="min-height: 300px">{{ old('overview', $movie->overview) }}</textarea>
-                    @error('overview')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                <div class="mb-3">
+                    <label for="room_id" class="form-label text-white">Seleziona una Stanza</label>
+                    <select name="room_id" id="room_id" class="form-control @error('room_id') is-invalid @enderror">
+                        <option id="main-room-info" value="">Seleziona prima una Data</option>
+                        @foreach ($rooms as $room)
+                            <option class="option-room" id="room-{{ $room->id }}" value="{{ $room->id }}"
+                                {{ $room->id == old('room_id', $projection->room->id) ? 'selected' : '' }}
+                                style="background-color: {{ $room->hex_color }}">
+                                {{ $room->name }} - {{ $room->alias }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('type_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
 
-                <div class="mb-3 @error('poster_path') err-animation @enderror d-flex gap-5 align-items-center">
-                    @if ($movie->poster_path && strpos($movie->poster_path, 'http') !== false)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="{{ $movie->poster_path }}"
-                            alt="preview">
-                    @elseif ($movie->poster_path)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100"
-                            src="{{ asset('storage/' . $movie->poster_path) }}" alt="preview">
-                    @else
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
-                            alt="preview">
-                    @endif
-                    <div class="w-75">
-                        <label for="image" class="form-label text-white">Immagine Verticale (URL)</label>
-                        <input type="file" accept="image/*" class="form-control upload_image" name="poster_path"
-                            value="{{ old('poster_path', $movie->poster_path) }}" required>
-                        @error('poster_path')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <div class="mb-3 @error('backdrop_path') err-animation @enderror d-flex gap-5 align-items-center">
-                    @if ($movie->backdrop_path && strpos($movie->backdrop_path, 'http') !== false)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100"
-                            src="{{ $movie->backdrop_path }}" alt="preview">
-                    @elseif ($movie->backdrop_path)
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100"
-                            src="{{ asset('storage/' . $movie->backdrop_path) }}" alt="preview">
-                    @else
-                        <img id="uploadPreview" class="w-100 uploadPreview" width="100" src="/images/placeholder.png"
-                            alt="preview">
-                    @endif
-                    <div class="w-75">
-                        <label for="image" class="form-label text-white">Immagine Orizzontale (URL)</label>
-                        <input type="file" accept="image/*" class="form-control upload_image" name="backdrop_path"
-                            value="{{ old('backdrop_path', $movie->backdrop_path) }}" required>
-                        @error('backdrop_path')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="mb-3">
+                    <label for="slot_id" class="form-label text-white">Seleziona una Facia Oraria</label>
+                    <select name="slot_id" id="slot_id" class="form-control @error('slot_id') is-invalid @enderror">
+                        <option id="main-slot-info" value="" default>Seleziona prima una Data</option>
+                        @foreach ($slots as $slot)
+                            <option class="option-slot" id="slot-{{ $slot->id }}" value="{{ $slot->id }}"
+                                {{ $slot->id == old('slot_id', $projection->slot->id) ? 'selected' : '' }}>
+                                {{ $slot->name }} : {{ $slot->start_time }} - {{ $slot->end_time }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('slot_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
 
                 <br>
                 <div class="text-center w-25 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
-                    <a href="{{ route('admin.movies.index') }}"
+                    <a href="{{ route('admin.projections.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>
                 </div>
             </form>

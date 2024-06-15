@@ -11,8 +11,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <table id="rooms-table"
-            class="table table-dark table-hover table-striped shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
+        <table id="rooms-table" class="table table-hover table-dark shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
             <thead>
                 <tr>
                     <th scope="col">#id Proiezione</th>
@@ -26,8 +25,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($movieRooms as $element)
-                    <tr>
+                @foreach ($projections as $element)
+                    <tr class="hype-hover-bg-light"
+                        style="background: linear-gradient(45deg,{{ $element->room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
 
                         <td>{{ $element->id }}</td>
                         <td>{{ $element->room->name }}</td>
@@ -69,6 +69,6 @@
             </tbody>
         </table>
 
-        {{-- {{ $reviews->links('vendor.pagination.bootstrap-5') }} --}}
+        {{ $projections->links('vendor.pagination.bootstrap-5') }}
     </section>
 @endsection

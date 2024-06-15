@@ -8,7 +8,7 @@
         <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi Proiezione</h1>
 
-            <form id="projections-form" action="{{ route('admin.projections.store') }}" method="POST" novalidate
+            <form id="projections-form-create" action="{{ route('admin.projections.store') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
 
@@ -23,9 +23,8 @@
 
                 <div class="mb-3">
                     <label for="movie_id" class="form-label text-white">Seleziona un Film</label>
-                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror"
-                        disabled>
-                        <option value="">Nessun Film Selezionato</option>
+                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror">
+                        <option id="main-movie-info" value="">Seleziona un Film</option>
                         @foreach ($movies as $movie)
                             <option value="{{ $movie->id }}" {{ $movie->id == old('movie_id') ? 'selected' : '' }}>
                                 {{ $movie->title }}
@@ -39,10 +38,11 @@
 
                 <div class="mb-3">
                     <label for="room_id" class="form-label text-white">Seleziona una Stanza</label>
-                    <select name="room_id" id="room_id" class="form-control @error('room_id') is-invalid @enderror">
-                        <option value="">Nessuna Stanza Selezionata</option>
+                    <select name="room_id" id="room_id" class="form-control @error('room_id') is-invalid @enderror"
+                        disabled>
+                        <option id="main-room-info" value="">Seleziona prima una Data</option>
                         @foreach ($rooms as $room)
-                            <option id="room-{{ $room->id }}" value="{{ $room->id }}"
+                            <option class="option-room" id="room-{{ $room->id }}" value="{{ $room->id }}"
                                 {{ $room->id == old('room_id') ? 'selected' : '' }}
                                 style="background-color: {{ $room->hex_color }}">
                                 {{ $room->name }} - {{ $room->alias }}
@@ -57,10 +57,11 @@
 
                 <div class="mb-3">
                     <label for="slot_id" class="form-label text-white">Seleziona una Facia Oraria</label>
-                    <select name="slot_id" id="slot_id" class="form-control @error('slot_id') is-invalid @enderror">
-                        <option value="">Nessuna Facia Oraria Selezionata</option>
+                    <select name="slot_id" id="slot_id" class="form-control @error('slot_id') is-invalid @enderror"
+                        disabled>
+                        <option id="main-slot-info" value="" default>Seleziona prima una Data</option>
                         @foreach ($slots as $slot)
-                            <option id="slot-{{ $slot->id }}" value="{{ $slot->id }}"
+                            <option class="option-slot" id="slot-{{ $slot->id }}" value="{{ $slot->id }}"
                                 {{ $slot->id == old('slot_id') ? 'selected' : '' }}>
                                 {{ $slot->name }} : {{ $slot->start_time }} - {{ $slot->end_time }}
                             </option>

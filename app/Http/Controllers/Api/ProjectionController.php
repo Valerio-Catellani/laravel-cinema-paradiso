@@ -10,8 +10,12 @@ class ProjectionController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->query('date') && $request->query('slot_id')) {
+            $projections = MovieRoom::with('movie', 'slot', 'room')->where('date', $request->query('date'))->where('slot_id', $request->query('slot_id'))->paginate(10);
+        } else {
+            $projections = MovieRoom::with('movie', 'slot', 'room')->paginate(10);
+        }
 
-        $projections = MovieRoom::with('movie', 'slot', 'room')->paginate(10);
         if ($projections) {
             return response()->json(
                 [

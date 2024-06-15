@@ -6,6 +6,7 @@ use App\http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\ProjectionController;
+use App\Http\Controllers\Api\DataController;
 use App\Http\Controllers\Api\SlotController;
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\Api\SlotController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('/get-data', [DataController::class, 'getData']);
+
 
 Route::get('movies', [MovieController::class, 'index']);
 Route::get('movies/{slug}', [MovieController::class, 'show']);

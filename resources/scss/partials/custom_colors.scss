@@ -46,3 +46,7 @@
 .nicEdit-main {
     background-color: white !important;
 }
+
+.light-table {
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.2) !important;
+}

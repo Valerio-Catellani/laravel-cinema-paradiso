@@ -7,28 +7,35 @@
     <section class="container py-5">
 
 
-        <div class="container rounded-2 hype-shadow-white p-5"
+        <div class="container rounded-2 hype-shadow-white p-0 overflow-hidden"
             style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
-            <h1 class="text-center hype-text-shadow text-white fw-bolder mb-5">Dettagli Stanza: {{ $room->name }}</h1>
+            <div style="height: 300px" class="overflow-hidden position-relative">
+                <img class="img-fluid w-100" style="transform: translateY(-50%)"
+                    src="{{ asset('storage/' . $room->room_image) }}" alt="{{ $room->name }}">
+                <div class="position-absolute bottom-0 w-100 h-25 background-gradient-from-bottom-black-to-transparent"
+                    style=" ">
+                </div>
+            </div>
+            <h1 class="text-center hype-text-shadow text-white fw-bolder my-3">Dettagli Stanza: {{ $room->name }}</h1>
             <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        <img class="img-fluid w-100" src="{{ asset('storage/' . $room->room_image) }}"
+                <div class="row gap-3 p-3">
+                    <div class="col-5 p-0 hype-shadow-white">
+                        <img class="img-fluid w-100 h-100" src="{{ asset('storage/' . $room->room_image) }}"
                             alt="{{ $room->name }}">
                     </div>
-                    <div class="col-8 d-flex flex-column text-white">
-                        <h4 class="mb-1">Name</h4>
-                        <h6>{{ $room->name }}</h6>
-                        <h4 class="mb-1">Alias</h4>
-                        <p>{{ $room->alias }}</p>
-                        <h4 class="mb-1">Posti a sedere massimi</h4>
-                        <h6>{{ $room->seats }}</h6>
-                        <h4 class="mb-1">Prezzo Biglietto Base</h4>
-                        <h6>{{ $room->base_price }}</h6>
-                        <h4 class="mb-1">Tecnologia Isense</h4>
-                        <h6>
+                    <div class="col-6 d-flex flex-column text-white">
+                        <h3>Nome</h3>
+                        <h5 class="mb-4">{{ $room->name }}</h5>
+                        <h3>Alias</h3>
+                        <h5 class="mb-4">{{ $room->alias }}</h5>
+                        <h3>Posti a sedere massimi</h3>
+                        <h5 class="mb-4">{{ $room->seats }}</h5>
+                        <h3>Prezzo Biglietto Base</h3>
+                        <h5 class="mb-4">{{ $room->base_price }} €</h5>
+                        <h3>Tecnologia Isense</h3>
+                        <h5 class="mb-4">
                             {{ $room->isense ? 'Sì' : 'No' }}
-                        </h6>
+                        </h5>
                         <div class="d-flex justify-content-center align-items-center gap-5 mt-auto">
                             <a href="{{ route('admin.rooms.index') }}">
                                 <i role="button" type="submit"

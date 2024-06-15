@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Models\MovieRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMovieRoomRequest;
+use App\Http\Requests\UpdateMovieRoomRequest;
 use App\Models\Slot;
 use App\Models\Room;
 use App\Models\Movie;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class MovieRoomController extends Controller
@@ -17,8 +20,8 @@ class MovieRoomController extends Controller
      */
     public function index()
     {
-        $movieRooms = MovieRoom::all();
-        return view('admin.projections.index', compact('movieRooms'));
+        $projections = MovieRoom::orderBy('date')->paginate(15);
+        return view('admin.projections.index', compact('projections'));
     }
 
     /**
@@ -35,27 +38,21 @@ class MovieRoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMovieRoomRequest $request)
     {
-        $data = $request->all();
-        $new_movie_room = new MovieRoom();
-        $room = Room::findOrFail($data['room_id']);
+        $validated_data = $request->validated();
+        $room = Room::findOrFail($validated_data['room_id']);
+        // Calcola il prezzo finale del biglietto
         if ($room->isense == 1) {
-            $data['final_ticket_price'] = $room->base_price + 3;
+            $validated_data['final_ticket_price'] = $room->base_price + 3;
         } else {
-            $data['final_ticket_price'] = $room->base_price;
+            $validated_data['final_ticket_price'] = $room->base_price;
         }
-        $new_movie_room->fill($data);
+
+        // Crea la nuova proiezione
+        $new_movie_room = new MovieRoom();
+        $new_movie_room->fill($validated_data);
         $new_movie_room->save();
-        // if ($request->has('room_id')) {
-        //     $new_movie_room->room()->associate($request->room_id);
-        // }
-        // if ($request->has('movie_id')) {
-        //     $new_movie_room->movie()->associate($request->movie_id);
-        // }
-        // if ($request->has('slot_id')) {
-        //     $new_movie_room->slot()->associate($request->slot_id);
-        // };
 
         return redirect()->route('admin.projections.index');
     }
@@ -64,25 +61,50 @@ class MovieRoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MovieRoom $movieRoom)
+    public function show($id)
     {
-        //
+        $projection = MovieRoom::findOrFail($id);
+        return view('admin.projections.show', compact('projection'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MovieRoom $movieRoom)
+    public function edit($id)
     {
-        //
+        $slots = Slot::all();
+        $rooms = Room::all();
+        $movies = Movie::all();
+        $projection = MovieRoom::findOrFail($id);
+        $info = [
+            'slots' => $slots,
+            'rooms' => $rooms,
+            'movies' => $movies,
+            'projection' => $projection
+        ];
+
+        return view('admin.projections.edit', $info);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MovieRoom $movieRoom)
+    public function update(UpdateMovieRoomRequest $request, $id)
     {
-        //
+        $validated_data = $request->validated();
+        $room = Room::findOrFail($validated_data['room_id']);
+        $projection_to_change = MovieRoom::findOrFail($id);
+        // Calcola il prezzo finale del biglietto
+        if ($room->isense == 1) {
+            $validated_data['final_ticket_price'] = $room->base_price + 3;
+        } else {
+            $validated_data['final_ticket_price'] = $room->base_price;
+        }
+
+        $projection_to_change->fill($validated_data);
+        $projection_to_change->update();
+
+        return redirect()->route('admin.projections.show', $projection_to_change->id);
     }
 
     /**

@@ -48,30 +48,30 @@
             </div>
 
         </div>
-        {{-- <div>
 
-            <select name="" id="select-date">
-                <option value="all">Seleziona una data</option>
-                @foreach ($projections as $projection)
-                    <option value="{{ $projection->date }}">
-                        {{ $projection->date }}
-                    </option>
-                @endforeach
-            </select> --}}
         <h3 id="info-date" class="hype-text-shadow text-white fw-bolder mb-2">
-            Tutte le proiezioni prenotate
+            Tutte le proiezioni prenotate per la fascia oraria di: {{ $slot->name }}
+            {{ $date ? " alla data di: $date" : 'Per tutte le date' }}
         </h3>
 
-        <div class="mb-3">
-            <input type="date" id="select-date" name="date" min="{{ $projections->min('date') }}"
-                max="{{ $projections->max('date') }}">
+        <form action="{{ route('admin.slots.show', $slot->slug) }}" method="GET" id="search-form-date-slot">
+            <div class="mb-5 text-center d-flex flex-column">
+                <label for="select-date">Seleziona una data</label>
+                <input class="input-select-date px-3 py-2 rounded-4 shadow fs-4 hype-unselectable align-self-center"
+                    type="date" id="select-date" name="date" min="{{ $AllProjections->min('date') }}"
+                    max="{{ $AllProjections->max('date') }}" value="{{ $date ? $date : '' }}">
+            </div>
+        </form>
+
+        <div>
+            @foreach ($projections->sortBy('date') as $projection)
+                <div class="projection-container my-1" data-element-date="{{ $projection->date }}">
+                    @include('partials.table-slot-room-projection-movie', ['projection' => $projection])
+                </div>
+            @endforeach
+            {{ $projections->links('vendor.pagination.bootstrap-5') }}
         </div>
 
-        @foreach ($projections as $projection)
-            <div class="projection-container my-1" data-element-date="{{ $projection->date }}">
-                @include('partials.table-slot-room-projection-movie', ['projection' => $projection])
-            </div>
-        @endforeach
-        </div>
+
     </section>
 @endsection
