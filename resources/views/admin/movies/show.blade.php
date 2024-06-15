@@ -55,12 +55,14 @@
 
         @if ($movie->reviews)
             @foreach ($movie->reviews as $review)
-                <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black text-white mb-2">
-                    <h4>{{ $review->author }}</h4>
-                    <p>{!! $review->content !!}</p>
-                    <h6>{!! \App\Functions\Helpers::getStars($review->rating) !!}</h6>
-                    <h6>{{ $review->date }}</h6>
-                </div>
+                <a href="{{ route('admin.reviews.show', $review->id) }}" class="text-decoration-none text-white">
+                    <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black text-white mb-2">
+                        <h4>{{ $review->author }}</h4>
+                        <p>{!! $review->content !!}</p>
+                        <h6>{!! \App\Functions\Helpers::getStars($review->rating) !!}</h6>
+                        <h6>{{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}</h6>
+                    </div>
+                </a>
             @endforeach
         @endif
 

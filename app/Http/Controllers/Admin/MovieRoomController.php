@@ -20,8 +20,22 @@ class MovieRoomController extends Controller
      */
     public function index()
     {
-        $projections = MovieRoom::orderBy('date')->paginate(15);
-        return view('admin.projections.index', compact('projections'));
+        //Recupera tutte le proiezioni ordinate per data:
+        $projections = MovieRoom::orderBy('date')->get();
+
+        //Raggruppa le proiezioni per data:
+        $groupedProjections = $projections->groupBy('date');
+
+
+
+        // Numero di elementi per pagina
+
+        // Pagina corrente (recuperata dalla richiesta, default a 1)
+
+
+        // Slice manuale della Collection per ottenere solo gli elementi della pagina corrente
+
+        return view('admin.projections.index', compact('groupedProjections'));
     }
 
     /**

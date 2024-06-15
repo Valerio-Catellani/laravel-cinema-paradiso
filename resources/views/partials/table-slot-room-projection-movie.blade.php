@@ -24,7 +24,7 @@
                     href="{{ route('admin.movies.show', $projection->movie->slug) }}">{{ $projection->movie->title }}</a>
             </td>
             <td class="hype-hover-bg-light hype-w-15x100 hype-pointer"><a class="date-click"
-                    data-element-date="{{ $projection->date }}">{{ $projection->date }}</a>
+                    data-element-date="{{ $projection->date }}">{{ \Carbon\Carbon::parse($projection->date)->format('d/m/Y') }}</a>
             </td>
             <td class="hype-hover-bg-light hype-w-20x100"><a
                     href="{{ route('admin.projections.show', $projection->id) }}">{{ $projection->id }}</a></td>

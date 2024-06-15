@@ -29,7 +29,8 @@
                         <td><a>{{ $review->id }} </a></td>
                         <td><a>{{ $review->author }}</a></td>
                         <td><a>{{ $review->movie->title }}</a></td>
-                        <td class="d-none d-xl-table-cell"><a>{{ $review->date }}</a></td>
+                        <td class="d-none d-xl-table-cell">
+                            <a>{{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}</a></td>
                         <td class="d-none d-lg-table-cell"><a>{{ $review->rating }}</a></td>
                         <td>
                             <div class="d-flex justify-content-center">

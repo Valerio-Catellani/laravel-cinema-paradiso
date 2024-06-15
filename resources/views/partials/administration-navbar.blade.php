@@ -58,14 +58,14 @@
                             class="fa-solid fa-user fs-3 position-relative hype-text-shadow"></i> Profile</a>
                 </li>
                 <!-- Pulsante Logout -->
-                <li class="nav-item"> <a class="nav-link text-white fs-6 " href=""
+                <li class="nav-item"> <a class="nav-link text-white fs-6 " href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                     document.getElementById('logout-form').submit();"><i
+                 document.getElementById('logout-form').submit();"><i
                             class="fas fa-sign-out-alt fs-3 position-relative hype-text-shadow"></i>
                         {{ __('Logout') }}
                     </a>
 
-                    <form id="logout-form" action="" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </li>

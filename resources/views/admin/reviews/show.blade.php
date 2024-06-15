@@ -18,7 +18,8 @@
                 </div>
             </div>
             <div class="p-5">
-                <h2 class="text-center hype-text-shadow text-white fw-bolder mb-2">{{ $review->date }}
+                <h2 class="text-center hype-text-shadow text-white fw-bolder mb-2">
+                    {{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}
                 </h2>
                 <h2 class="text-center mb-5 text-white">{{ $review->movie->title }}
                 </h2>
@@ -72,7 +73,7 @@
                         <h4>{{ $o_review->movie->title }}</h4>
                         <p>{{ $o_review->content }}</p>
                         <h6>{!! \App\Functions\Helpers::getStars($o_review->rating) !!}</h6>
-                        <h6>{{ $o_review->date }}</h6>
+                        <h6>{{ \Carbon\Carbon::parse($o_review->date)->format('d/m/Y') }}</h6>
                     </div>
                 </a>
             @endforeach

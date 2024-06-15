@@ -282,3 +282,50 @@ document.querySelectorAll('.date-click').forEach((element) => {
   })
 })
 
+
+
+
+//PROJECTION-INDEX
+document.querySelectorAll('#projection-select-date').forEach((element) => {
+  element.addEventListener('change', (event) => {
+
+    const selectedElement = document.getElementById(element.value);
+    console.log(selectedElement);
+    if (selectedElement && selectedElement.getBoundingClientRect().height !== 0) {
+
+      setTimeout(() => {
+        selectedElement.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      //window.location.href= `#${event.target.value}`
+
+    };
+  })
+})
+
+
+
+//clock
+document.querySelectorAll('#clock').forEach((element) => {
+
+  let inc = 1000;
+
+  clock();
+
+  function clock() {
+    const date = new Date();
+
+    const hours = ((date.getHours() + 11) % 12 + 1);
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    const hour = hours * 30;
+    const minute = minutes * 6;
+    const second = seconds * 6;
+
+    document.querySelector('.hour').style.transform = `rotate(${hour}deg)`
+    document.querySelector('.minute').style.transform = `rotate(${minute}deg)`
+    document.querySelector('.second').style.transform = `rotate(${second}deg)`
+  }
+
+  setInterval(clock, inc);
+})
