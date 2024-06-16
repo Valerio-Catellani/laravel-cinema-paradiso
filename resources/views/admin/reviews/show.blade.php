@@ -5,7 +5,7 @@
     <section class="container py-5">
         <h2 class="text-center hype-text-shadow text-white fw-bolder mb-2 display-3">Tutte le recensioni
             di: {{ $review->author }}</h2>
-        <div class="container rounded-2 hype-shadow-white p-0 background-gradient-color-black mb-5 overflow-hidden">
+        <div class="container rounded-2 hype-shadow-white p-0 container-table mb-5 overflow-hidden">
             <div style="height: 300px" class="overflow-hidden position-relative">
                 <img class="img-fluid w-100"
                     src="{{ strpos($review->movie->backdrop_path, 'http') !== false
@@ -69,7 +69,7 @@
             </h4>
             @foreach ($other_reviews as $o_review)
                 <a href="{{ route('admin.reviews.show', $o_review->id) }}" class="text-decoration-none">
-                    <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black text-white mb-2">
+                    <div class="container rounded-2 hype-shadow-white p-5 container-table text-white mb-2">
                         <h4>{{ $o_review->movie->title }}</h4>
                         <p>{{ $o_review->content }}</p>
                         <h6>{!! \App\Functions\Helpers::getStars($o_review->rating) !!}</h6>

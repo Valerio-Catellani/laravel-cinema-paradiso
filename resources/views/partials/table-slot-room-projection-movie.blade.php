@@ -1,4 +1,4 @@
-<table id="rooms-table" class="table table-dark shadow hype-unselectable hype-table-clickable"
+<table id="rooms-table" class="table custom-table shadow hype-unselectable hype-table-clickable"
     style="background: linear-gradient(45deg,{{ $projection->room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
     <thead>
         <tr>
@@ -20,7 +20,7 @@
                     href="{{ route('admin.rooms.show', $projection->room->slug) }}">{{ $projection->room->alias }}</a>
             </td>
             <td class="d-none d-xl-table-cell hype-w-15x100"><a>{{ $projection->room->seats }}</a></td>
-            <td class="hype-hover-bg-light hype-w-20x100"><a
+            <td class="hype-hover-bg-light hype-w-20x100 "><a
                     href="{{ route('admin.movies.show', $projection->movie->slug) }}">{{ $projection->movie->title }}</a>
             </td>
             <td class="hype-hover-bg-light hype-w-15x100 hype-pointer"><a class="date-click"

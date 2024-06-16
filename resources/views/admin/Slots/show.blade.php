@@ -8,19 +8,19 @@
 @section('content')
     <section class="container py-5">
         <h2 class="text-center hype-text-shadow text-white fw-bolder mb-5 display-3">Dettaglio Fascia Oraria</h2>
-        <div class="container rounded-2 hype-shadow-white p-0 background-gradient-color-black mb-5 overflow-hidden">
+        <div class="container rounded-2 hype-shadow-white p-0 container-table mb-5 overflow-hidden">
             <div class="p-5">
                 <h2 class="text hype-text-shadow text-white fw-bolder mb-2 fs-1 text-center display-1">{{ $slot->name }}
                 </h2>
                 <div class=" d-flex text-white mx-auto justify-content-between my-5">
                     <div>
-                        <h3 class="text-center">Orario di Inizio</h3>
-                        <h2 class="text-center special-font-1 display-5">{{ $slot->start_time }}
+                        <h3 class="text-center hype-text-shadow">Orario di Inizio</h3>
+                        <h2 class="text-center special-font-1 display-5 hype-text-shadow">{{ $slot->start_time }}
                         </h2>
                     </div>
                     <div>
-                        <h3 class="text-center">Orario di Fine</h3>
-                        <h2 class="text-center special-font-1  display-5">{{ $slot->end_time }}
+                        <h3 class="text-center hype-text-shadow">Orario di Fine</h3>
+                        <h2 class="text-center special-font-1  display-5 hype-text-shadow">{{ $slot->end_time }}
                         </h2>
                     </div>
 

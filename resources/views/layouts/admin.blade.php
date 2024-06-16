@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div id="admin">
+    <div id="admin" class="sepia-gradient">
         @include('partials.sidebar')
         <div id="wrapper">
             <header class="shadow">

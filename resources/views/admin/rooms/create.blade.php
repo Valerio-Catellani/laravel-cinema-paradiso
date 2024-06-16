@@ -5,9 +5,7 @@
     <section class="container py-5">
 
 
-        <div class="container rounded-2 hype-shadow-white p-5"
-            style="background: linear-gradient(45deg,        rgba(0, 0, 0, 0.88) 54%,
-            rgb(54, 54, 54) 99%">
+        <div class="container rounded-2 hype-shadow-white p-5 container-table">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Add a Room</h1>
 
             <form id="comic-form" action="{{ route('admin.rooms.store') }}" method="POST" novalidate

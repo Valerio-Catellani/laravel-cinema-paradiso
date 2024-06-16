@@ -9,17 +9,38 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Outfit:wght@100..900&display=swap");
+
 @import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
 
 @import "~bootstrap/scss/bootstrap";
 
-/*colors*/
+/*guest*/
+
+#visitator {
+    nav {
+        height: 80px;
+        .logo {
+            height: 70px;
+            aspect-ratio: 1/1;
+        }
+    }
+    main {
+        height: calc(100vh - 80px);
+        background-image: url("../images/facciata_paradiso.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
 
 /*fonts*/
 .special-font-1 {
     font-family: "Silkscreen", cursive;
 }
-
+body {
+    font-family: "Lexend", sans-serif !important;
+}
 /*utilities*/
 body {
     font-family: "Amita", serif;
@@ -41,8 +62,8 @@ body {
     border: 0;
     border-radius: 6px;
     box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-        rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
-        rgba(111, 58, 58, 0.5) 0 -3px 0 inset;
+        rgba(55, 0, 255, 0.3) 0 7px 13px -3px,
+        rgba(58, 70, 111, 0.5) 0 -3px 0 inset;
     box-sizing: border-box;
     color: #fff;
     cursor: pointer;
@@ -194,7 +215,6 @@ body {
 
     #wrapper {
         flex-grow: 1;
-        background-color: red;
 
         header {
             height: 80px;
@@ -232,19 +252,48 @@ body {
         }
 
         main {
-            background-color: $background-4th-color;
             height: calc(100vh - 80px);
             overflow-y: auto;
         }
     }
 }
 
-#rooms-table {
+.table {
+    --bs-table-bg: auto !important;
+}
+.custom-table {
     --bs-table-bg: linear-gradient(
         45deg,
-        rgba(0, 0, 0, 0.88) 54%,
-        rgb(54, 54, 54) 99%
-    );
+        rgba(119, 118, 118, 0.88) 54%,
+        rgb(155, 155, 155) 99%
+    ) !important;
+    border-color: black;
+    &:hover {
+        --bs-table-hover-bg: rgba(255, 255, 255, 0.226) !important;
+    }
+    th,
+    td {
+        color: $text-3th-color !important;
+        font-size: 1.2rem;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+            1px 1px 0 #000;
+        a {
+            color: $text-3th-color;
+            font-size: 1.2rem;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+        .badge {
+            color: $text-2nd-color !important;
+            text-shadow: none !important;
+            a {
+                text-shadow: none !important;
+            }
+        }
+    }
+}
+
+#rooms-table {
     background: var(--bs-table-bg);
     .table-icon {
         padding: 0 !important;

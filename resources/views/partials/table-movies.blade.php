@@ -1,5 +1,5 @@
 <table id="rooms-table"
-    class="table table-dark table-hover table-striped shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
+    class="table custom-table table-hover table-striped shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
     <thead>
         <tr>
             <th scope="col">#id Film</th>

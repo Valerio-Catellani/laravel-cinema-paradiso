@@ -11,7 +11,7 @@
             </div>
         @endif
         <table id="rooms-table"
-            class="table table-dark table-hover table-striped shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
+            class="table custom-table table-hover table-striped shadow mb-5 mt-3 hype-unselectable hype-table-clickable">
             <thead>
                 <tr>
                     <th scope="col">#id Recensione</th>
@@ -30,7 +30,8 @@
                         <td><a>{{ $review->author }}</a></td>
                         <td><a>{{ $review->movie->title }}</a></td>
                         <td class="d-none d-xl-table-cell">
-                            <a>{{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}</a></td>
+                            <a>{{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}</a>
+                        </td>
                         <td class="d-none d-lg-table-cell"><a>{{ $review->rating }}</a></td>
                         <td>
                             <div class="d-flex justify-content-center">

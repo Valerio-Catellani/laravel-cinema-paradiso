@@ -16,7 +16,7 @@
                         role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-bs-auto-close="false">
                         <i class="fa-solid fa-bell fs-3 position-relative hype-text-shadow"> <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small fs-6">
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-active-primary-color  small fs-6">
                                 5
                             </span></i> Notifications
                     </a>
@@ -36,7 +36,7 @@
                         role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         data-bs-auto-close="false">
                         <i class="fa-solid fa-envelope fs-3 position-relative hype-text-shadow"><span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small fs-6">
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-active-primary-color  small fs-6">
                                 2
                             </span></i> Messages
                     </a>

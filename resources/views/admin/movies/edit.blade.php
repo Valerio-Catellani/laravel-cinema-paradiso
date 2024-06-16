@@ -5,7 +5,7 @@
     <section class="container py-5">
 
 
-        <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black">
+        <div class="container rounded-2 hype-shadow-white p-5 container-table">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Modifica Film: {{ $movie->title }}</h1>
 
             <form id="comic-form" action="{{ route('admin.movies.update', $movie->slug) }}" method="POST"

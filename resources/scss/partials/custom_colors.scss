@@ -47,6 +47,141 @@
     background-color: white !important;
 }
 
-.light-table {
-    --bs-table-hover-bg: rgba(255, 255, 255, 0.2) !important;
+.sepia-gradient {
+    background: radial-gradient(
+        circle,
+        rgba(0, 0, 0, 0) 3%,
+        rgba(125, 74, 23, 0.9) 100%
+    ) !important;
+}
+
+/* Variabili */
+$text-color: rgb(27, 112, 240);
+$text-primary-color: white;
+$text-secondary-color: red;
+
+$shadow-primary-color: black;
+$footerText: white;
+
+.tc-text-3th-color {
+    color: $text-3th-color;
+}
+
+/* Classi per i colori del background */
+.bg-text-color {
+    background-color: $text-color;
+}
+
+.bg-text-primary-color {
+    background-color: $text-primary-color;
+}
+
+.bg-text-secondary-color {
+    background-color: $text-secondary-color;
+}
+
+.bg-footerText {
+    background-color: $footerText;
+}
+
+.bg-background-4th-color {
+    background-color: $background-4th-color;
+}
+
+.bg-background-tertiary-color {
+    background-color: $background-tertiary-color;
+}
+
+.bg-background-secondary-color {
+    background-color: $background-secondary-color !important;
+}
+
+.bg-background-primary-color {
+    background-color: $background-primary-color !important;
+}
+
+.bg-background-zero-color {
+    background-color: $background-zero-color;
+}
+
+.bg-background-footer {
+    background-color: $background-footer;
+}
+
+.bg-active-primary-color {
+    background-color: $active-primary-color;
+}
+
+.bg-active-secondary-color {
+    background-color: $active-secondary-color;
+}
+
+.bg-active-tertiary-color {
+    background-color: $active-tertiary-color;
+}
+
+/* Classi per i colori del testo */
+.tc-text-color {
+    color: $text-color;
+}
+
+.tc-text-primary-color {
+    color: $text-primary-color;
+}
+
+.tc-text-secondary-color {
+    color: $text-secondary-color;
+}
+
+.tc-footerText {
+    color: $footerText;
+}
+
+.tc-background-4th-color {
+    color: $background-4th-color;
+}
+
+.tc-background-tertiary-color {
+    color: $background-tertiary-color;
+}
+
+.tc-background-secondary-color {
+    color: $background-secondary-color;
+}
+
+.tc-background-primary-color {
+    color: $background-primary-color;
+}
+
+.tc-background-zero-color {
+    color: $background-zero-color;
+}
+
+.tc-background-footer {
+    color: $background-footer;
+}
+
+.tc-active-primary-color {
+    color: $active-primary-color;
+}
+
+.tc-active-secondary-color {
+    color: $active-secondary-color;
+}
+
+.tc-active-tertiary-color {
+    color: $active-tertiary-color;
+}
+
+/* Classe per l'ombra */
+.shadow-primary-color {
+    box-shadow: 0 4px 8px $shadow-primary-color;
+}
+
+.container-table {
+    background: linear-gradient(
+        45deg,
+        rgba(119, 118, 118, 0.88) 54%,
+        rgb(155, 155, 155) 99%
+    );
 }
