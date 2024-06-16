@@ -10,24 +10,31 @@ class MovieController extends Controller
 {
     public function index(Request $request)
     {
-        // if ($request->query('type')) {
-        //     $movies = Movie::with('type', 'technologies')->where('type_id', $request->query('type'))->paginate(5);
-        // } else {
-
-        //     $movies = Movie::paginate(5);
-        // }
-
-
-
 
         if ($request->query('date')) {
             $date = $request->query('date');
             $movies = Movie::whereHas('rooms', function ($query) use ($date) {
                 $query->where('date', $date);
             })->paginate(10); // Cambiato da get() a paginate(10) per mantenere la paginazione
+        } elseif ($request->query('nextWeekDate') && $request->query('currentDate')) {
+
+            $nextWeekDate = $request->query('nextWeekDate');
+            $currentDate = $request->query('currentDate');
+            $movies = Movie::whereHas('rooms', function ($query) use ($nextWeekDate, $currentDate) {
+                $query->where('movie_room.date', '>=', $currentDate)
+                    ->where('movie_room.date', '<=', $nextWeekDate);
+            })->with('rooms')->paginate(10);
         } else {
             $movies = Movie::with('rooms')->paginate(10);
         }
+
+
+
+
+
+
+
+
         if ($movies) {
             return response()->json(
                 [

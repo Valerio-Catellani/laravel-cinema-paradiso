@@ -31,8 +31,10 @@ class Movie extends Model
 
     public function rooms() //$movie->rooms->name
     {
-        return $this->belongsToMany(Room::class)->using(MovieRoom::class)->withPivot('date', 'final_ticket_price');
+        return $this->belongsToMany(Room::class)->using(MovieRoom::class)->withPivot('date', 'final_ticket_price', 'slot_id');
     }
+
+
 
     public static function generateSlug($title)
     {

@@ -24,7 +24,7 @@ class MovieRoomController extends Controller
         $projections = MovieRoom::orderBy('date')->get();
 
         //Raggruppa le proiezioni per data:
-        $groupedProjections = $projections->groupBy('date');
+        $groupedProjections = $projections->groupBy('date')->sortBy('slot');
 
 
 
@@ -41,8 +41,11 @@ class MovieRoomController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+
+
+
         $slots = Slot::all();
         $rooms = Room::all();
         $movies = Movie::all();
@@ -124,8 +127,10 @@ class MovieRoomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MovieRoom $movieRoom)
+    public function destroy($id)
     {
-        //
+        $projection = MovieRoom::findOrFail($id);
+        $projection->delete();
+        return redirect()->route('admin.projections.index')->with('message', "Proiezione (id:{$projection->id}) del giorno {$projection->date}  eliminata con successo");
     }
 }
