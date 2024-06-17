@@ -25,7 +25,7 @@ class UpdateMovieRequest extends FormRequest
         return [
             'title' => 'required|max:255|min:3',
             'avarage_rating' => 'required|numeric',
-            'original_language' => 'required|max:255|min:3',
+            'original_language' => 'required|max:255|min:2',
         ];
     }
     public function messages()

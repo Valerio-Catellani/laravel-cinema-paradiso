@@ -48,6 +48,7 @@
                         <table class="table custom-table table-hover m-3 w-auto">
                             <thead>
                                 <tr>
+                                    <th scope="col" class="hype-w-3x100">#</th>
                                     <th scope="col">Id Proiezione</th>
                                     <th scope="col" class="d-none d-md-table-cell">Stanza</th>
                                     <th scope="col" class="">Film</th>
@@ -58,7 +59,9 @@
                             </thead>
                             <tbody>
                                 @foreach ($projections as $projection)
-                                    <tr style="background-color:{{ $projection->room->hex_color }} !important">
+                                    <tr>
+                                        <td class="hype-w-3x100"
+                                            style="background-color:{{ $projection->room->hex_color }} !important"></td>
                                         <td>
                                             <div class="hype-class d-flex">
                                                 <div

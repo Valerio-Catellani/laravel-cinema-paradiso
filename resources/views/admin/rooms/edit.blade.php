@@ -57,7 +57,7 @@
                     <label for="base_price" class="form-label  text-white">Prezzo biglietto base (€)</label>
                     <input type="number" class="form-control @error('base_price') is-invalid err-animation @enderror"
                         id="base_price" name="base_price" value="{{ old('base_price', $room->base_price) }}" min="0"
-                        max="5" step="0.01">
+                        step="0.01">
                     @error('base_price')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -101,7 +101,7 @@
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Image (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" id="upload_image"
-                            name="room_image" value="{{ old('room_image', $room->room_image) }}" required>
+                            name="room_image" value="{{ old('room_image', $room->room_image) }}">
                         @error('room_image')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -110,7 +110,7 @@
 
 
                 <br>
-                <div class="text-center w-25 mx-auto d-flex gap-2">
+                <div class="text-center w-50 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.rooms.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>

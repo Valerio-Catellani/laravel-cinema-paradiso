@@ -51,8 +51,7 @@
                 <div class="mb-3 @error('base_price') err-animation @enderror">
                     <label for="base_price" class="form-label  text-white">Prezzo Base Biglietto</label>
                     <input type="number" class="form-control @error('base_price') is-invalid err-animation @enderror"
-                        id="base_price" name="base_price" value="{{ old('base_price') }}" min="0" max="5"
-                        step="0.01">
+                        id="base_price" name="base_price" value="{{ old('base_price') }}" min="0" step="0.01">
                     @error('base_price')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -99,7 +98,7 @@
 
 
                 <br>
-                <div class="text-center w-25 mx-auto d-flex gap-2">
+                <div class="text-center w-50 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.rooms.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>

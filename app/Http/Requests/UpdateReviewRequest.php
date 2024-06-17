@@ -25,7 +25,7 @@ class UpdateReviewRequest extends FormRequest
             'author' => 'required|max:200|min:3',
             'date' => 'required|date_format:Y-m-d',
             'content' => 'required',
-            'rating' => 'nullable|numeric|between:0,5',
+            'rating' => 'nullable|numeric|between:0,10',
             'movie_id' => 'required|exists:movies,id',
         ];
     }

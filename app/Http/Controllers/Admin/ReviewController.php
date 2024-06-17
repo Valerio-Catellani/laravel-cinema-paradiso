@@ -34,6 +34,7 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
+        dd('$request->all()');
         $form_data = $request->validated();
         //$form_data["slug"] =  Room::generateSlug($form_data["name"]);
         $new_room = new Review();

@@ -7,9 +7,17 @@
         <div class="container rounded-2 hype-shadow-white p-5 container-table">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi una Recensione</h1>
 
-            <form id="comic-form" action="{{ route('admin.reviews.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
 
+
+            <form action="{{ route('admin.reviews.store') }}" method="POST">
+                @csrf
+                <button type="submit">test</button>
+
+            </form>
+
+            <form id="" action="{{ route('admin.reviews.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                {{-- 
                 <div class="mb-3 @error('author') err-animation @enderror">
                     <label for="author" class="form-label text-white">Autore</label>
                     <input type="text" class="form-control @error('author') is-invalid err-animation @enderror"
@@ -21,7 +29,8 @@
 
                 <div class="mb-3">
                     <label for="movie_id" class="form-label text-white">Seleziona un Film</label>
-                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror">
+                    <select name="movie_id" id="movie_id" class="form-control @error('movie_id') is-invalid @enderror"
+                        required>
                         <option value="">Nessun Film Selezionato</option>
                         @foreach ($movies as $movie)
                             <option value="{{ $movie->id }}" {{ $movie->id == old('movie_id') ? 'selected' : '' }}>
@@ -50,12 +59,12 @@
                     @error('content')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
 
                 <div class="mb-3 @error('rating') err-animation @enderror">
                     <label for="rating" class="form-label  text-white">Valutazione Finale</label>
                     <input type="number" class="form-control @error('rating') is-invalid err-animation @enderror"
-                        id="rating" name="rating" value="{{ old('rating') }}" min="0" max="5"
+                        id="rating" name="rating" value="{{ old('rating') }}" min="0" max="10"
                         step="0.01">
                     @error('rating')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -63,7 +72,8 @@
                 </div>
 
                 <br>
-                <div class="text-center w-25 mx-auto d-flex gap-2">
+                <button type="submit">test</button>
+                <div class="text-center w-50 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.reviews.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>

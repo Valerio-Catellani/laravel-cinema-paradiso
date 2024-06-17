@@ -84,197 +84,6 @@ document.querySelectorAll('#hype-sidebar-collapse').forEach((element) => {
   })
 })
 
-if (document.getElementById('projections-form-create')) {
-
-  let roomsNumber = 4;
-  let projectionNumber = 3;
-  let startingDate = document.getElementById('date').getAttribute('data-day-of-today');
-
-  axios.get('/api/get-data', { params: { inforequest: true } }).then(function (response) {
-    roomsNumber = response.data.roomsNumber;
-    projectionNumber = response.data.slotsNumber;
-  }).catch(function (error) {
-    console.error('Si è verificato un errore:', error);
-  });
-  let dateValue = '';
-  let getDataResults = '';
-
-  startingDate ? apiFormRequestCreate(startingDate, projectionNumber, roomsNumber) : '';
-
-  document.getElementById('date').addEventListener('change', (event) => {
-
-    dateValue = event.target.value  //leggo il valore impostato di data dal form
-    apiFormRequestCreate(dateValue, projectionNumber, roomsNumber);
-
-  });
-
-
-  function apiFormRequestCreate(dateValue, projectionNumber, roomsNumber) {
-
-
-    document.getElementById('room_id').disabled = true;
-    document.getElementById('main-room-info').innerHTML = 'Seleziona prima una Data';
-
-
-
-    const allOptionRooms = document.querySelectorAll('.option-room');
-    if (dateValue === '') {
-      allOptionRooms.forEach((element) => {
-        element.disabled = true;
-        element.classList.add('d-none');
-      })
-    } else {
-      allOptionRooms.forEach((element) => {
-        element.disabled = false;
-        element.classList.remove('d-none');
-      });
-      axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
-        params: { date: dateValue }
-      })
-        .then(function (response) {
-          //console.log(response.data.all_results);   //leggo i risultati restituiti dal controller
-          getDataResults = response.data.all_results;   //assegno i risultati alla variabile getDataResults
-          let checkRooms = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di room_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
-            // Se acc[item.room_id] esiste già, incrementa il suo valore di 1.
-            // Altrimenti, inizializzalo a 1.
-            acc[item.room_id] = (acc[item.room_id] || 0) + 1;
-            return acc; // Ritorna l'accumulatore aggiornato per il prossimo ciclo.
-          }, {}); // L'accumulatore inizia come un oggetto vuoto.
-          Object.entries(checkRooms).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-            if (key >= projectionNumber) {
-              document.getElementById(`room-${value}`).disabled = true;
-              document.getElementById(`room-${value}`).classList.add('d-none');
-            } else {
-              document.getElementById(`room-${value}`).disabled = false;
-              document.getElementById(`room-${value}`).classList.remove('d-none');
-            }
-          })
-          let checkProjections = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di slot_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
-            acc[item.slot_id] = (acc[item.slot_id] || 0) + 1;
-            return acc;
-          }, {});
-          Object.entries(checkProjections).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-            if (key >= roomsNumber) {
-              document.getElementById(`slot-${value}`).disabled = true;
-              document.getElementById(`slot-${value}`).classList.add('d-none');
-            } else {
-              document.getElementById(`slot-${value}`).disabled = false;
-              document.getElementById(`slot-${value}`).classList.remove('d-none');
-            }
-          })
-        })
-        .catch(function (error) {
-          console.error('Si è verificato un errore:', error);
-        })
-        .finally(function () {
-          if (getDataResults.length < (roomsNumber * projectionNumber)) {
-
-            document.getElementById('room_id').disabled = false;
-            document.getElementById('main-room-info').innerHTML = 'Seleziona una Stanza';
-            document.getElementById('main-slot-info').innerHTML = 'Seleziona prima una Stanza';
-
-          }
-        });
-    }
-  }
-
-
-
-
-  document.getElementById('room_id').addEventListener('change', (event) => {
-
-    //resetto le caselle di input e le visualizzo di default
-    document.getElementById('slot_id').disabled = true;
-    document.getElementById('main-slot-info').innerHTML = 'Seleziona prima una Stanza';
-
-    const allOptionSlots = document.querySelectorAll('.option-slot');
-    if (event.target.value === '') {
-      allOptionSlots.forEach((element) => {
-        element.disabled = true;
-        element.classList.add('d-none');
-      })
-    } else {
-      allOptionSlots.forEach((element) => {
-        element.disabled = false;
-        element.classList.remove('d-none');
-      })
-      let roomValue = event.target.value;
-      axios.get('/api/get-data', {
-        params: { room_id: roomValue, date: dateValue }
-      }).then(function (response) {
-
-        getDataResults = response.data.all_results;
-        const slotIds = getDataResults.map(item => item.slot_id);
-        slotIds.forEach(slotId => {
-          document.getElementById(`slot-${slotId}`).disabled = true;
-          document.getElementById(`slot-${slotId}`).classList.add('d-none');
-        })
-      }).catch(function (error) {
-        console.error('Si è verificato un errore:', error);
-      }).finally(function () {
-        document.getElementById('slot_id').disabled = false;
-        document.getElementById('main-slot-info').innerHTML = 'Seleziona una Fascia Oraria';
-
-      })
-    }
-  });
-}
-
-if (document.getElementById('projections-form-edit')) {
-  let dataValue = document.getElementById('date').value;
-  let roomValue = document.getElementById('room_id').value;
-  let slotValue = document.getElementById('slot_id').value;
-  let roomsNumber = 4;
-  let projectionNumber = 3;
-  axios.get('/api/get-data', { params: { inforequest: true } }).then(function (response) {
-    roomsNumber = response.data.roomsNumber;
-    projectionNumber = response.data.slotsNumber;
-  }).catch(function (error) {
-    console.error('Si è verificato un errore:', error);
-  });
-  callApiForm(dataValue, projectionNumber, roomsNumber);
-  document.getElementById('date').addEventListener('change', (event) => {
-    callApiForm(event.target.value, projectionNumber, roomsNumber);
-  })
-
-
-
-}
-
-function callApiForm(dataValue, projectionNumber, roomsNumber) {
-  axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
-    params: { date: dataValue, infoEdit: true }
-  }).then(function (response) {
-    const roomCount = response.data.all_rooms.reduce((counts, element) => {
-      counts[element] = (counts[element] || 0) + 1;
-      return counts;
-    }, {});
-    const slotCount = response.data.all_slots.reduce((counts, element) => {
-      counts[element] = (counts[element] || 0) + 1;
-      return counts;
-    }, {});
-    Object.entries(roomCount).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-      if (key >= projectionNumber) {
-        document.getElementById(`room-${value}`).disabled = true;
-        document.getElementById(`room-${value}`).classList.add('d-none');
-      } else {
-        document.getElementById(`room-${value}`).disabled = false;
-        document.getElementById(`room-${value}`).classList.remove('d-none');
-      }
-    });
-    Object.entries(slotCount).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-      if (key >= roomsNumber) {
-        document.getElementById(`slot-${value}`).disabled = true;
-        document.getElementById(`slot-${value}`).classList.add('d-none');
-      } else {
-        document.getElementById(`slot-${value}`).disabled = false;
-        document.getElementById(`slot-${value}`).classList.remove('d-none');
-      }
-    })
-  })
-
-}
-
 //SLOT-SHOW
 document.querySelectorAll('#search-form-date-slot').forEach((element) => {
   element.querySelectorAll('.input-select-date').forEach((element) => {
@@ -283,9 +92,6 @@ document.querySelectorAll('#search-form-date-slot').forEach((element) => {
     })
   })
 })
-
-
-
 
 document.querySelectorAll('.date-click').forEach((element) => {
   element.addEventListener('click', (event) => {
@@ -296,9 +102,6 @@ document.querySelectorAll('.date-click').forEach((element) => {
     })
   })
 })
-
-
-
 
 //PROJECTION-INDEX
 document.querySelectorAll('#projection-select-date').forEach((element) => {
@@ -316,8 +119,6 @@ document.querySelectorAll('#projection-select-date').forEach((element) => {
     };
   })
 })
-
-
 
 //clock
 document.querySelectorAll('#clock').forEach((element) => {
@@ -344,3 +145,274 @@ document.querySelectorAll('#clock').forEach((element) => {
 
   setInterval(clock, inc);
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function GetNumbersOfRoomsAndProjections() {
+  let roomsNumber = 4;
+  let projectionNumber = 3;
+  try {
+    const response = await axios.get('/api/get-data', { params: { inforequest: true } });
+    roomsNumber = response.data.roomsNumber;
+    projectionNumber = response.data.slotsNumber;
+  } catch (error) {
+    console.error('Si è verificato un errore:', error);
+  }
+  return {
+    rooms: roomsNumber,
+    projections: projectionNumber
+  };
+}
+
+function callApiForm(params, projectionNumber, roomsNumber) {
+  axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
+    params
+  }).then(function (response) {
+    if (response.data.all_rooms && response.data.all_slots) {
+      const roomCount = response.data.all_rooms.reduce((counts, element) => {
+        counts[element] = (counts[element] || 0) + 1;
+        return counts;
+      }, {});
+      const slotCount = response.data.all_slots.reduce((counts, element) => {
+        counts[element] = (counts[element] || 0) + 1;
+        return counts;
+      }, {});
+      Object.entries(roomCount).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+        if (key >= projectionNumber) {
+          document.getElementById(`room-${value}`).disabled = true;
+          document.getElementById(`room-${value}`).classList.add('d-none');
+        } else {
+          document.getElementById(`room-${value}`).disabled = false;
+          document.getElementById(`room-${value}`).classList.remove('d-none');
+        }
+      });
+      Object.entries(slotCount).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+        if (key >= roomsNumber) {
+          document.getElementById(`slot-${value}`).disabled = true;
+          document.getElementById(`slot-${value}`).classList.add('d-none');
+        } else {
+          document.getElementById(`slot-${value}`).disabled = false;
+          document.getElementById(`slot-${value}`).classList.remove('d-none');
+        }
+      })
+    } else if (response.data.available_slots) {
+      // Abilita e mostra solo gli slot disponibili
+      const availableSlots = response.data.available_slots;
+
+      // Disabilita e nascondi tutti gli slot
+      document.querySelectorAll('[id^="slot-"]').forEach(slot => {
+        slot.disabled = true;
+        slot.classList.add('d-none');
+      });
+
+      // Abilita e mostra solo gli slot disponibili
+      availableSlots.forEach(slotId => {
+        const slotElement = document.getElementById(`slot-${slotId}`);
+        if (slotElement) {
+          slotElement.disabled = false;
+          slotElement.classList.remove('d-none');
+        }
+      });
+    }
+  })
+
+}
+
+function ProjectionFormReset() {
+  document.querySelectorAll('[id^="slot-"]').forEach((element) => {
+    element.disabled = false;
+    element.classList.remove('d-none');
+  });
+  document.querySelectorAll('[id^="room-"]').forEach((element) => {
+    element.disabled = false;
+    element.classList.remove('d-none');
+  });
+}
+
+
+
+
+if (document.getElementById('projections-form-create')) {
+
+  let elementsNumber = await GetNumbersOfRoomsAndProjections();
+  console.log(document.getElementById('date').value);
+  let startingDate = document.getElementById('date').value;
+  let params = {
+    selectedDate: startingDate,
+    roomValue: '',
+    slotValue: '',
+    infoEdit: true
+  }
+  startingDate ? callApiForm(params, elementsNumber.projections, elementsNumber.rooms) : '';
+  document.getElementById('date').addEventListener('change', (event) => {
+    ProjectionFormReset()
+    params.selectedDate = event.target.value  //leggo il valore impostato di data dal form
+    callApiForm(params, elementsNumber.projections, elementsNumber.rooms);
+  });
+  document.getElementById('room_id').addEventListener('change', (event) => {
+    params.roomValue = event.target.value
+    callApiForm(params, elementsNumber.projections, elementsNumber.rooms);
+  })
+
+
+
+}
+
+// let dateValue = '';
+// let getDataResults = '';
+
+// startingDate ? apiFormRequestCreate(startingDate, projectionNumber, roomsNumber) : '';
+
+// document.getElementById('date').addEventListener('change', (event) => {
+
+//   dateValue = event.target.value  //leggo il valore impostato di data dal form
+//   apiFormRequestCreate(dateValue, projectionNumber, roomsNumber);
+
+// });
+
+
+// function apiFormRequestCreate(dateValue, projectionNumber, roomsNumber) {
+
+
+//   document.getElementById('room_id').disabled = true;
+//   document.getElementById('main-room-info').innerHTML = 'Seleziona prima una Data';
+
+
+
+//   const allOptionRooms = document.querySelectorAll('.option-room');
+//   if (dateValue === '') {
+//     allOptionRooms.forEach((element) => {
+//       element.disabled = true;
+//       element.classList.add('d-none');
+//     })
+//   } else {
+//     allOptionRooms.forEach((element) => {
+//       element.disabled = false;
+//       element.classList.remove('d-none');
+//     });
+//     axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
+//       params: { date: dateValue }
+//     })
+//       .then(function (response) {
+//         //console.log(response.data.all_results);   //leggo i risultati restituiti dal controller
+//         getDataResults = response.data.all_results;   //assegno i risultati alla variabile getDataResults
+//         let checkRooms = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di room_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
+//           // Se acc[item.room_id] esiste già, incrementa il suo valore di 1.
+//           // Altrimenti, inizializzalo a 1.
+//           acc[item.room_id] = (acc[item.room_id] || 0) + 1;
+//           return acc; // Ritorna l'accumulatore aggiornato per il prossimo ciclo.
+//         }, {}); // L'accumulatore inizia come un oggetto vuoto.
+//         Object.entries(checkRooms).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+//           if (key >= projectionNumber) {
+//             document.getElementById(`room-${value}`).disabled = true;
+//             document.getElementById(`room-${value}`).classList.add('d-none');
+//           } else {
+//             document.getElementById(`room-${value}`).disabled = false;
+//             document.getElementById(`room-${value}`).classList.remove('d-none');
+//           }
+//         })
+//         let checkProjections = getDataResults.reduce((acc, item) => {    //uso il tipo di reduce per creare un oggetto con i valori di slot_id e number_of_time_is_used_for_that_day e li salvo in una vatriabile
+//           acc[item.slot_id] = (acc[item.slot_id] || 0) + 1;
+//           return acc;
+//         }, {});
+//         Object.entries(checkProjections).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+//           if (key >= roomsNumber) {
+//             document.getElementById(`slot-${value}`).disabled = true;
+//             document.getElementById(`slot-${value}`).classList.add('d-none');
+//           } else {
+//             document.getElementById(`slot-${value}`).disabled = false;
+//             document.getElementById(`slot-${value}`).classList.remove('d-none');
+//           }
+//         })
+//       })
+//       .catch(function (error) {
+//         console.error('Si è verificato un errore:', error);
+//       })
+//       .finally(function () {
+//         if (getDataResults.length < (roomsNumber * projectionNumber)) {
+
+//           document.getElementById('room_id').disabled = false;
+//           document.getElementById('main-room-info').innerHTML = 'Seleziona una Stanza';
+//           document.getElementById('main-slot-info').innerHTML = 'Seleziona prima una Stanza';
+
+//         }
+//       });
+//   }
+// }
+
+
+
+
+// document.getElementById('room_id').addEventListener('change', (event) => {
+
+//   //resetto le caselle di input e le visualizzo di default
+//   document.getElementById('slot_id').disabled = true;
+//   document.getElementById('main-slot-info').innerHTML = 'Seleziona prima una Stanza';
+
+//   const allOptionSlots = document.querySelectorAll('.option-slot');
+//   if (event.target.value === '') {
+//     allOptionSlots.forEach((element) => {
+//       element.disabled = true;
+//       element.classList.add('d-none');
+//     })
+//   } else {
+//     allOptionSlots.forEach((element) => {
+//       element.disabled = false;
+//       element.classList.remove('d-none');
+//     })
+//     let roomValue = event.target.value;
+//     axios.get('/api/get-data', {
+//       params: { room_id: roomValue, date: dateValue }
+//     }).then(function (response) {
+
+//       getDataResults = response.data.all_results;
+//       const slotIds = getDataResults.map(item => item.slot_id);
+//       slotIds.forEach(slotId => {
+//         document.getElementById(`slot-${slotId}`).disabled = true;
+//         document.getElementById(`slot-${slotId}`).classList.add('d-none');
+//       })
+//     }).catch(function (error) {
+//       console.error('Si è verificato un errore:', error);
+//     }).finally(function () {
+//       document.getElementById('slot_id').disabled = false;
+//       document.getElementById('main-slot-info').innerHTML = 'Seleziona una Fascia Oraria';
+
+//     })
+//   }
+// });
+// }
+
+if (document.getElementById('projections-form-edit')) {
+  let dataValue = document.getElementById('date').value;
+  let roomValue = document.getElementById('room_id').value;
+  let slotValue = document.getElementById('slot_id').value;
+  let roomsNumber = 4;
+  let projectionNumber = 3;
+  axios.get('/api/get-data', { params: { inforequest: true } }).then(function (response) {
+    roomsNumber = response.data.roomsNumber;
+    projectionNumber = response.data.slotsNumber;
+  }).catch(function (error) {
+    console.error('Si è verificato un errore:', error);
+  });
+  callApiForm(dataValue, projectionNumber, roomsNumber);
+  document.getElementById('date').addEventListener('change', (event) => {
+    callApiForm(event.target.value, projectionNumber, roomsNumber);
+  })
+
+
+
+}
+

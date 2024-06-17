@@ -62,14 +62,14 @@
                     <label for="rating" class="form-label  text-white">Valutazione Finale</label>
                     <input type="number" class="form-control @error('rating') is-invalid err-animation @enderror"
                         id="rating" name="rating" value="{{ old('rating', $review->rating) }}" min="0"
-                        max="5" step="0.01">
+                        max="10" step="0.01">
                     @error('rating')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <br>
-                <div class="text-center w-25 mx-auto d-flex gap-2">
+                <div class="text-center w-50 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.reviews.index') }}"
                         class="mine-custom-btn min-custom-btn-grey mt-3 w-100">Indietro</a>

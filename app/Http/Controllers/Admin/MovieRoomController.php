@@ -11,10 +11,15 @@ use App\Models\Slot;
 use App\Models\Room;
 use App\Models\Movie;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 use Illuminate\Support\Facades\Storage;
 
 class MovieRoomController extends Controller
 {
+    use SoftDeletes;
+
     /**
      * Display a listing of the resource.
      */
@@ -22,6 +27,16 @@ class MovieRoomController extends Controller
     {
         //Recupera tutte le proiezioni ordinate per data:
         $projections = MovieRoom::orderBy('date')->get();
+
+        $today = Carbon::today();
+        $nextWeek = $today->copy()->addDays(7);
+
+        $projections = MovieRoom::where('date', '>=', $today)
+            ->where('date', '<=', $nextWeek)
+            ->orderBy('date', 'asc')
+            ->with('movie', 'slot', 'room')
+            ->get();
+
 
         //Raggruppa le proiezioni per data:
         $groupedProjections = $projections->groupBy('date')->sortBy('slot');

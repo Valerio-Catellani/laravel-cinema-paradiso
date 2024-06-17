@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Room;
+use App\Models\MovieRoom;
+use Carbon\Carbon;
+
 
 class MovieController extends Controller
 {
@@ -16,6 +20,7 @@ class MovieController extends Controller
             $movies = Movie::whereHas('rooms', function ($query) use ($date) {
                 $query->where('date', $date);
             })->paginate(10); // Cambiato da get() a paginate(10) per mantenere la paginazione
+
         } elseif ($request->query('nextWeekDate') && $request->query('currentDate')) {
 
             $nextWeekDate = $request->query('nextWeekDate');
@@ -27,8 +32,6 @@ class MovieController extends Controller
         } else {
             $movies = Movie::with('rooms')->paginate(10);
         }
-
-
 
 
 
@@ -57,13 +60,28 @@ class MovieController extends Controller
 
     public function show($slug)
     {
-        $movie = Movie::where('slug', $slug)->with('rooms')->first();
+
+        $currentDate = Carbon::now();
+        $nextWeekDate = Carbon::now()->addDays(7);
+
+        $movie = Movie::where('slug', $slug)
+            ->whereHas('rooms', function ($query) use ($nextWeekDate, $currentDate) {
+                $query->where('movie_room.date', '>=', $currentDate)
+                    ->where('movie_room.date', '<=', $nextWeekDate);
+            })
+            ->with(['rooms' => function ($query) {
+                $query->withPivot('date', 'final_ticket_price', 'slot_id');
+            }])
+            ->first();
+
+
         if ($movie) {
             return response()->json(
                 [
                     'status' => 'success',
                     'message' => 'ok',
                     'results' => $movie
+
                 ],
                 200
             );

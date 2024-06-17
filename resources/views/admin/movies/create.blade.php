@@ -24,7 +24,7 @@
                     <label for="avarage_rating" class="form-label  text-white">Valutazione Utenti</label>
                     <input type="number" class="form-control @error('avarage_rating') is-invalid err-animation @enderror"
                         id="avarage_rating" name="avarage_rating" value="{{ old('avarage_rating') }}" min="0"
-                        max="5" step="0.01">
+                        max="10" step="0.01">
                     @error('avarage_rating')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

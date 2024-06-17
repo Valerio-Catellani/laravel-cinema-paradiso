@@ -27,7 +27,7 @@
                     <label for="avarage_rating" class="form-label  text-white">Valutazione Utenti</label>
                     <input type="number" class="form-control @error('avarage_rating') is-invalid err-animation @enderror"
                         id="avarage_rating" name="avarage_rating"
-                        value="{{ old('avarage_rating', $movie->avarage_rating) }}" required min="0" max="5"
+                        value="{{ old('avarage_rating', $movie->avarage_rating) }}" required min="0" max="10"
                         step="0.01">
                     @error('avarage_rating')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -81,7 +81,7 @@
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Immagine Verticale (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" name="poster_path"
-                            value="{{ old('poster_path', $movie->poster_path) }}" required>
+                            value="{{ old('poster_path', $movie->poster_path) }}">
                         @error('poster_path')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -105,7 +105,7 @@
                     <div class="w-75">
                         <label for="image" class="form-label text-white">Immagine Orizzontale (URL)</label>
                         <input type="file" accept="image/*" class="form-control upload_image" name="backdrop_path"
-                            value="{{ old('backdrop_path', $movie->backdrop_path) }}" required>
+                            value="{{ old('backdrop_path', $movie->backdrop_path) }}">
                         @error('backdrop_path')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
