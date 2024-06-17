@@ -8,7 +8,7 @@
         <div class="container rounded-2 hype-shadow-white p-5 container-table">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Modifica Recensione - {{ $review->id }}</h1>
 
-            <form id="comic-form" action="{{ route('admin.reviews.update', $review->id) }}" method="POST" novalidate
+            <form id="comic-form" action="{{ route('admin.reviews.update', $review->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
 

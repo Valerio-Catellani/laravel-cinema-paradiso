@@ -20,7 +20,7 @@
                 <td>{{ $element->room->name }}</td>
                 <td>{{ $element->movie->title }}</td>
                 <td>{{ $element->slot->name }}</td>
-                <td class="d-none d-xl-table-cell">{{ $element->final_ticket_price }}</td>
+                <td class="d-none d-xl-table-cell">{{ $element->final_ticket_price }} €</td>
                 <td class="d-none d-lg-table-cell"><a>{{ \Carbon\Carbon::parse($element->date)->format('d/m/Y') }}</a>
                 </td>
                 <td>

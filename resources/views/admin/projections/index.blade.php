@@ -28,8 +28,11 @@
             <div id="{{ $day }}" class="date-section my-5">
                 <h2 class="pt-5">Tutte le proiezioni per il giorno: {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}
                 </h2>
-                @include('partials.table-projections', $projections)
+                @include('partials.table-projections', $projections->sortBy('slot_id'))
             </div>
+            <a role="button" class="mine-custom-btn mb-3"
+                href="{{ route('admin.projections.create', ['date' => $day]) }}">Aggiungi una
+                Proiezione per il giorno: {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}</a>
         @endforeach
 
         {{-- Pagination Links --}}

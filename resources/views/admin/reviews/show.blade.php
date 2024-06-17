@@ -21,7 +21,7 @@
                 <h2 class="text-center hype-text-shadow text-white fw-bolder mb-2">
                     {{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}
                 </h2>
-                <h2 class="text-center mb-5 text-white">{{ $review->movie->title }}
+                <h2 class="text-center mb-5 text-white hype-text-shadow">{{ $review->movie->title }}
                 </h2>
                 <h4 class="text-center hype-text-shadow text-white fw-bolder mb-2">Id Recensione -
                     {{ $review->id }}

@@ -4,7 +4,6 @@
 @section('content')
     <section class="container py-5">
 
-
         <div class="container rounded-2 hype-shadow-white p-5 container-table">
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi una Recensione</h1>
 

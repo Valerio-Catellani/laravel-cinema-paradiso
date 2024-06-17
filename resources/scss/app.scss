@@ -16,6 +16,9 @@ $fa-font-path: "../fonts/webfonts" !default;
 @import "~bootstrap/scss/bootstrap";
 
 /*guest*/
+.fa-trash-can {
+    color: red !important;
+}
 
 #visitator {
     nav {
@@ -267,14 +270,14 @@ body {
         rgba(119, 118, 118, 0.88) 54%,
         rgb(155, 155, 155) 99%
     ) !important;
-    border-color: black;
+    border: 1px solid black;
     &:hover {
         --bs-table-hover-bg: rgba(255, 255, 255, 0.226) !important;
     }
     th,
     td {
         color: $text-3th-color !important;
-        font-size: 1.2rem;
+        font-size: 1.05rem;
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
             1px 1px 0 #000;
         a {

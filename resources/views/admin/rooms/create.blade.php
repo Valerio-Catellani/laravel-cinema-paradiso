@@ -6,14 +6,13 @@
 
 
         <div class="container rounded-2 hype-shadow-white p-5 container-table">
-            <h1 class="text-center hype-text-shadow text-white fw-bolder">Add a Room</h1>
+            <h1 class="text-center hype-text-shadow text-white fw-bolder">aggiungi una stanza</h1>
 
-            <form id="comic-form" action="{{ route('admin.rooms.store') }}" method="POST" novalidate
-                enctype="multipart/form-data">
+            <form id="comic-form" action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 @error('name') err-animation @enderror">
-                    <label for="name" class="form-label text-white">Room Name</label>
+                    <label for="name" class="form-label text-white">Nome della Stanza</label>
                     <input type="text" class="form-control @error('name') is-invalid err-animation @enderror"
                         id="name" name="name" value="{{ old('name') }}" required maxlength="255" minlength="3">
                     @error('name')
@@ -22,7 +21,7 @@
                 </div>
 
                 <div class="mb-3 @error('alias') err-animation @enderror">
-                    <label for="alias" class="form-label text-white">Room Alias</label>
+                    <label for="alias" class="form-label text-white">Alias</label>
                     <input type="text" class="form-control @error('alias') is-invalid err-animation @enderror"
                         id="alias" name="alias" value="{{ old('alias') }}" required maxlength="255" minlength="3">
                     @error('alias')
@@ -31,7 +30,7 @@
                 </div>
 
                 <div class="mb-3 @error('hex_color') err-animation @enderror">
-                    <label for="hex_color" class="form-label text-white">Room Hex Color</label>
+                    <label for="hex_color" class="form-label text-white">Colore esadecimale</label>
                     <input type="text" class="form-control @error('hex_color') is-invalid err-animation @enderror"
                         id="hex_color" name="hex_color" value="{{ old('hex_color') }}" required maxlength="255"
                         minlength="3">
@@ -41,7 +40,7 @@
                 </div>
 
                 <div class="mb-3 @error('seats') err-animation @enderror">
-                    <label for="seats" class="form-label  text-white">Seats</label>
+                    <label for="seats" class="form-label  text-white">Posti a Sedere</label>
                     <input type="number" class="form-control @error('seats') is-invalid err-animation @enderror"
                         id="seats" name="seats" value="{{ old('seats') }}" required min="0">
                     @error('seats')
@@ -50,7 +49,7 @@
                 </div>
 
                 <div class="mb-3 @error('base_price') err-animation @enderror">
-                    <label for="base_price" class="form-label  text-white">Base Ticket Price</label>
+                    <label for="base_price" class="form-label  text-white">Prezzo Base Biglietto</label>
                     <input type="number" class="form-control @error('base_price') is-invalid err-animation @enderror"
                         id="base_price" name="base_price" value="{{ old('base_price') }}" min="0" max="5"
                         step="0.01">

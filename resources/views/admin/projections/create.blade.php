@@ -15,7 +15,8 @@
                 <div class="mb-3 @error('date') err-animation @enderror">
                     <label for="date" class="form-label text-white">Data Proiezione</label>
                     <input type="date" class="form-control @error('date') is-invalid err-animation @enderror"
-                        id="date" name="date" value="{{ old('date') }}" required>
+                        id="date" name="date" data-day-of-today="{{ $date }}"
+                        value="{{ old('date', $date) }}" required>
                     @error('date')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -43,8 +44,7 @@
                         <option id="main-room-info" value="">Seleziona prima una Data</option>
                         @foreach ($rooms as $room)
                             <option class="option-room" id="room-{{ $room->id }}" value="{{ $room->id }}"
-                                {{ $room->id == old('room_id') ? 'selected' : '' }}
-                                style="background-color: {{ $room->hex_color }}">
+                                {{ $room->id == old('room_id') ? 'selected' : '' }}>
                                 {{ $room->name }} - {{ $room->alias }}
                             </option>
                         @endforeach

@@ -4,7 +4,7 @@
 @section('content')
     <section class="container py-5">
 
-        <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black mb-5">
+        <div class="container rounded-2 hype-shadow-white p-5 container-table mb-5">
             <h1 class="text-center hype-text-shadow text-white fw-bolder mb-2">{{ $movie->title }} </h1>
             <h4 class="text-center mb-5">{!! \App\Functions\Helpers::getStars(floor($movie->avarage_rating)) !!}
             </h4>
@@ -56,7 +56,7 @@
         @if ($movie->reviews)
             @foreach ($movie->reviews as $review)
                 <a href="{{ route('admin.reviews.show', $review->id) }}" class="text-decoration-none text-white">
-                    <div class="container rounded-2 hype-shadow-white p-5 background-gradient-color-black text-white mb-2">
+                    <div class="container rounded-2 hype-shadow-white p-5 container-table text-white mb-2">
                         <h4>{{ $review->author }}</h4>
                         <p>{!! $review->content !!}</p>
                         <h6>{!! \App\Functions\Helpers::getStars($review->rating) !!}</h6>

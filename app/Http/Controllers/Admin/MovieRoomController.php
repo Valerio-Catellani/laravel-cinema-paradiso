@@ -44,12 +44,19 @@ class MovieRoomController extends Controller
     public function create(Request $request)
     {
 
-
-
+        if ($request->input('date')) {
+            $date = $request->input('date');
+        }
         $slots = Slot::all();
         $rooms = Room::all();
         $movies = Movie::all();
-        return view('admin.projections.create', compact('slots', 'rooms', 'movies'));
+        $info = [
+            'slots' => $slots,
+            'rooms' => $rooms,
+            'movies' => $movies,
+            'date' => $date ?? Carbon::now()->format('Y-m-d')
+        ];
+        return view('admin.projections.create', $info);
     }
 
     /**

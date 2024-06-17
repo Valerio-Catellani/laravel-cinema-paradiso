@@ -35,7 +35,7 @@ function createModal(ElementId, ElementName) {
   modal.setAttribute('aria-labelledby', 'exampleModalLabel');
   modal.setAttribute('aria-hidden', 'true');
   let tmp = `<div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content background-gradient-modal text-white hype-shadow-white">
+          <div class="modal-content container-table text-white hype-shadow-white">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Cancellazione elemento: ${ElementName} - id: ${ElementId}</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -45,7 +45,7 @@ function createModal(ElementId, ElementName) {
             </div>
             <div class="modal-footer">
               <button type="button" class="mine-custom-btn min-custom-btn-grey" data-bs-dismiss="modal">No, torna indietro</button>
-              <button type="button" class="mine-custom-btn modal-delete-button">Si, cancella</button>
+              <button type="button" class="mine-custom-btn modal-delete-button bg-danger">Si, cancella</button>
             </div>
           </div>
         </div>`
@@ -88,6 +88,7 @@ if (document.getElementById('projections-form-create')) {
 
   let roomsNumber = 4;
   let projectionNumber = 3;
+  let startingDate = document.getElementById('date').getAttribute('data-day-of-today');
 
   axios.get('/api/get-data', { params: { inforequest: true } }).then(function (response) {
     roomsNumber = response.data.roomsNumber;
@@ -97,13 +98,24 @@ if (document.getElementById('projections-form-create')) {
   });
   let dateValue = '';
   let getDataResults = '';
-  // let getMovieDataResults = '';
+
+  startingDate ? apiFormRequestCreate(startingDate, projectionNumber, roomsNumber) : '';
 
   document.getElementById('date').addEventListener('change', (event) => {
 
     dateValue = event.target.value  //leggo il valore impostato di data dal form
+    apiFormRequestCreate(dateValue, projectionNumber, roomsNumber);
+
+  });
+
+
+  function apiFormRequestCreate(dateValue, projectionNumber, roomsNumber) {
+
+
     document.getElementById('room_id').disabled = true;
     document.getElementById('main-room-info').innerHTML = 'Seleziona prima una Data';
+
+
 
     const allOptionRooms = document.querySelectorAll('.option-room');
     if (dateValue === '') {
@@ -163,9 +175,11 @@ if (document.getElementById('projections-form-create')) {
 
           }
         });
-
     }
-  });
+  }
+
+
+
 
   document.getElementById('room_id').addEventListener('change', (event) => {
 
@@ -231,8 +245,6 @@ function callApiForm(dataValue, projectionNumber, roomsNumber) {
   axios.get('/api/get-data', {  //chiamo la pagina admin/get-data passandogli il paramentro dataValue. La rotta mi rimanda al controller e alla funzione specifica
     params: { date: dataValue, infoEdit: true }
   }).then(function (response) {
-    console.log(dataValue);
-    console.log(response.data.all_rooms);
     const roomCount = response.data.all_rooms.reduce((counts, element) => {
       counts[element] = (counts[element] || 0) + 1;
       return counts;
@@ -271,6 +283,9 @@ document.querySelectorAll('#search-form-date-slot').forEach((element) => {
     })
   })
 })
+
+
+
 
 document.querySelectorAll('.date-click').forEach((element) => {
   element.addEventListener('click', (event) => {

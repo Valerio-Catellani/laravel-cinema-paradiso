@@ -42,12 +42,12 @@
 
                 <div class="mb-3">
                     <label for="room_id" class="form-label text-white">Seleziona una Stanza</label>
-                    <select name="room_id" id="room_id" class="form-control @error('room_id') is-invalid @enderror">
+                    <select name="room_id" id="room_id" class="form-control @error('room_id') is-invalid @enderror"
+                        disabled>
                         <option id="main-room-info" value="">Seleziona prima una Data</option>
                         @foreach ($rooms as $room)
                             <option class="option-room" id="room-{{ $room->id }}" value="{{ $room->id }}"
-                                {{ $room->id == old('room_id', $projection->room->id) ? 'selected' : '' }}
-                                style="background-color: {{ $room->hex_color }}">
+                                {{ $room->id == old('room_id', $projection->room->id) ? 'selected' : '' }}>
                                 {{ $room->name }} - {{ $room->alias }}
                             </option>
                         @endforeach
@@ -60,7 +60,8 @@
 
                 <div class="mb-3">
                     <label for="slot_id" class="form-label text-white">Seleziona una Facia Oraria</label>
-                    <select name="slot_id" id="slot_id" class="form-control @error('slot_id') is-invalid @enderror">
+                    <select name="slot_id" id="slot_id" class="form-control @error('slot_id') is-invalid @enderror"
+                        disbaled>
                         <option id="main-slot-info" value="" default>Seleziona prima una Data</option>
                         @foreach ($slots as $slot)
                             <option class="option-slot" id="slot-{{ $slot->id }}" value="{{ $slot->id }}"

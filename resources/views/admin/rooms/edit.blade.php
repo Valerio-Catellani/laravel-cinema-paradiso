@@ -10,7 +10,7 @@
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Modifica dettagli {{ $room->name }}: con id
                 ({{ $room->id }})</h1>
 
-            <form id="room-form" action="{{ route('admin.rooms.update', $room->slug) }}" method="POST" novalidate
+            <form id="room-form" action="{{ route('admin.rooms.update', $room->slug) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

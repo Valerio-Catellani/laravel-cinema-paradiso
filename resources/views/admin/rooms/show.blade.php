@@ -58,8 +58,21 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
+        @foreach ($groupedProjections as $day => $projections)
+            <div id="{{ $day }}" class="date-section my-5">
+                <h2 class="pt-5">Tutte le proiezioni per il giorno: {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}
+                </h2>
+                @foreach ($projections as $projection)
+                    @include('partials.table-restricted-projection', $projections)
+                @endforeach
+            </div>
+        @endforeach
+
+        {{-- @foreach ($projections as $projection)
+            @include('partials.table-slot-room-projection-movie', ['projection' => $projection])
+        @endforeach --}}
 
     </section>
 @endsection
