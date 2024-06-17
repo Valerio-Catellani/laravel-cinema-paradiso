@@ -34,13 +34,11 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        dd('$request->all()');
         $form_data = $request->validated();
-        //$form_data["slug"] =  Room::generateSlug($form_data["name"]);
-        $new_room = new Review();
-        $new_room->fill($form_data);
-        $new_room->save();
-        return redirect()->route('admin.reviews.show', $new_room->id);
+        $new_review = new Review();
+        $new_review->fill($form_data);
+        $new_review->save();
+        return redirect()->route('admin.reviews.show', $new_review->id);
     }
 
     /**

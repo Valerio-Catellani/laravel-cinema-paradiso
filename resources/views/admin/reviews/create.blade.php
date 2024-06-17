@@ -8,16 +8,9 @@
             <h1 class="text-center hype-text-shadow text-white fw-bolder">Aggiungi una Recensione</h1>
 
 
-
-            <form action="{{ route('admin.reviews.store') }}" method="POST">
-                @csrf
-                <button type="submit">test</button>
-
-            </form>
-
             <form id="" action="{{ route('admin.reviews.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                {{-- 
+
                 <div class="mb-3 @error('author') err-animation @enderror">
                     <label for="author" class="form-label text-white">Autore</label>
                     <input type="text" class="form-control @error('author') is-invalid err-animation @enderror"
@@ -52,14 +45,15 @@
                     @enderror
                 </div>
 
+
                 <div class="mb-3 @error('content') err-animation @enderror">
                     <label for="content" class="form-label text-white">Contenuto Recensione</label>
                     <textarea class="form-control p-2 @error('content') is-invalid err-animation @enderror" id="content" name="content"
-                        required style="min-height: 300px">{{ old('content') }}</textarea>
+                        style="min-height: 300px">{{ old('content') }}</textarea>
                     @error('content')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div> --}}
+                </div>
 
                 <div class="mb-3 @error('rating') err-animation @enderror">
                     <label for="rating" class="form-label  text-white">Valutazione Finale</label>
@@ -72,7 +66,6 @@
                 </div>
 
                 <br>
-                <button type="submit">test</button>
                 <div class="text-center w-50 mx-auto d-flex gap-2">
                     <button type="submit" class="mine-custom-btn mt-3 w-100">Salva</button>
                     <a href="{{ route('admin.reviews.index') }}"

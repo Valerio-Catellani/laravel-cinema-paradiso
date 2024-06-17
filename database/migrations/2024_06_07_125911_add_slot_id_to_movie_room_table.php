@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('movie_room', function (Blueprint $table) {
             $table->unsignedBigInteger('slot_id')->nullable()->after('id');
-            $table->foreign('slot_id')->references('id')->on('slots')->onDelete('set null');
+            $table->foreign('slot_id')->references('id')->on('slots')->onDelete('cascade');
         });
     }
 

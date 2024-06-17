@@ -30,10 +30,23 @@
                 </h2>
                 @include('partials.table-projections', $projections->sortBy('slot_id'))
             </div>
-            <a role="button" class="mine-custom-btn mb-3"
-                href="{{ route('admin.projections.create', ['date' => $day]) }}">Aggiungi una
-                Proiezione per il giorno: {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}</a>
+            @if ($projections->count() < $slots->count() * $rooms->count())
+                <a role="button" class="mine-custom-btn mb-3"
+                    href="{{ route('admin.projections.create', ['date' => $day]) }}">Aggiungi una
+                    Proiezione per il giorno: {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}</a>
+            @endif
         @endforeach
+
+
+
+        @if ($projections->count() < $slots->count())
+            <form method="get" action="{{ route('admin.projections.create') }}">
+                <input type="hidden" name="room_id" value="{{ $room->id }}">
+                <input type="hidden" name="date" value="{{ $day }}">
+                <button type="submit" class="mine-custom-btn mb-3">Aggiungi una Proiezione per il giorno:
+                    {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}</button>
+            </form>
+        @endif
 
         {{-- Pagination Links --}}
         {{-- {{ $projections->links('vendor.pagination.bootstrap-5') }} --}}

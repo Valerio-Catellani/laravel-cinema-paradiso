@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\MovieRoom;
+use App\Models\Slot;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
@@ -56,6 +57,7 @@ class RoomController extends Controller
 
         $room = Room::where('slug', $slug)->firstOrFail();
         $today = Carbon::today();
+        $slots = Slot::all();
         $nextWeek = $today->copy()->addDays(7);
 
         $projections = MovieRoom::where('room_id', $room->id)
@@ -66,7 +68,7 @@ class RoomController extends Controller
             ->get();
 
         $groupedProjections = $projections->groupBy('date');
-        return view("admin.rooms.show", compact("room", "groupedProjections"));
+        return view("admin.rooms.show", compact("room", "groupedProjections", 'slots'));
     }
 
     /**

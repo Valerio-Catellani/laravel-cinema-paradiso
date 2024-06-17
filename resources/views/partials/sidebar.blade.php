@@ -4,7 +4,7 @@
             class="fa-solid fa-caret-right fs-1 d-none hype-text-collapse"></i></button>
     <a href="http://localhost:5174" class="nav-link text-white d-flex p-3">
         <div class="logo-img-container d-flex align-items-center">
-            <img class="img-fluid hype-color-invert py-3" src="/images/cinema_paradiso_logo.png" alt="logo">
+            <img class="img-fluid" src="/images/cinema_paradiso_logo.png" alt="logo">
         </div>
         <h2 class="p-3 hype-text-collapse">Cinema Paradiso</h2>
     </a>

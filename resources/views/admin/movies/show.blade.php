@@ -62,6 +62,7 @@
                         <h6>{!! \App\Functions\Helpers::getStars($review->rating) !!}</h6>
                         <h6>{{ \Carbon\Carbon::parse($review->date)->format('d/m/Y') }}</h6>
                     </div>
+
                 </a>
             @endforeach
         @endif

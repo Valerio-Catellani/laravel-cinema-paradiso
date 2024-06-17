@@ -6,6 +6,9 @@ use App\Http\Requests\UpdateSlotRequest;
 use App\Http\Requests\StoreSlotRequest;
 use App\Models\Slot;
 use App\Models\MovieRoom;
+use App\Models\Room;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
@@ -57,11 +60,13 @@ class SlotController extends Controller
             $projections = MovieRoom::where('slot_id', $slot->id)->paginate(10);
         }
         $AllProjections = MovieRoom::all();
+        $rooms = Room::all();
         $info = [
             'projections' => $projections,
             'AllProjections' => $AllProjections,
             'slot' => $slot,
-            'date' => $request->query('date')
+            'date' => $request->query('date'),
+            'rooms' => $rooms
         ];
         return view('admin.slots.show', $info);
     }

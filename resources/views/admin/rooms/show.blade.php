@@ -6,7 +6,6 @@
 @section('content')
     <section class="container py-5">
 
-
         <div class="container rounded-2 hype-shadow-white p-0 overflow-hidden"
             style="background: linear-gradient(45deg,{{ $room->hex_color }} 54%, rgba(0, 0, 0, 0.88) 99%)">
             <div style="height: 300px" class="overflow-hidden position-relative">
@@ -67,6 +66,14 @@
                 @foreach ($projections as $projection)
                     @include('partials.table-restricted-projection', $projections)
                 @endforeach
+                @if ($projections->count() < $slots->count())
+                    <form method="get" action="{{ route('admin.projections.create') }}">
+                        <input type="hidden" name="room_id" value="{{ $room->id }}">
+                        <input type="hidden" name="date" value="{{ $day }}">
+                        <button type="submit" class="mine-custom-btn mb-3">Aggiungi una Proiezione per il giorno:
+                            {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }}</button>
+                    </form>
+                @endif
             </div>
         @endforeach
 

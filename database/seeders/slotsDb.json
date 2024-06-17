@@ -5,12 +5,12 @@
         "end_time": "19:00"
     },
     {
-        "name": "Prima Serata",
+        "name": "Sera",
         "start_time": "19:00",
         "end_time": "21:00"
     },
     {
-        "name": "Seconda Serata",
+        "name": "Notte",
         "start_time": "21:00",
         "end_time": "23:00"
     }

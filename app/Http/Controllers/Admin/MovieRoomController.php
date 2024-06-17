@@ -40,6 +40,8 @@ class MovieRoomController extends Controller
 
         //Raggruppa le proiezioni per data:
         $groupedProjections = $projections->groupBy('date')->sortBy('slot');
+        $slots = Slot::all();
+        $rooms = Room::all();
 
 
 
@@ -50,7 +52,7 @@ class MovieRoomController extends Controller
 
         // Slice manuale della Collection per ottenere solo gli elementi della pagina corrente
 
-        return view('admin.projections.index', compact('groupedProjections'));
+        return view('admin.projections.index', compact('groupedProjections', 'slots', 'rooms'));
     }
 
     /**
@@ -62,6 +64,12 @@ class MovieRoomController extends Controller
         if ($request->input('date')) {
             $date = $request->input('date');
         }
+        if ($request->input('room_id')) {
+            $room_from_show = $request->input('room_id');
+        }
+        if ($request->input('slot_id')) {
+            $slot_from_show = $request->input('slot_id');
+        }
         $slots = Slot::all();
         $rooms = Room::all();
         $movies = Movie::all();
@@ -69,7 +77,9 @@ class MovieRoomController extends Controller
             'slots' => $slots,
             'rooms' => $rooms,
             'movies' => $movies,
-            'date' => $date ?? Carbon::now()->format('Y-m-d')
+            'date' => $date ?? Carbon::now()->format('Y-m-d'),
+            'room_from_show' => $room_from_show ?? '',
+            'slot_from_show' => $slot_from_show ?? '',
         ];
         return view('admin.projections.create', $info);
     }
@@ -87,6 +97,26 @@ class MovieRoomController extends Controller
         } else {
             $validated_data['final_ticket_price'] = $room->base_price;
         }
+        $room_id = $validated_data['room_id'];
+        $slot_id = $validated_data['slot_id'];
+        $date = $validated_data['date'];
+        $All_rooms = Room::all();
+        $All_Slots = Slot::all();
+        $projection_for_date = MovieRoom::where('date', $date)->get();
+        if ($projection_for_date->count() >= ($All_rooms->count() * $All_Slots->count())) {
+            return redirect()->back()->with('error', 'Non ci sono Proiezioni disponibili per questa data');
+        }
+        $projection_with_rooms = MovieRoom::where('date', $date)->where('room_id', $room_id)->get();
+        if ($projection_with_rooms->count() >= $All_Slots->count()) {
+            return redirect()->back()->with('error', "La stanza  $room->name ($room->alias) non ha slot disponibili per questa data");
+        }
+        $projection_with_slots = MovieRoom::where('date', $date)->where('slot_id', $slot_id)->get();
+        $slot = Slot::findOrFail($slot_id);
+        if ($projection_with_slots->count() >= $All_rooms->count()) {
+            return redirect()->back()->with('error', "La Fascia Oraria di $slot->name non ha stanze disponibili per questa data");
+        }
+
+
 
         // Crea la nuova proiezione
         $new_movie_room = new MovieRoom();
@@ -138,6 +168,25 @@ class MovieRoomController extends Controller
             $validated_data['final_ticket_price'] = $room->base_price + 3;
         } else {
             $validated_data['final_ticket_price'] = $room->base_price;
+        }
+
+        $room_id = $validated_data['room_id'];
+        $slot_id = $validated_data['slot_id'];
+        $date = $validated_data['date'];
+        $All_rooms = Room::all();
+        $All_Slots = Slot::all();
+        $projection_for_date = MovieRoom::where('date', $date)->get();
+        if ($projection_for_date->count() >= ($All_rooms->count() * $All_Slots->count())) {
+            return redirect()->back()->with('error', 'Non ci sono Proiezioni disponibili per questa data');
+        }
+        $projection_with_rooms = MovieRoom::where('date', $date)->where('room_id', $room_id)->get();
+        if ($projection_with_rooms->count() >= $All_Slots->count()) {
+            return redirect()->back()->with('error', "La stanza  $room->name ($room->alias) non ha slot disponibili per questa data");
+        }
+        $projection_with_slots = MovieRoom::where('date', $date)->where('slot_id', $slot_id)->get();
+        $slot = Slot::findOrFail($slot_id);
+        if ($projection_with_slots->count() >= $All_rooms->count()) {
+            return redirect()->back()->with('error', "La Fascia Oraria di $slot->name non ha stanze disponibili per questa data");
         }
 
         $projection_to_change->fill($validated_data);

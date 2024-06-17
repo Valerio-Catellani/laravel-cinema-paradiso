@@ -74,6 +74,14 @@
                 </div>
             @endforeach
             {{ $projections->links('vendor.pagination.bootstrap-5') }}
+            @if ($date && $projections->count() < $rooms->count())
+                <form method="get" action="{{ route('admin.projections.create') }}">
+                    <input type="hidden" name="date" value="{{ $date }}">
+                    <input type="hidden" name="slot_id" value="{{ $slot->id }}">
+                    <button type="submit" class="mine-custom-btn mb-3">Aggiungi una Proiezione per il giorno:
+                        {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}</button>
+                </form>
+            @endif
         </div>
 
 

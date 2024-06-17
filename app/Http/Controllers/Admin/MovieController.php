@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UpdateMovieRequest;
+use App\Models\Slot;
 use App\Http\Requests\StoreMovieRequest;
 
 
@@ -55,7 +57,7 @@ class MovieController extends Controller
      */
     public function show($slug)
     {
-        $movie = Movie::where('slug', $slug)->firstOrFail();
+        $movie = Movie::where('slug', $slug)->firstOrFail();;
         return view('admin.movies.show', compact('movie'));
     }
 
@@ -71,7 +73,7 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreMovieRequest $request, $slug)
+    public function update(UpdateMovieRequest $request, $slug)
     {
 
         $movie_to_update = Movie::where('slug', $slug)->firstOrFail();

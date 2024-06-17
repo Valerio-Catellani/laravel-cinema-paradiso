@@ -182,32 +182,39 @@ function callApiForm(params, projectionNumber, roomsNumber) {
     params
   }).then(function (response) {
     if (response.data.all_rooms && response.data.all_slots) {
-      const roomCount = response.data.all_rooms.reduce((counts, element) => {
-        counts[element] = (counts[element] || 0) + 1;
-        return counts;
-      }, {});
-      const slotCount = response.data.all_slots.reduce((counts, element) => {
-        counts[element] = (counts[element] || 0) + 1;
-        return counts;
-      }, {});
-      Object.entries(roomCount).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-        if (key >= projectionNumber) {
-          document.getElementById(`room-${value}`).disabled = true;
-          document.getElementById(`room-${value}`).classList.add('d-none');
-        } else {
-          document.getElementById(`room-${value}`).disabled = false;
-          document.getElementById(`room-${value}`).classList.remove('d-none');
-        }
-      });
-      Object.entries(slotCount).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
-        if (key >= roomsNumber) {
-          document.getElementById(`slot-${value}`).disabled = true;
-          document.getElementById(`slot-${value}`).classList.add('d-none');
-        } else {
-          document.getElementById(`slot-${value}`).disabled = false;
-          document.getElementById(`slot-${value}`).classList.remove('d-none');
-        }
-      })
+      if (response.data.all_rooms.length == projectionNumber * roomsNumber) {
+        document.getElementById('sub-controll').classList.add('d-none');
+        document.getElementById('sub-message').classList.remove('d-none');
+      } else {
+        const roomCount = response.data.all_rooms.reduce((counts, element) => {
+          counts[element] = (counts[element] || 0) + 1;
+          return counts;
+        }, {});
+        const slotCount = response.data.all_slots.reduce((counts, element) => {
+          counts[element] = (counts[element] || 0) + 1;
+          return counts;
+        }, {});
+
+        Object.entries(roomCount).forEach(([value, key]) => { //value= room_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+          if (key >= projectionNumber) {
+            document.getElementById(`room-${value}`).disabled = true;
+            document.getElementById(`room-${value}`).classList.add('d-none');
+          } else {
+            document.getElementById(`room-${value}`).disabled = false;
+            document.getElementById(`room-${value}`).classList.remove('d-none');
+          }
+        });
+        Object.entries(slotCount).forEach(([value, key]) => { //value= slot_id, key= number_of_time_is_used_for_that_day (max:projectNumbers)
+          if (key >= roomsNumber) {
+            document.getElementById(`slot-${value}`).disabled = true;
+            document.getElementById(`slot-${value}`).classList.add('d-none');
+          } else {
+            document.getElementById(`slot-${value}`).disabled = false;
+            document.getElementById(`slot-${value}`).classList.remove('d-none');
+          }
+        })
+      }
+
     } else if (response.data.available_slots) {
       // Abilita e mostra solo gli slot disponibili
       const availableSlots = response.data.available_slots;
@@ -232,6 +239,8 @@ function callApiForm(params, projectionNumber, roomsNumber) {
 }
 
 function ProjectionFormReset() {
+  document.getElementById('sub-controll').classList.remove('d-none');
+  document.getElementById('sub-message').classList.add('d-none');
   document.querySelectorAll('[id^="slot-"]').forEach((element) => {
     element.disabled = false;
     element.classList.remove('d-none');
@@ -248,12 +257,14 @@ function ProjectionFormReset() {
 if (document.getElementById('projections-form-create')) {
 
   let elementsNumber = await GetNumbersOfRoomsAndProjections();
-  console.log(document.getElementById('date').value);
-  let startingDate = document.getElementById('date').value;
+  let startingDate = document.getElementById('date').value ? document.getElementById('date').value : '';
+  let startingRoom = document.getElementById('room_id').value ? document.getElementById('room_id').value : '';
+  let startingSlot = document.getElementById('slot_id').value ? document.getElementById('slot_id').value : '';
+
   let params = {
     selectedDate: startingDate,
-    roomValue: '',
-    slotValue: '',
+    roomValue: startingRoom,
+    slotValue: startingSlot,
     infoEdit: true
   }
   startingDate ? callApiForm(params, elementsNumber.projections, elementsNumber.rooms) : '';
@@ -266,6 +277,7 @@ if (document.getElementById('projections-form-create')) {
     params.roomValue = event.target.value
     callApiForm(params, elementsNumber.projections, elementsNumber.rooms);
   })
+
 
 
 

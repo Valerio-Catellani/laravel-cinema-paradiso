@@ -24,10 +24,10 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'author' => 'required|max:200|min:3',
-            'date' => 'required|date_format:Y-m-d',
+            'movie_id' => 'required',
+            'date' => 'required',
             'content' => 'required',
             'rating' => 'nullable|numeric|between:0,10',
-            'movie_id' => 'required|exists:movies,id',
         ];
     }
     public function messages()
