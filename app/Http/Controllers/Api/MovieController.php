@@ -19,7 +19,7 @@ class MovieController extends Controller
             $date = $request->query('date');
             $movies = Movie::whereHas('rooms', function ($query) use ($date) {
                 $query->where('date', $date);
-            })->paginate(10); // Cambiato da get() a paginate(10) per mantenere la paginazione
+            })->get(); // Cambiato da get() a paginate(10) per mantenere la paginazione
 
         } elseif ($request->query('nextWeekDate') && $request->query('currentDate')) {
 
@@ -28,9 +28,9 @@ class MovieController extends Controller
             $movies = Movie::whereHas('rooms', function ($query) use ($nextWeekDate, $currentDate) {
                 $query->where('movie_room.date', '>=', $currentDate)
                     ->where('movie_room.date', '<=', $nextWeekDate);
-            })->with('rooms')->paginate(10);
+            })->with('rooms')->get();
         } else {
-            $movies = Movie::with('rooms')->paginate(10);
+            $movies = Movie::with('rooms')->get();
         }
 
 
